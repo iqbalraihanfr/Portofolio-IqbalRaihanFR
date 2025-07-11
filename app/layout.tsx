@@ -7,6 +7,8 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ScrollIndicator } from "@/components/scroll-indicator"
 import { Toaster } from "@/components/ui/toaster"
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta" })
@@ -37,6 +39,8 @@ export default function RootLayout({
           <ScrollIndicator />
           <Navbar />
           <main className="min-h-screen">{children}</main>
+          <SpeedInsights />
+          <Analytics />
           <Footer />
           <Toaster />
         </ThemeProvider>
