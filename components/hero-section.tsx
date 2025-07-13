@@ -88,22 +88,19 @@ export function HeroSection() {
           {/* Profile Image with Enhanced Animation */}
           <motion.div variants={itemVariants} className="mb-12">
             <motion.div variants={floatingVariants} animate="animate" className="relative w-40 h-40 mx-auto mb-8">
-              <div className="absolute inset-0 bg-linear-to-r from-blue-500 to-purple-500 rounded-full blur-xl opacity-30 animate-pulse" />
+              <div className="absolute inset-0 bg-linear-to-r from-red-400 to-red-700 rounded-full blur-xl opacity-30 animate-pulse" />
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative w-full h-full"
               >
                 <Image
-                  src="/placeholder.svg?height=160&width=160"
+                  src="/images/Foto_Fomal1.jpg"
                   alt="Iqbal Raihan"
                   fill
                   className="rounded-full object-cover shadow-2xl transition-all duration-300 hover:shadow-3xl"
                 />
-                <div className="absolute inset-0 rounded-full bg-linear-to-tr from-blue-500/20 to-purple-500/20 transition-opacity duration-300 hover:opacity-30" />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-linear-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
-                  <Sparkles className="w-4 h-4 text-white" />
-                </div>
+                <div className="absolute inset-0 rounded-full bg-linear-to-tr from-red-400/20 to-red-700/20 transition-opacity duration-300 hover:opacity-30" />
               </motion.div>
             </motion.div>
           </motion.div>
