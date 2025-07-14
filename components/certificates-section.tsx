@@ -1,10 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,8 +18,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Award, Calendar, Building, ExternalLink, Download, CheckCircle, Star } from "lucide-react"
+} from "@/components/ui/dialog";
+import {
+  Award,
+  Calendar,
+  Building,
+  ExternalLink,
+  Download,
+  CheckCircle,
+  Star,
+} from "lucide-react";
 
 const certificates = [
   {
@@ -66,7 +80,12 @@ const certificates = [
     description:
       "Advanced course in system administration covering server management, network configuration, security protocols, and IT infrastructure best practices.",
     category: "System Administration",
-    skills: ["Linux", "Network Administration", "Security", "Server Management"],
+    skills: [
+      "Linux",
+      "Network Administration",
+      "Security",
+      "Server Management",
+    ],
     credentialId: "DCD-SA-2024-003",
     image: "/placeholder.svg?height=300&width=400",
     verificationUrl: "#",
@@ -87,7 +106,12 @@ const certificates = [
     description:
       "Recognition for successfully organizing and leading the Faculty of Computer Science General Election as Committee Chairperson.",
     category: "Leadership",
-    skills: ["Project Management", "Leadership", "Event Organization", "Team Coordination"],
+    skills: [
+      "Project Management",
+      "Leadership",
+      "Event Organization",
+      "Team Coordination",
+    ],
     credentialId: "PEMIRA-2025-CHAIR",
     image: "/placeholder.svg?height=300&width=400",
     type: "Leadership Certificate",
@@ -99,19 +123,31 @@ const certificates = [
       "Ensured transparent democratic process",
     ],
   },
-]
+];
 
-const categories = ["All", "Technology", "Data Science", "System Administration", "Leadership"]
+const categories = [
+  "All",
+  "Technology",
+  "Data Science",
+  "System Administration",
+  "Leadership",
+];
 
-export function CertificatesSection({ isPreview = false }: { isPreview?: boolean }) {
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedCertificate, setSelectedCertificate] = useState<(typeof certificates)[0] | null>(null)
+export function CertificatesSection({
+  isPreview = false,
+}: {
+  isPreview?: boolean;
+}) {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCertificate, setSelectedCertificate] = useState<
+    (typeof certificates)[0] | null
+  >(null);
 
   const filteredCertificates = isPreview
     ? certificates.slice(0, 3)
     : selectedCategory === "All"
-      ? certificates
-      : certificates.filter((cert) => cert.category === selectedCategory)
+    ? certificates
+    : certificates.filter((cert) => cert.category === selectedCategory);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -121,7 +157,7 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -133,25 +169,25 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case "Technology":
-        return "🚀"
+        return "🚀";
       case "Data Science":
-        return "📊"
+        return "📊";
       case "System Administration":
-        return "⚙️"
+        return "⚙️";
       case "Leadership":
-        return "👑"
+        return "👑";
       default:
-        return "🏆"
+        return "🏆";
     }
-  }
+  };
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-white dark:bg-neutral-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -160,9 +196,12 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">Certificates & Credentials</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
+            Certificates & Credentials
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Professional certifications and credentials that validate my expertise across various technology domains
+            Professional certifications and credentials that validate my
+            expertise across various technology domains
           </p>
         </motion.div>
 
@@ -177,11 +216,15 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={selectedCategory === category ? "default" : "outline-solid"}
+                variant={
+                  selectedCategory === category ? "default" : "outline-solid"
+                }
                 onClick={() => setSelectedCategory(category)}
                 className="transition-all duration-300"
               >
-                {category !== "All" && <span className="mr-2">{getCategoryIcon(category)}</span>}
+                {category !== "All" && (
+                  <span className="mr-2">{getCategoryIcon(category)}</span>
+                )}
                 {category}
               </Button>
             ))}
@@ -198,7 +241,12 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
         >
           <AnimatePresence mode="wait">
             {filteredCertificates.map((certificate) => (
-              <motion.div key={certificate.id} variants={itemVariants} layout className="group">
+              <motion.div
+                key={certificate.id}
+                variants={itemVariants}
+                layout
+                className="group"
+              >
                 <Card className="h-full card-hover border-0 shadow-lg bg-card/50 backdrop-blur-xs overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group-hover:border group-hover:border-blue-200 dark:group-hover:border-blue-800">
                   <div className="relative">
                     <div className="absolute top-4 right-4 z-10">
@@ -207,8 +255,13 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                       </div>
                     </div>
                     <div className="absolute top-4 left-4 z-10">
-                      <Badge variant="secondary" className="bg-white/90 text-black">
-                        <span className="mr-1">{getCategoryIcon(certificate.category)}</span>
+                      <Badge
+                        variant="secondary"
+                        className="bg-white/90 text-black"
+                      >
+                        <span className="mr-1">
+                          {getCategoryIcon(certificate.category)}
+                        </span>
                         {certificate.category}
                       </Badge>
                     </div>
@@ -234,11 +287,17 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                   </CardHeader>
 
                   <CardContent className="pt-0">
-                    <CardDescription className="mb-4 line-clamp-3">{certificate.description}</CardDescription>
+                    <CardDescription className="mb-4 line-clamp-3">
+                      {certificate.description}
+                    </CardDescription>
 
                     <div className="flex flex-wrap gap-1 mb-4">
                       {certificate.skills.slice(0, 3).map((skill) => (
-                        <Badge key={skill} variant="outline" className="text-xs">
+                        <Badge
+                          key={skill}
+                          variant="outline"
+                          className="text-xs"
+                        >
                           {skill}
                         </Badge>
                       ))}
@@ -252,7 +311,11 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                     <div className="flex gap-2">
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button variant="outline" size="sm" className="flex-1 bg-transparent">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex-1 bg-transparent"
+                          >
                             View Details
                           </Button>
                         </DialogTrigger>
@@ -260,7 +323,9 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                           <DialogHeader>
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
-                                <DialogTitle className="text-2xl mb-2">{certificate.title}</DialogTitle>
+                                <DialogTitle className="text-2xl mb-2">
+                                  {certificate.title}
+                                </DialogTitle>
                                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                                   <div className="flex items-center">
                                     <Building className="w-4 h-4 mr-1" />
@@ -270,12 +335,18 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                                     <Calendar className="w-4 h-4 mr-1" />
                                     {certificate.issueDate}
                                   </div>
-                                  {certificate.duration && <Badge variant="secondary">{certificate.duration}</Badge>}
+                                  {certificate.duration && (
+                                    <Badge variant="secondary">
+                                      {certificate.duration}
+                                    </Badge>
+                                  )}
                                 </div>
                               </div>
                               <div className="flex items-center gap-2">
                                 <Badge variant="default">
-                                  <span className="mr-1">{getCategoryIcon(certificate.category)}</span>
+                                  <span className="mr-1">
+                                    {getCategoryIcon(certificate.category)}
+                                  </span>
                                   {certificate.category}
                                 </Badge>
                               </div>
@@ -293,7 +364,9 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                                   <div className="text-6xl mb-4 opacity-30">
                                     {getCategoryIcon(certificate.category)}
                                   </div>
-                                  <p className="text-muted-foreground">Certificate Preview</p>
+                                  <p className="text-muted-foreground">
+                                    Certificate Preview
+                                  </p>
                                 </div>
                               </div>
                             </div>
@@ -305,18 +378,27 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                                 Key Highlights
                               </h4>
                               <ul className="space-y-2">
-                                {certificate.highlights.map((highlight, index) => (
-                                  <li key={index} className="flex items-start">
-                                    <CheckCircle className="w-4 h-4 mr-2 text-green-500 mt-0.5 shrink-0" />
-                                    <span className="text-sm text-muted-foreground">{highlight}</span>
-                                  </li>
-                                ))}
+                                {certificate.highlights.map(
+                                  (highlight, index) => (
+                                    <li
+                                      key={index}
+                                      className="flex items-start"
+                                    >
+                                      <CheckCircle className="w-4 h-4 mr-2 text-green-500 mt-0.5 shrink-0" />
+                                      <span className="text-sm text-muted-foreground">
+                                        {highlight}
+                                      </span>
+                                    </li>
+                                  )
+                                )}
                               </ul>
                             </div>
 
                             {/* Skills Acquired */}
                             <div>
-                              <h4 className="font-semibold mb-3">Skills Acquired</h4>
+                              <h4 className="font-semibold mb-3">
+                                Skills Acquired
+                              </h4>
                               <div className="flex flex-wrap gap-2">
                                 {certificate.skills.map((skill) => (
                                   <Badge key={skill} variant="secondary">
@@ -329,23 +411,39 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                             {/* Certificate Details */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg">
                               <div>
-                                <p className="text-sm font-medium">Certificate Type</p>
-                                <p className="text-sm text-muted-foreground">{certificate.type}</p>
+                                <p className="text-sm font-medium">
+                                  Certificate Type
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {certificate.type}
+                                </p>
                               </div>
                               {certificate.credentialId && (
                                 <div>
-                                  <p className="text-sm font-medium">Credential ID</p>
-                                  <p className="text-sm text-muted-foreground font-mono">{certificate.credentialId}</p>
+                                  <p className="text-sm font-medium">
+                                    Credential ID
+                                  </p>
+                                  <p className="text-sm text-muted-foreground font-mono">
+                                    {certificate.credentialId}
+                                  </p>
                                 </div>
                               )}
                               <div>
-                                <p className="text-sm font-medium">Issue Date</p>
-                                <p className="text-sm text-muted-foreground">{certificate.issueDate}</p>
+                                <p className="text-sm font-medium">
+                                  Issue Date
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {certificate.issueDate}
+                                </p>
                               </div>
                               {certificate.duration && (
                                 <div>
-                                  <p className="text-sm font-medium">Duration</p>
-                                  <p className="text-sm text-muted-foreground">{certificate.duration}</p>
+                                  <p className="text-sm font-medium">
+                                    Duration
+                                  </p>
+                                  <p className="text-sm text-muted-foreground">
+                                    {certificate.duration}
+                                  </p>
                                 </div>
                               )}
                             </div>
@@ -354,7 +452,11 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
                             <div className="flex gap-2">
                               {certificate.verificationUrl && (
                                 <Button variant="outline" size="sm" asChild>
-                                  <a href={certificate.verificationUrl} target="_blank" rel="noopener noreferrer">
+                                  <a
+                                    href={certificate.verificationUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
                                     <ExternalLink className="w-4 h-4 mr-2" />
                                     Verify Certificate
                                   </a>
@@ -371,7 +473,11 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
 
                       {certificate.verificationUrl && (
                         <Button size="sm" variant="ghost" asChild>
-                          <a href={certificate.verificationUrl} target="_blank" rel="noopener noreferrer">
+                          <a
+                            href={certificate.verificationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             <ExternalLink className="w-4 h-4" />
                           </a>
                         </Button>
@@ -397,20 +503,34 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
               <CardContent className="p-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                   <div>
-                    <div className="text-3xl font-bold text-blue-600 mb-2">{certificates.length}</div>
-                    <p className="text-sm text-muted-foreground">Total Certificates</p>
+                    <div className="text-3xl font-bold text-blue-600 mb-2">
+                      {certificates.length}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Total Certificates
+                    </p>
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-purple-600 mb-2">4</div>
+                    <div className="text-3xl font-bold text-purple-600 mb-2">
+                      4
+                    </div>
                     <p className="text-sm text-muted-foreground">Categories</p>
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-green-600 mb-2">2024</div>
-                    <p className="text-sm text-muted-foreground">Most Recent Year</p>
+                    <div className="text-3xl font-bold text-green-600 mb-2">
+                      2024
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Most Recent Year
+                    </p>
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-orange-600 mb-2">15+</div>
-                    <p className="text-sm text-muted-foreground">Skills Validated</p>
+                    <div className="text-3xl font-bold text-orange-600 mb-2">
+                      15+
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Skills Validated
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -419,5 +539,5 @@ export function CertificatesSection({ isPreview = false }: { isPreview?: boolean
         )}
       </div>
     </section>
-  )
+  );
 }

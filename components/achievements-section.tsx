@@ -1,10 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,8 +18,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Trophy, Calendar, Target, Star, Crown, Medal, Zap, BookOpen, Lightbulb, TrendingUp } from "lucide-react"
+} from "@/components/ui/dialog";
+import {
+  Trophy,
+  Calendar,
+  Target,
+  Star,
+  Crown,
+  Medal,
+  Zap,
+  BookOpen,
+  Lightbulb,
+  TrendingUp,
+} from "lucide-react";
 
 const achievements = [
   {
@@ -29,10 +46,16 @@ const achievements = [
     impact: "International Recognition",
     icon: Trophy,
     color: "text-yellow-500",
-    bgColor: "from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20",
+    bgColor:
+      "from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20",
     type: "Competition",
     teamSize: "3-5 members",
-    skills: ["Research Methodology", "Scientific Writing", "Presentation", "Team Leadership"],
+    skills: [
+      "Research Methodology",
+      "Scientific Writing",
+      "Presentation",
+      "Team Leadership",
+    ],
     highlights: [
       "Led interdisciplinary research team",
       "Developed innovative technology solution",
@@ -59,10 +82,16 @@ const achievements = [
     impact: "Faculty-wide Democratic Process",
     icon: Crown,
     color: "text-purple-500",
-    bgColor: "from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20",
+    bgColor:
+      "from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20",
     type: "Leadership Role",
     teamSize: "15+ committee members",
-    skills: ["Project Management", "Team Leadership", "Event Organization", "Stakeholder Management"],
+    skills: [
+      "Project Management",
+      "Team Leadership",
+      "Event Organization",
+      "Stakeholder Management",
+    ],
     highlights: [
       "Managed electoral process integrity",
       "Coordinated multiple operational teams",
@@ -80,7 +109,8 @@ const achievements = [
     id: 3,
     title: "Samsung Innovation Campus Scholar",
     category: "Professional Development",
-    description: "Selected as scholarship recipient for Samsung Innovation Campus Batch 5 training program",
+    description:
+      "Selected as scholarship recipient for Samsung Innovation Campus Batch 5 training program",
     longDescription:
       "Competitively selected for the prestigious Samsung Innovation Campus scholarship program, covering advanced topics in Cloud & Platform technologies, Internet of Things (IoT), and Artificial Intelligence. Completed intensive training with hands-on projects and industry-standard practices.",
     date: "February 2024 - July 2024",
@@ -88,10 +118,16 @@ const achievements = [
     impact: "Advanced Technical Skills",
     icon: Star,
     color: "text-blue-500",
-    bgColor: "from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20",
+    bgColor:
+      "from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20",
     type: "Scholarship",
     duration: "6 months",
-    skills: ["Python Programming", "Cloud Computing", "IoT Development", "AI/ML"],
+    skills: [
+      "Python Programming",
+      "Cloud Computing",
+      "IoT Development",
+      "AI/ML",
+    ],
     highlights: [
       "Competitive selection process",
       "Comprehensive technology curriculum",
@@ -109,7 +145,8 @@ const achievements = [
     id: 4,
     title: "Academic Excellence - 3.85 GPA",
     category: "Academic Achievement",
-    description: "Maintaining exceptional academic performance with 3.85/4.00 GPA in Computer Science program",
+    description:
+      "Maintaining exceptional academic performance with 3.85/4.00 GPA in Computer Science program",
     longDescription:
       "Consistently demonstrated academic excellence throughout Computer Science undergraduate program at UPN Veteran Jawa Timur, maintaining a cumulative GPA of 3.85/4.00. This achievement reflects dedication to learning, strong analytical skills, and effective time management while balancing multiple leadership responsibilities.",
     date: "August 2023 - Present",
@@ -117,10 +154,16 @@ const achievements = [
     impact: "Academic Excellence",
     icon: BookOpen,
     color: "text-green-500",
-    bgColor: "from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20",
+    bgColor:
+      "from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20",
     type: "Academic",
     duration: "Ongoing",
-    skills: ["Analytical Thinking", "Problem Solving", "Time Management", "Research"],
+    skills: [
+      "Analytical Thinking",
+      "Problem Solving",
+      "Time Management",
+      "Research",
+    ],
     highlights: [
       "Top 10% of class performance",
       "Consistent semester achievements",
@@ -147,10 +190,16 @@ const achievements = [
     impact: "Cultural Community Building",
     icon: Medal,
     color: "text-indigo-500",
-    bgColor: "from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20",
+    bgColor:
+      "from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20",
     type: "Leadership Role",
     duration: "14 months",
-    skills: ["Event Management", "Team Building", "Creative Direction", "Public Relations"],
+    skills: [
+      "Event Management",
+      "Team Building",
+      "Creative Direction",
+      "Public Relations",
+    ],
     highlights: [
       "Organized multiple cultural events",
       "Enhanced community engagement",
@@ -177,10 +226,16 @@ const achievements = [
     impact: "Technical Portfolio Development",
     icon: Lightbulb,
     color: "text-orange-500",
-    bgColor: "from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20",
+    bgColor:
+      "from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20",
     type: "Technical",
     projectCount: "3+ major projects",
-    skills: ["Full-Stack Development", "AI/ML", "Project Management", "Community Service"],
+    skills: [
+      "Full-Stack Development",
+      "AI/ML",
+      "Project Management",
+      "Community Service",
+    ],
     highlights: [
       "Diverse technology stack usage",
       "Real-world problem solving",
@@ -194,7 +249,7 @@ const achievements = [
       Deployment: "Live applications",
     },
   },
-]
+];
 
 const categories = [
   "All",
@@ -203,16 +258,22 @@ const categories = [
   "Professional Development",
   "Academic Achievement",
   "Technical Achievement",
-]
+];
 
-export function AchievementsSection({ isPreview = false }: { isPreview?: boolean }) {
-  const [selectedCategory, setSelectedCategory] = useState("All")
+export function AchievementsSection({
+  isPreview = false,
+}: {
+  isPreview?: boolean;
+}) {
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredAchievements = isPreview
     ? achievements.slice(0, 4)
     : selectedCategory === "All"
-      ? achievements
-      : achievements.filter((achievement) => achievement.category === selectedCategory)
+    ? achievements
+    : achievements.filter(
+        (achievement) => achievement.category === selectedCategory
+      );
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -222,7 +283,7 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -234,27 +295,27 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case "Academic Excellence":
-        return "🏆"
+        return "🏆";
       case "Leadership":
-        return "👑"
+        return "👑";
       case "Professional Development":
-        return "🚀"
+        return "🚀";
       case "Academic Achievement":
-        return "📚"
+        return "📚";
       case "Technical Achievement":
-        return "💻"
+        return "💻";
       default:
-        return "⭐"
+        return "⭐";
     }
-  }
+  };
 
   return (
-    <section className="py-20">
+    <section className="py-20 bg-white dark:bg-neutral-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -263,9 +324,12 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">Achievements & Recognition</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
+            Achievements & Recognition
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Significant accomplishments, awards, and recognitions that highlight my journey of growth and excellence
+            Significant accomplishments, awards, and recognitions that highlight
+            my journey of growth and excellence
           </p>
         </motion.div>
 
@@ -280,11 +344,15 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={selectedCategory === category ? "default" : "outline-solid"}
+                variant={
+                  selectedCategory === category ? "default" : "outline-solid"
+                }
                 onClick={() => setSelectedCategory(category)}
                 className="transition-all duration-300"
               >
-                {category !== "All" && <span className="mr-2">{getCategoryIcon(category)}</span>}
+                {category !== "All" && (
+                  <span className="mr-2">{getCategoryIcon(category)}</span>
+                )}
                 {category}
               </Button>
             ))}
@@ -301,20 +369,31 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
         >
           <AnimatePresence mode="wait">
             {filteredAchievements.map((achievement) => (
-              <motion.div key={achievement.id} variants={itemVariants} layout className="group">
+              <motion.div
+                key={achievement.id}
+                variants={itemVariants}
+                layout
+                className="group"
+              >
                 <Card className="h-full card-hover border-0 shadow-lg bg-card/50 backdrop-blur-xs overflow-hidden">
-                  <div className={`h-2 bg-linear-to-r ${achievement.bgColor}`} />
+                  <div
+                    className={`h-2 bg-linear-to-r ${achievement.bgColor}`}
+                  />
 
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between mb-4">
                       <div
                         className={`w-12 h-12 rounded-lg bg-linear-to-br ${achievement.bgColor} flex items-center justify-center`}
                       >
-                        <achievement.icon className={`w-6 h-6 ${achievement.color}`} />
+                        <achievement.icon
+                          className={`w-6 h-6 ${achievement.color}`}
+                        />
                       </div>
                       <div className="text-right">
                         <Badge variant="secondary" className="mb-2">
-                          <span className="mr-1">{getCategoryIcon(achievement.category)}</span>
+                          <span className="mr-1">
+                            {getCategoryIcon(achievement.category)}
+                          </span>
                           {achievement.category}
                         </Badge>
                         <div className="flex items-center text-sm text-muted-foreground">
@@ -327,14 +406,20 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
                     <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
                       {achievement.title}
                     </CardTitle>
-                    <CardDescription className="text-base">{achievement.description}</CardDescription>
+                    <CardDescription className="text-base">
+                      {achievement.description}
+                    </CardDescription>
                   </CardHeader>
 
                   <CardContent className="pt-0">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Organization:</span>
-                        <span className="font-medium">{achievement.organization}</span>
+                        <span className="text-muted-foreground">
+                          Organization:
+                        </span>
+                        <span className="font-medium">
+                          {achievement.organization}
+                        </span>
                       </div>
 
                       <div className="flex items-center justify-between text-sm">
@@ -344,7 +429,11 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
 
                       <div className="flex flex-wrap gap-1 mb-4">
                         {achievement.skills.slice(0, 3).map((skill) => (
-                          <Badge key={skill} variant="secondary" className="text-xs">
+                          <Badge
+                            key={skill}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {skill}
                           </Badge>
                         ))}
@@ -371,21 +460,29 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
                               <div
                                 className={`w-16 h-16 rounded-xl bg-linear-to-br ${achievement.bgColor} flex items-center justify-center`}
                               >
-                                <achievement.icon className={`w-8 h-8 ${achievement.color}`} />
+                                <achievement.icon
+                                  className={`w-8 h-8 ${achievement.color}`}
+                                />
                               </div>
                               <div className="flex-1">
-                                <DialogTitle className="text-2xl mb-2">{achievement.title}</DialogTitle>
+                                <DialogTitle className="text-2xl mb-2">
+                                  {achievement.title}
+                                </DialogTitle>
                                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
                                   <div className="flex items-center">
                                     <Calendar className="w-4 h-4 mr-1" />
                                     {achievement.date}
                                   </div>
                                   <Badge variant="secondary">
-                                    <span className="mr-1">{getCategoryIcon(achievement.category)}</span>
+                                    <span className="mr-1">
+                                      {getCategoryIcon(achievement.category)}
+                                    </span>
                                     {achievement.category}
                                   </Badge>
                                 </div>
-                                <p className="text-muted-foreground">{achievement.organization}</p>
+                                <p className="text-muted-foreground">
+                                  {achievement.organization}
+                                </p>
                               </div>
                             </div>
                             <DialogDescription className="text-base leading-relaxed">
@@ -401,18 +498,27 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
                                 Key Highlights
                               </h4>
                               <ul className="space-y-2">
-                                {achievement.highlights.map((highlight, index) => (
-                                  <li key={index} className="flex items-start">
-                                    <Zap className="w-4 h-4 mr-2 text-blue-500 mt-0.5 shrink-0" />
-                                    <span className="text-sm text-muted-foreground">{highlight}</span>
-                                  </li>
-                                ))}
+                                {achievement.highlights.map(
+                                  (highlight, index) => (
+                                    <li
+                                      key={index}
+                                      className="flex items-start"
+                                    >
+                                      <Zap className="w-4 h-4 mr-2 text-blue-500 mt-0.5 shrink-0" />
+                                      <span className="text-sm text-muted-foreground">
+                                        {highlight}
+                                      </span>
+                                    </li>
+                                  )
+                                )}
                               </ul>
                             </div>
 
                             {/* Skills Demonstrated */}
                             <div>
-                              <h4 className="font-semibold mb-3">Skills Demonstrated</h4>
+                              <h4 className="font-semibold mb-3">
+                                Skills Demonstrated
+                              </h4>
                               <div className="flex flex-wrap gap-2">
                                 {achievement.skills.map((skill) => (
                                   <Badge key={skill} variant="secondary">
@@ -424,14 +530,25 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
 
                             {/* Achievement Metrics */}
                             <div>
-                              <h4 className="font-semibold mb-3">Achievement Metrics</h4>
+                              <h4 className="font-semibold mb-3">
+                                Achievement Metrics
+                              </h4>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {Object.entries(achievement.metrics).map(([key, value]) => (
-                                  <div key={key} className="p-3 bg-muted/50 rounded-lg">
-                                    <p className="text-sm font-medium">{key}</p>
-                                    <p className="text-sm text-muted-foreground">{value}</p>
-                                  </div>
-                                ))}
+                                {Object.entries(achievement.metrics).map(
+                                  ([key, value]) => (
+                                    <div
+                                      key={key}
+                                      className="p-3 bg-muted/50 rounded-lg"
+                                    >
+                                      <p className="text-sm font-medium">
+                                        {key}
+                                      </p>
+                                      <p className="text-sm text-muted-foreground">
+                                        {value}
+                                      </p>
+                                    </div>
+                                  )
+                                )}
                               </div>
                             </div>
 
@@ -442,9 +559,12 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
                                 Impact & Significance
                               </h4>
                               <p className="text-sm text-muted-foreground">
-                                This achievement demonstrates {achievement.impact.toLowerCase()} and showcases my
-                                ability to excel in {achievement.category.toLowerCase()} while contributing meaningfully
-                                to the community and organization.
+                                This achievement demonstrates{" "}
+                                {achievement.impact.toLowerCase()} and showcases
+                                my ability to excel in{" "}
+                                {achievement.category.toLowerCase()} while
+                                contributing meaningfully to the community and
+                                organization.
                               </p>
                             </div>
                           </div>
@@ -470,34 +590,62 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
             <Card className="max-w-5xl mx-auto bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-0">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold mb-2">Achievement Summary</h3>
-                  <p className="text-muted-foreground">A snapshot of my accomplishments across different domains</p>
+                  <h3 className="text-2xl font-bold mb-2">
+                    Achievement Summary
+                  </h3>
+                  <p className="text-muted-foreground">
+                    A snapshot of my accomplishments across different domains
+                  </p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
                   <div>
-                    <div className="text-3xl font-bold text-yellow-600 mb-2">🏆</div>
-                    <div className="text-2xl font-bold text-yellow-600 mb-1">1</div>
+                    <div className="text-3xl font-bold text-yellow-600 mb-2">
+                      🏆
+                    </div>
+                    <div className="text-2xl font-bold text-yellow-600 mb-1">
+                      1
+                    </div>
                     <p className="text-sm text-muted-foreground">Gold Medal</p>
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-purple-600 mb-2">👑</div>
-                    <div className="text-2xl font-bold text-purple-600 mb-1">3</div>
-                    <p className="text-sm text-muted-foreground">Leadership Roles</p>
+                    <div className="text-3xl font-bold text-purple-600 mb-2">
+                      👑
+                    </div>
+                    <div className="text-2xl font-bold text-purple-600 mb-1">
+                      3
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Leadership Roles
+                    </p>
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-blue-600 mb-2">🚀</div>
-                    <div className="text-2xl font-bold text-blue-600 mb-1">1</div>
+                    <div className="text-3xl font-bold text-blue-600 mb-2">
+                      🚀
+                    </div>
+                    <div className="text-2xl font-bold text-blue-600 mb-1">
+                      1
+                    </div>
                     <p className="text-sm text-muted-foreground">Scholarship</p>
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-green-600 mb-2">📚</div>
-                    <div className="text-2xl font-bold text-green-600 mb-1">3.85</div>
+                    <div className="text-3xl font-bold text-green-600 mb-2">
+                      📚
+                    </div>
+                    <div className="text-2xl font-bold text-green-600 mb-1">
+                      3.85
+                    </div>
                     <p className="text-sm text-muted-foreground">GPA</p>
                   </div>
                   <div>
-                    <div className="text-3xl font-bold text-orange-600 mb-2">💻</div>
-                    <div className="text-2xl font-bold text-orange-600 mb-1">3+</div>
-                    <p className="text-sm text-muted-foreground">Major Projects</p>
+                    <div className="text-3xl font-bold text-orange-600 mb-2">
+                      💻
+                    </div>
+                    <div className="text-2xl font-bold text-orange-600 mb-1">
+                      3+
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Major Projects
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -506,5 +654,5 @@ export function AchievementsSection({ isPreview = false }: { isPreview?: boolean
         )}
       </div>
     </section>
-  )
+  );
 }

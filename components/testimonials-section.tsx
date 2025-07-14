@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
+import { motion } from "framer-motion";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
 const testimonials = [
   {
@@ -34,7 +34,7 @@ const testimonials = [
     name: "Lisa Pratiwi",
     title: "Creative Director, RATIH Creative",
   },
-]
+];
 
 export function TestimonialsSection() {
   return (
@@ -47,16 +47,22 @@ export function TestimonialsSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">What People Say</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
+            What People Say
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Testimonials from colleagues, supervisors, and collaborators
           </p>
         </motion.div>
 
-        <div className="h-160 rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-          <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
+        <div className="h-160 rounded-md flex flex-col antialiased bg-white dark:bg-gray-900 dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+          <InfiniteMovingCards
+            items={testimonials}
+            direction="right"
+            speed="slow"
+          />
         </div>
       </div>
     </section>
-  )
+  );
 }

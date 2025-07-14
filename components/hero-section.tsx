@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { ArrowDown, Download, Mail, Sparkles } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import { BackgroundBeams } from "@/components/ui/background-beams"
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { Spotlight } from "@/components/ui/spotlight"
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { Spotlight } from "@/components/ui/spotlight";
+import { colors } from "@/lib/colors";
 
 export function HeroSection() {
   const containerVariants = {
@@ -19,7 +20,7 @@ export function HeroSection() {
         delayChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -28,10 +29,10 @@ export function HeroSection() {
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
-  }
+  };
 
   const floatingVariants = {
     animate: {
@@ -40,15 +41,15 @@ export function HeroSection() {
       transition: {
         duration: 6,
         repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
       },
     },
-  }
+  };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-neutral-950">
       {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20" />
+      {/* Hapus background absolute gradient/navy, cukup pakai bg section di atas */}
 
       {/* Animated Background Elements */}
       {/* <div className="absolute inset-0 overflow-hidden">
@@ -87,7 +88,11 @@ export function HeroSection() {
         >
           {/* Profile Image with Enhanced Animation */}
           <motion.div variants={itemVariants} className="mb-12">
-            <motion.div variants={floatingVariants} animate="animate" className="relative w-40 h-40 mx-auto mb-8">
+            <motion.div
+              variants={floatingVariants}
+              animate="animate"
+              className="relative w-40 h-40 mx-auto mb-8"
+            >
               <div className="absolute inset-0 bg-linear-to-r from-red-400 to-red-700 rounded-full blur-xl opacity-30 animate-pulse" />
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -109,17 +114,22 @@ export function HeroSection() {
           <div className="space-y-8 mb-12">
             <TextGenerateEffect
               words="Hi, I'm Iqbal Raihan"
-              className="text-5xl sm:text-7xl lg:text-8xl font-bold font-plus-jakarta bg-linear-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
+              className={`text-5xl sm:text-7xl lg:text-8xl font-bold font-plus-jakarta ${colors.gradients.hero} bg-clip-text text-transparent`}
             />
 
             <motion.div variants={itemVariants} className="space-y-4">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h2
+                className={`text-2xl sm:text-3xl lg:text-4xl font-semibold ${colors.gradients.primary} bg-clip-text text-transparent`}
+              >
                 Full Stack Developer & IT Project Manager
               </h2>
 
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Computer Science undergraduate with a passion for creating impactful digital solutions. Specializing in
-                IT Project Management while building innovative web applications.
+              <p
+                className={`text-lg sm:text-xl ${colors.text.secondary} max-w-3xl mx-auto leading-relaxed`}
+              >
+                Computer Science undergraduate with a passion for creating
+                impactful digital solutions. Specializing in IT Project
+                Management while building innovative web applications.
               </p>
             </motion.div>
           </div>
@@ -147,7 +157,9 @@ export function HeroSection() {
               asChild
             >
               <Link href="/projects">
-                <span className="mr-2 group-hover:animate-pulse">View My Work</span>
+                <span className="mr-2 group-hover:animate-pulse">
+                  View My Work
+                </span>
               </Link>
             </Button>
 
@@ -185,18 +197,20 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-          className="flex flex-col items-center text-gray-500 dark:text-gray-400"
+          className={`flex flex-col items-center ${colors.text.muted}`}
         >
           <span className="text-sm mb-2 font-medium">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-gray-300 dark:border-gray-600 rounded-full flex justify-center">
+          <div
+            className={`w-6 h-10 border-2 ${colors.border.primary} rounded-full flex justify-center`}
+          >
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              className="w-1 h-3 bg-linear-to-b from-blue-500 to-purple-500 rounded-full mt-2"
+              className={`w-1 h-3 ${colors.gradients.primary} rounded-full mt-2`}
             />
           </div>
         </motion.div>
       </motion.div>
     </section>
-  )
+  );
 }

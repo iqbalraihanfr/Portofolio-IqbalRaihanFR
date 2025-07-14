@@ -1,16 +1,30 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { GraduationCap, Users, Trophy, Calendar, ArrowRight, Award, BadgeIcon as Certificate } from "lucide-react"
-import Link from "next/link"
-import { SkillsBentoGrid } from "./skills-bento-grid"
-import { CertificatesSection } from "./certificates-section"
-import { AchievementsSection } from "./achievements-section"
-import { TestimonialsSection } from "./testimonials-section"
-import { TeamTooltipSection } from "./team-tooltip-section"
+import { motion } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  GraduationCap,
+  Users,
+  Trophy,
+  Calendar,
+  ArrowRight,
+  Award,
+  BadgeIcon as Certificate,
+} from "lucide-react";
+import Link from "next/link";
+import { SkillsBentoGrid } from "./skills-bento-grid";
+import { CertificatesSection } from "./certificates-section";
+import { AchievementsSection } from "./achievements-section";
+import { TestimonialsSection } from "./testimonials-section";
+import { TeamTooltipSection } from "./team-tooltip-section";
 
 const experiences = [
   {
@@ -25,24 +39,27 @@ const experiences = [
     title: "Samsung Innovation Campus",
     organization: "Samsung",
     period: "Feb 2024 - Jul 2024",
-    description: "Scholarship holder covering Cloud & Platform, IoT, and AI using Python.",
+    description:
+      "Scholarship holder covering Cloud & Platform, IoT, and AI using Python.",
     icon: Award,
   },
   {
     title: "GDSC Member",
     organization: "Google Developer Student Club ITB",
     period: "Oct 2023 - Jul 2024",
-    description: "Collaborated on technical skills enhancement through workshops and community projects.",
+    description:
+      "Collaborated on technical skills enhancement through workshops and community projects.",
     icon: Users,
   },
   {
     title: "Music Organization President",
     organization: "SMAN 1 Mejayan",
     period: "Sep 2021 - Nov 2022",
-    description: "Led musical events and performances, fostering community engagement.",
+    description:
+      "Led musical events and performances, fostering community engagement.",
     icon: Users,
   },
-]
+];
 
 export function AboutSection() {
   const containerVariants = {
@@ -53,7 +70,7 @@ export function AboutSection() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -65,10 +82,10 @@ export function AboutSection() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   return (
-    <section className="py-20">
+    <section className="py-20 bg-white dark:bg-neutral-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -77,9 +94,12 @@ export function AboutSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">About Me</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
+            About Me
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Passionate about technology, leadership, and creating meaningful digital experiences
+            Passionate about technology, leadership, and creating meaningful
+            digital experiences
           </p>
         </motion.div>
 
@@ -100,18 +120,22 @@ export function AboutSection() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground leading-relaxed">
-                  I'm a committed Computer Science undergraduate at UPN Veteran Jawa Timur with a growing focus on IT
-                  Project Management and team coordination. Currently maintaining a 3.85/4.00 GPA while developing a
-                  strong foundation in software development.
+                  I'm a committed Computer Science undergraduate at UPN Veteran
+                  Jawa Timur with a growing focus on IT Project Management and
+                  team coordination. Currently maintaining a 3.85/4.00 GPA while
+                  developing a strong foundation in software development.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  My experience spans from technical development to leadership roles, having served as a committee
-                  chairperson and organization president. I'm passionate about managing timelines, collaborating with
-                  diverse stakeholders, and aligning tech solutions with business needs.
+                  My experience spans from technical development to leadership
+                  roles, having served as a committee chairperson and
+                  organization president. I'm passionate about managing
+                  timelines, collaborating with diverse stakeholders, and
+                  aligning tech solutions with business needs.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  I'm eager to lead impactful digital projects and grow within dynamic, fast-paced environments,
-                  combining my technical skills with project management expertise.
+                  I'm eager to lead impactful digital projects and grow within
+                  dynamic, fast-paced environments, combining my technical
+                  skills with project management expertise.
                 </p>
               </CardContent>
             </Card>
@@ -134,15 +158,21 @@ export function AboutSection() {
                   <Badge variant="secondary">3.85/4.00</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Projects</span>
+                  <span className="text-sm text-muted-foreground">
+                    Projects
+                  </span>
                   <Badge variant="secondary">10+</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Certificates</span>
+                  <span className="text-sm text-muted-foreground">
+                    Certificates
+                  </span>
                   <Badge variant="secondary">5+</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Leadership Roles</span>
+                  <span className="text-sm text-muted-foreground">
+                    Leadership Roles
+                  </span>
                   <Badge variant="secondary">4+</Badge>
                 </div>
               </CardContent>
@@ -172,7 +202,11 @@ export function AboutSection() {
 
             {/* Quick Links to Certificates and Achievements */}
             <div className="space-y-3">
-              <Button asChild variant="outline" className="w-full justify-between group bg-transparent">
+              <Button
+                asChild
+                variant="outline"
+                className="w-full justify-between group bg-transparent"
+              >
                 <Link href="/certificates">
                   <div className="flex items-center">
                     <Certificate className="w-4 h-4 mr-2 text-blue-600" />
@@ -181,7 +215,11 @@ export function AboutSection() {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="w-full justify-between group bg-transparent">
+              <Button
+                asChild
+                variant="outline"
+                className="w-full justify-between group bg-transparent"
+              >
                 <Link href="/achievements">
                   <div className="flex items-center">
                     <Trophy className="w-4 h-4 mr-2 text-yellow-600" />
@@ -217,10 +255,16 @@ export function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`relative flex items-center mb-8 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
+                className={`relative flex items-center mb-8 ${
+                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                }`}
               >
                 <div className="flex-1 md:w-1/2">
-                  <Card className={`${index % 2 === 0 ? "md:mr-8" : "md:ml-8"} ml-12 md:ml-0`}>
+                  <Card
+                    className={`${
+                      index % 2 === 0 ? "md:mr-8" : "md:ml-8"
+                    } ml-12 md:ml-0`}
+                  >
                     <CardHeader>
                       <div className="flex items-center">
                         <exp.icon className="w-5 h-5 mr-2 text-blue-600" />
@@ -235,7 +279,9 @@ export function AboutSection() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">{exp.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {exp.description}
+                      </p>
                     </CardContent>
                   </Card>
                 </div>
@@ -287,5 +333,5 @@ export function AboutSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

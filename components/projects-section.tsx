@@ -20,6 +20,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ExternalLink, Github, Calendar, Award } from "lucide-react";
+import { colors } from "@/lib/colors";
 import Image from "next/image";
 
 const projects = [
@@ -116,13 +117,13 @@ export function ProjectsSection() {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-white dark:bg-neutral-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -167,7 +168,7 @@ export function ProjectsSection() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync">
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.id}
@@ -192,7 +193,7 @@ export function ProjectsSection() {
                             ? "default"
                             : project.status === "Live"
                             ? "secondary"
-                            : "outline-solid"
+                            : "outline"
                         }
                       >
                         {project.status}
@@ -345,7 +346,9 @@ export function ProjectsSection() {
           transition={{ delay: 0.3 }}
           className="mt-16 text-center"
         >
-          <Card className="max-w-2xl mx-auto bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-0">
+          <Card
+            className={`max-w-2xl mx-auto ${colors.gradients.card} border-0`}
+          >
             <CardContent className="p-8">
               <div className="flex items-center justify-center mb-4">
                 <Award className="w-8 h-8 text-yellow-500 mr-2" />

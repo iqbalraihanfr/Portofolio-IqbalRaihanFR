@@ -8,6 +8,7 @@
   --font-sans: var(--font-inter);
   --font-plus-jakarta: var(--font-plus-jakarta);
 
+  --color-myblue: #1fabe1;
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -34,6 +35,18 @@
 
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
+
+  /* Custom background colors */
+  --bg-primary: #ffffff;
+  --bg-primary-dark: #111827;
+  --bg-secondary: #f8fafc;
+  --bg-secondary-dark: #1f2937;
+  --bg-muted: #f1f5f9;
+  --bg-muted-dark: #374151;
+  --bg-card: #ffffff;
+  --bg-card-dark: #1f2937;
+  --bg-card-transparent: rgba(255, 255, 255, 0.8);
+  --bg-card-transparent-dark: rgba(31, 41, 55, 0.8);
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -90,7 +103,7 @@
 }
 
 @utility text-gradient {
-  @apply bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent;
+  @apply bg-linear-to-r from-red-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent;
 }
 
 @utility glow-effect {
@@ -109,6 +122,55 @@
   @apply relative before:absolute before:inset-0 before:p-px before:bg-linear-to-r before:from-blue-500 before:to-purple-500 before:rounded-xl before:-z-10;
 }
 
+/* New reusable background utilities */
+@utility bg-primary {
+  background-color: #ffffff;
+}
+
+@utility bg-primary-dark {
+  background-color: #111827;
+}
+
+@utility bg-secondary {
+  background-color: #f8fafc;
+}
+
+@utility bg-secondary-dark {
+  background-color: #1f2937;
+}
+
+@utility bg-muted-custom {
+  background-color: #f1f5f9;
+}
+
+@utility bg-muted-custom-dark {
+  background-color: #374151;
+}
+
+@utility bg-card-custom {
+  background-color: #ffffff;
+}
+
+@utility bg-card-custom-dark {
+  background-color: #1f2937;
+}
+
+@utility bg-card-transparent {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+@utility bg-card-transparent-dark {
+  background-color: rgba(31, 41, 55, 0.8);
+}
+
+@utility bg-section {
+  background-color: #ffffff;
+}
+
+@utility bg-section-dark {
+  background-color: #111827;
+}
+
 @layer utilities {
   :root {
     --font-inter: "Inter", sans-serif;
@@ -118,14 +180,14 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-200 dark:border-gray-700;
   }
   body {
-    @apply bg-linear-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 text-foreground;
+    @apply bg-white dark:bg-gray-900 text-foreground;
   }
 }
 
-.scroll-indicator {
+/* .scroll-indicator {
   position: fixed;
   top: 0;
   left: 0;
@@ -134,10 +196,10 @@
   background: linear-gradient(90deg, #3b82f6, #8b5cf6, #6366f1);
   transform-origin: 0%;
   z-index: 50;
-}
+} */
 
 /* Enhanced Aceternity styles */
-@keyframes scroll {
+/* @keyframes scroll {
   to {
     transform: translate(calc(-50% - 0.5rem));
   }
@@ -154,10 +216,10 @@
 
 .bg-grid-white\/\[0\.05\] {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.05)'%3e%3cpath d='m0 .5h32m-32 32v-32'/%3e%3c/svg%3e");
-}
+} */
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -172,7 +234,7 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #2563eb, #7c3aed);
-}
+} */
 
 /* Enhanced animations */
 @keyframes float {
@@ -189,7 +251,7 @@
   animation: float 6s ease-in-out infinite;
 }
 
-@keyframes pulse-glow {
+/* @keyframes pulse-glow {
   0%,
   100% {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
@@ -197,8 +259,28 @@
   50% {
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
   }
+} */
+
+/* .animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+} */
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-muted: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-transparent: rgba(255, 255, 255, 0.8);
+  --color-foreground: hsl(var(--foreground));
+  --color-background: hsl(var(--background));
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+.dark {
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-muted: #374151;
+  --bg-card: #1f2937;
+  --bg-card-transparent: rgba(31, 41, 55, 0.8);
+  --color-foreground: #f1f5f9;
+  --color-background: #111827;
 }
