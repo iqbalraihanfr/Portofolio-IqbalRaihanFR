@@ -20,7 +20,7 @@ export const colors = {
 
   // Gradient colors
   gradients: {
-    primary: "bg-linear-to-r from-blue-600 to-purple-600",
+    primary: "bg-gradient-to-r from-teal-600 via-sky-500 to-blue-400",
     secondary: "bg-linear-to-r from-amber-900 via-blue-800 to-purple-800",
     hero: "bg-linear-to-r from-amber-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200",
     contact:

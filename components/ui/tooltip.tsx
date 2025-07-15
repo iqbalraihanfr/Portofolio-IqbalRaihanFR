@@ -1,30 +1,36 @@
-"use client"
+import { clsx } from 'clsx';
+import type { ValidTag, CustomTag } from '@lib/types/helper';
 
-import * as React from "react"
-import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+type TooltipProps<T extends ValidTag> = CustomTag<T> & {
+  tip: string | React.JSX.Element;
+  tooltipClassName?: string;
+};
 
-import { cn } from "@/lib/utils"
+const DEFAULT_TAG = 'div' as const;
 
-const TooltipProvider = TooltipPrimitive.Provider
+export function Tooltip<T extends ValidTag = typeof DEFAULT_TAG>({
+  tag = DEFAULT_TAG,
+  tip,
+  children,
+  className,
+  tooltipClassName = 'group-hover:-translate-y-16 peer-focus-visible:-translate-y-16',
+  ...rest
+}: TooltipProps<T>): React.JSX.Element {
+  const CustomTag: ValidTag = tag;
 
-const Tooltip = TooltipPrimitive.Root
-
-const TooltipTrigger = TooltipPrimitive.Trigger
-
-const TooltipContent = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
->(({ className, sideOffset = 4, ...props }, ref) => (
-  <TooltipPrimitive.Content
-    ref={ref}
-    sideOffset={sideOffset}
-    className={cn(
-      "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className,
-    )}
-    {...props}
-  />
-))
-TooltipContent.displayName = TooltipPrimitive.Content.displayName
-
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+  return (
+    <CustomTag className={clsx('group relative', className)} {...rest}>
+      {children}
+      <div
+        className={clsx(
+          `main-border invisible absolute left-1/2 z-20 -translate-x-1/2 -translate-y-12 whitespace-nowrap rounded-md
+           bg-white px-2 py-1 text-sm opacity-0 [transition:visibility_0ms_ease_300ms,300ms_ease] group-hover:visible 
+           group-hover:opacity-100 peer-focus-visible:visible peer-focus-visible:opacity-100 dark:bg-black`,
+          tooltipClassName
+        )}
+      >
+        <span>{tip}</span>
+      </div>
+    </CustomTag>
+  );
+}

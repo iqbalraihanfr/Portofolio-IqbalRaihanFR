@@ -9,6 +9,7 @@
   --font-plus-jakarta: var(--font-plus-jakarta);
 
   --color-myblue: #1fabe1;
+  --color-mydarkblue: #0e7da7;
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
