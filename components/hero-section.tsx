@@ -53,11 +53,21 @@ export function HeroSection() {
         className="space-y-8 text-left max-w-2xl mx-auto"
       >
         <motion.h1
-          variants={itemVariants}
-          className={`text-5xl sm:text-6xl lg:text-7xl font-bold font-plus-jakarta ${colors.gradients.hero} bg-clip-text text-transparent`}
-        >
-          Hi, I'm Iqbal Raihan
-        </motion.h1>
+  variants={itemVariants}
+  className="text-5xl sm:text-6xl lg:text-7xl font-bold font-sans text-gray-900 dark:text-white"
+>
+  Hi!
+</motion.h1>
+
+<motion.h1
+  variants={itemVariants}
+  className="text-5xl sm:text-6xl lg:text-7xl font-bold font-sans text-gray-900 dark:text-white -mt-6"
+>
+  I'm{" "}
+  <span className={`${colors.gradients.hero} bg-clip-text text-transparent`}>
+    Raihan
+  </span>
+</motion.h1>
 
         <motion.h2
           variants={itemVariants}

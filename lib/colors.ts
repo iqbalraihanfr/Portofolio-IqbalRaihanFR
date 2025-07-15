@@ -20,12 +20,12 @@ export const colors = {
 
   // Gradient colors
   gradients: {
-    primary: "bg-gradient-to-r from-teal-600 via-sky-500 to-blue-400",
-    secondary: "bg-linear-to-r from-amber-900 via-blue-800 to-purple-800",
-    hero: "bg-linear-to-r from-amber-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200",
+    primary: "bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-[#a855f7] via-[#f472b6] to-[#f4a4b6]",
+    secondary: "bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500",
+    hero: "bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 dark:from-purple-200 dark:via-pink-200 dark:to-rose-200",
     contact:
-      "bg-linear-to-r from-gray-900 via-purple-800 to-pink-800 dark:from-white dark:via-purple-200 dark:to-pink-200",
-    card: "bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20",
+      "bg-gradient-to-r from-gray-900 via-purple-800 to-pink-800 dark:from-white dark:via-purple-200 dark:to-pink-200",
+    card: "bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20",
     glass: "bg-white/60 dark:bg-gray-800/60",
   },
 
