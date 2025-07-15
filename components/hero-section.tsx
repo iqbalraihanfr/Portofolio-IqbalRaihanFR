@@ -67,6 +67,7 @@ export function HeroSection() {
   <span className={`${colors.gradients.hero} bg-clip-text text-transparent`}>
     Raihan
   </span>
+  - Full Stack Developer
 </motion.h1>
 
         <motion.h2

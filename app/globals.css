@@ -7,6 +7,10 @@
 @theme {
   --font-sans: var(--font-inter);
 
+  --color-accent-main: theme(colors.pink.400);
+  --color-accent-start: theme(colors.purple.500);
+  --color-accent-end: theme(colors.pink.400);
+
 
   --color-myblue: #1fabe1;
   --color-mydarkblue: #0e7da7;
@@ -100,20 +104,23 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
+    text-decoration-color: var(--color-accent-main) !important;
+  }
+
+  body {
+    @apply bg-white dark:bg-gray-900 text-foreground;
+  }
+
+  #nprogress .bar {
+    background: var(--color-accent-main) !important;
+    height: 2px !important;
+  }
+
+  #nprogress .peg {
+    box-shadow: 0 0 10px var(--color-accent-main), 0 0 5px var(--color-accent-main) !important;
   }
 }
 
-@utility text-gradient {
-  @apply bg-linear-to-r from-red-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent;
-}
-
-@utility glow-effect {
-  @apply shadow-2xl shadow-blue-500/25 dark:shadow-blue-400/25;
-}
-
-@utility card-hover {
-  @apply transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10;
-}
 
 @utility glass-effect {
   @apply bg-white/20 dark:bg-gray-900/20 backdrop-blur-xl border border-white/20 dark:border-gray-700/20;
