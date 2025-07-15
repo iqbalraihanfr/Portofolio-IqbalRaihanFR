@@ -9,10 +9,9 @@ import { ThemeSwitch } from '@/components/theme-switch';
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Guestbook', href: '/guestbook' },
-  { name: 'About', href: '/about' }
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' }
 ] as const;
 
 export function Navbar() {
@@ -33,12 +32,12 @@ export function Navbar() {
       >
         <div className='h-1.5 bg-gradient-to-r from-[var(--color-accent-start)] to-[var(--color-accent-end)]' />
         <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4'>
-          <nav className='flex gap-4 sm:gap-6 font-medium'>
+          <nav className='flex gap-6 sm:gap-8 font-medium'>
             {navLinks.map(({ name, href }) => (
               <Link
                 className={clsx(
                   'text-sm sm:text-base transition-colors hover:text-[var(--color-accent-main)]',
-                  baseRoute === href && 'gradient-title !text-transparent'
+                  baseRoute === href && 'text-[var(--color-accent-main)]'
                 )}
                 href={href}
                 key={name}

@@ -52,7 +52,7 @@ const projects = [
       "Community service project empowering local UMKM with web-based product catalog",
     longDescription:
       "A community service initiative aimed at empowering a local UMKM that produces handmade educational toys. Developed a responsive frontend using Next.js App Router and Tailwind CSS, optimized for mobile devices and SEO. Built a lightweight PHP + MySQL backend for the admin dashboard.",
-    image: "/asset.png",
+    image: "/aset.png",
     tech: ["Next.js", "PHP", "MySQL", "Tailwind CSS", "SEO"],
     category: "Web Development",
     date: "Jun 2025 - Ongoing",
