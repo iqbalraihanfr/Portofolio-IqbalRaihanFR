@@ -21,10 +21,14 @@ export function ThemeSwitch() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-md hover:bg-accent/20 transition-colors"
+      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+      {theme === 'dark' ? (
+        <Sun size={18} className="text-gray-800 dark:text-gray-200" />
+      ) : (
+        <Moon size={18} className="text-gray-800 dark:text-gray-200" />
+      )}
     </button>
   );
 }

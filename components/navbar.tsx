@@ -1,17 +1,17 @@
 "use client";
 
-import Link from 'next/link';
-import { useRef } from 'react';
-import { usePathname } from 'next/navigation';
-import { useInView } from 'framer-motion';
-import { clsx } from 'clsx';
-import { ThemeSwitch } from '@/components/theme-switch';
+import Link from "next/link";
+import { useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useInView } from "framer-motion";
+import { clsx } from "clsx";
+import { ThemeSwitch } from "@/components/theme-switch";
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' }
+  { name: "Home", href: "/" },
+  { name: "Projects", href: "/projects" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ] as const;
 
 export function Navbar() {
@@ -26,18 +26,18 @@ export function Navbar() {
       <div ref={ref} />
       <header
         className={clsx(
-          'sticky top-0 z-50 w-full bg-background/60 backdrop-blur-md transition-shadow',
-          !inView && 'shadow-md'
+          'sticky top-0 z-20 w-full bg-white/60 backdrop-blur-md transition dark:bg-black/60',
+          !inView && 'shadow-sm dark:shadow-gray-900'
         )}
       >
-        <div className='h-1.5 bg-gradient-to-r from-[var(--color-accent-start)] to-[var(--color-accent-end)]' />
-        <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4'>
-          <nav className='flex gap-6 sm:gap-8 font-medium'>
+        <div className='h-2 bg-gradient-to-r from-[var(--color-accent-start)] to-[var(--color-accent-end)]' />
+        <div className='flex items-center justify-between py-4 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <nav className='flex gap-4 font-medium'>
             {navLinks.map(({ name, href }) => (
               <Link
                 className={clsx(
-                  'text-sm sm:text-base transition-colors hover:text-[var(--color-accent-main)]',
-                  baseRoute === href && 'text-[var(--color-accent-main)]'
+                  'smooth-tab text-xs hover:text-[var(--color-accent-main)] hover:transition-colors md:text-base',
+                  baseRoute === href && 'bg-clip-text text-transparent bg-gradient-to-r from-[#a855f7] via-[#f472b6] to-[#f4a4b6] font-semibold'
                 )}
                 href={href}
                 key={name}

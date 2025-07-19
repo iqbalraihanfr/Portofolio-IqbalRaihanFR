@@ -20,7 +20,8 @@ export const colors = {
 
   // Gradient colors
   gradients: {
-    primary: "bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-[#a855f7] via-[#f472b6] to-[#f4a4b6]",
+    primary:
+      "bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-[#a855f7] via-[#f472b6] to-[#f4a4b6]",
     secondary: "bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500",
     hero: "bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 dark:from-purple-200 dark:via-pink-200 dark:to-rose-200",
     contact:

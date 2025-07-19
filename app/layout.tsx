@@ -7,7 +7,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ScrollIndicator } from "@/components/scroll-indicator"
 import { Toaster } from "@/components/ui/toaster";
-import ProgressProvider from '@/components/progress-bar';
+// import ProgressProvider from '@/components/progress-bar';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/react"
 
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     description: "Computer Science undergraduate specializing in IT Project Management",
     type: "website",
   },
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -34,13 +33,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
-          <ProgressProvider />
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <body className={`${inter.variable} font-sans antialiased bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-200`}>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="system" 
+          enableSystem 
+          disableTransitionOnChange={false}
+          storageKey="portfolio-theme"
+        >
+          {/* <ProgressProvider /> */}
           <ScrollIndicator />
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          <main className="dark:bg-black min-h-[calc(100vh-4rem)] pt-16">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              {children}
+            </div>
+          </main>
           <SpeedInsights />
           <Analytics />
           <Footer />

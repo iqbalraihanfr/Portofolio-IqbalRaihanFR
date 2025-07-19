@@ -4,129 +4,103 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Download, Mail } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import { SiGithub, SiLinkedin } from "react-icons/si";
+import { HiDocumentText } from "react-icons/hi2";
 import { colors } from "@/lib/colors";
 
+const socialLinks = [
+  {
+    name: 'Resume',
+    href: 'https://docs.google.com/document/d/1emlC1CdiKDE0sVVqkpoZWj5FSLdXoFUe2kIXAFxF8Kg/edit?usp=sharing',
+    Icon: HiDocumentText
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/in/yourusername',
+    Icon: SiLinkedin
+  },
+  {
+    name: 'GitHub',
+    href: 'https://github.com/yourusername',
+    Icon: SiGithub
+  }
+];
+
 export function HeroSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut" as const,
-      },
-    },
-  };
-
-  const floatingVariants = {
-    animate: {
-      y: [0, -20, 0],
-      rotate: [0, 5, -5, 0],
-      transition: {
-        duration: 6,
-        repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut" as const,
-      },
-    },
-  };
-
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 min-h-screen items-center mt-20 px-6 gap-12 bg-white dark:bg-neutral-950">
-      {/* Left Text Content */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="space-y-8 text-left max-w-2xl mx-auto"
+    <section className="-mt-20 min-h-screen grid content-center">
+      <motion.h2
+        className="text-2xl font-bold transition-colors delay-100 md:text-4xl 2xl:text-5xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <motion.h1
-  variants={itemVariants}
-  className="text-5xl sm:text-6xl lg:text-7xl font-bold font-sans text-gray-900 dark:text-white"
->
-  Hi!
-</motion.h1>
-
-<motion.h1
-  variants={itemVariants}
-  className="text-5xl sm:text-6xl lg:text-7xl font-bold font-sans text-gray-900 dark:text-white -mt-6"
->
-  I'm{" "}
-  <span className={`${colors.gradients.hero} bg-clip-text text-transparent`}>
-    Raihan
-  </span>
-  - Full Stack Developer
-</motion.h1>
-
-        <motion.h2
-          variants={itemVariants}
-          className={`text-2xl sm:text-3xl font-semibold ${colors.gradients.primary} bg-clip-text text-transparent`}
-        >
-          Full Stack Developer & IT Project Manager
-        </motion.h2>
-
-        <motion.p
-          variants={itemVariants}
-          className={`text-lg ${colors.text.secondary} leading-relaxed`}
-        >
-          Computer Science undergraduate with a passion for creating impactful
-          digital solutions. Specializing in IT Project Management while
-          building innovative web applications.
-        </motion.p>
-
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap gap-4 pt-4"
-        >
-          <Button size="lg" className="shadow-md" asChild>
-            <Link href="/projects">View My Work</Link>
-          </Button>
-          <Button variant="outline" size="lg" asChild>
-            <Link href="/contact">
-              <Mail className="mr-2 h-5 w-5" />
-              Get In Touch
-            </Link>
-          </Button>
-          <Button variant="ghost" size="lg">
-            <Download className="mr-2 h-5 w-5" />
-            Download CV
-          </Button>
-        </motion.div>
+        Hi!
+      </motion.h2>
+      
+      <motion.h1
+        className="mt-1 text-3xl font-bold transition-colors delay-200 md:text-5xl 2xl:text-6xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        I'm{' '}
+        <span className={`${colors.gradients.hero} bg-clip-text text-transparent`}>
+          Raihan
+        </span>
+        {' '}- Full Stack Developer
+      </motion.h1>
+      
+      <motion.p
+        className="mt-4 max-w-4xl leading-relaxed text-gray-700 transition-colors delay-[400ms] dark:text-gray-200 
+                   md:mt-6 md:text-lg 2xl:text-xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        Computer Science undergraduate with a passion for creating impactful
+        digital solutions. Specializing in IT Project Management while
+        building innovative web applications.
+      </motion.p>
+      
+      <motion.div 
+        className="mt-8 flex gap-4 text-sm md:text-base"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <Button asChild className="shadow-md">
+          <Link href="/projects">View My Work</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link href="/contact">
+            <Mail className="mr-2 h-4 w-4" />
+            Contact Me
+          </Link>
+        </Button>
       </motion.div>
-
-      {/* Right Image */}
-      <motion.div
-        variants={itemVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative w-72 h-72 mx-auto lg:mx-0"
+      
+      <motion.div 
+        className="mt-8 flex gap-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <motion.div
-          variants={floatingVariants}
-          animate="animate"
-          className="relative w-full h-full"
-        >
-          <div className="absolute inset-0 bg-gradient-to-tr from-red-400 to-red-700 rounded-full blur-xl opacity-30 animate-pulse" />
-          <Image
-            src="/images/image1.jpeg"
-            alt="Iqbal Raihan"
-            fill
-            className="rounded-full object-cover shadow-2xl"
-          />
-          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-red-400/20 to-red-700/20 transition-opacity duration-300 hover:opacity-30" />
-        </motion.div>
+        {socialLinks.map(({ name, href, Icon }) => (
+          <Link
+            key={name}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2 text-sm text-gray-600 transition
+                      dark:text-gray-400 md:text-base hover:text-primary hover:dark:text-primary"
+          >
+            <Icon className="group-hover:scale-110 transition-transform" />
+            <span className="group-hover:text-black dark:group-hover:text-white">
+              {name}
+            </span>
+          </Link>
+        ))}
       </motion.div>
     </section>
   );
