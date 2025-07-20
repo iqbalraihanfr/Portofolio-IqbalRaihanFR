@@ -1,160 +1,135 @@
 "use client";
 
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+type FooterLink = {
+  name: string;
+  href: string;
+  tip: string;
+};
+
+const footerLinks: FooterLink[] = [
+  {
+    name: 'Source code',
+    href: 'https://github.com/iqbalraihan/portfolio',
+    tip: 'This website is open source!'
+  },
+  {
+    name: 'Design',
+    href: '/design',
+    tip: 'View design system'
+  },
+  {
+    name: 'Statistics',
+    href: '/statistics',
+    tip: 'View website statistics'
+  }
+];
+
+type SocialLink = {
+  name: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  tip: string;
+};
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   
-  const socialLinks = [
+  const socialLinks: SocialLink[] = [
     {
       name: "GitHub",
       href: "https://github.com/iqbalraihan",
       icon: Github,
+      tip: "View my GitHub profile"
     },
     {
       name: "LinkedIn",
       href: "https://linkedin.com/in/iqbalraihanfaturrahmanr/",
       icon: Linkedin,
+      tip: "Connect on LinkedIn"
     },
     {
       name: "Email",
       href: "mailto:iqbaalraihanrr@gmail.com",
       icon: Mail,
+      tip: "Send me an email"
     },
   ];
 
   return (
-    <footer className="border-t border-gray-100 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/50 backdrop-blur-lg">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-sm text-gray-600 dark:text-gray-400">
-            © {currentYear} Iqbal Raihan. All rights reserved.
-          </div>
-          
-          <div className="flex items-center gap-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
-                aria-label={link.name}
+    <footer className="mt-20 border-t border-gray-200 dark:border-gray-800/50 bg-white/50 dark:bg-black/50 backdrop-blur-lg">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Footer Links */}
+        <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-12">
+          {footerLinks.map(({ name, href, tip }) => (
+            <motion.div
+              key={name}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative group"
+            >
+              <Link
+                href={href}
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
               >
-                <link.icon className="h-5 w-5" />
-              </a>
+                {name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+              <span className="hidden group-hover:block absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded whitespace-nowrap">
+                {tip}
+              </span>
+            </motion.div>
+          ))}
+        </nav>
+
+        {/* Social Links */}
+        <div className="flex justify-center mb-8">
+          <div className="flex gap-6">
+            {socialLinks.map((link) => (
+              <motion.div
+                key={link.name}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative group"
+              >
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  aria-label={link.name}
+                >
+                  <link.icon className="h-6 w-6" />
+                </a>
+                <span className="hidden group-hover:block absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded whitespace-nowrap">
+                  {link.tip}
+                </span>
+              </motion.div>
             ))}
           </div>
-          
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors flex items-center gap-1"
-            aria-label="Back to top"
-          >
-            Back to top
-            <ArrowUp className="h-4 w-4" />
-          </button>
         </div>
-      </div>
-    </footer>
-  );
-}
-            >
-              <h3 className="text-2xl font-bold text-gradient mb-4">
-                Iqbal Raihan
-              </h3>
-              <p className="text-muted-foreground mb-6 max-w-md">
-                Full Stack Developer & IT Project Manager passionate about
-                creating impactful digital solutions and leading innovative
-                projects.
-              </p>
-              <div className="flex space-x-4">
-                {socialLinks.map((link) => (
-                  <motion.div
-                    key={link.name}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      asChild
-                      className="hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 bg-transparent"
-                    >
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={link.name}
-                      >
-                        <link.icon className="w-4 h-4 hover:scale-110 transition-transform duration-200" />
-                      </a>
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
 
-          {/* Quick Links */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <h4 className="font-semibold mb-4">Get In Touch</h4>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p>Surabaya, Indonesia</p>
-                <p>iqbaalraihanrr@gmail.com</p>
-                <p>+62 85156482279</p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-        
-
-        {/* Bottom Bar */}
-        {/* <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="border-t border-border/50 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center"
-        >
-          <p className="text-sm text-muted-foreground mb-4 sm:mb-0">
-            © {new Date().getFullYear()} Iqbal Raihan. Made with{" "}
-            <Heart className="inline w-4 h-4 text-red-500 mx-1" />
-            using Next.js & Tailwind CSS
+        {/* Copyright */}
+        <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+          <p>© {currentYear} Iqbal Raihan. All rights reserved.</p>
+          <p className="mt-2">
+            Built with Next.js, Tailwind CSS, and ❤️
           </p>
+        </div>
 
-          
-        </motion.div> */}
+        {/* Back to top button */}
+        <motion.button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          className="fixed bottom-8 right-8 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </motion.button>
       </div>
     </footer>
   );

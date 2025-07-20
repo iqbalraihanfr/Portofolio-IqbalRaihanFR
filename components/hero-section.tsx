@@ -7,6 +7,13 @@ import Link from "next/link";
 import { SiGithub, SiLinkedin } from "react-icons/si";
 import { HiDocumentText } from "react-icons/hi2";
 import { colors } from "@/lib/colors";
+import dynamic from 'next/dynamic';
+
+// Dynamically import the NowPlaying component with no SSR
+const NowPlaying = dynamic(
+  () => import('@/components/spotify/NowPlaying'),
+  { ssr: false }
+);
 
 const socialLinks = [
   {
@@ -81,26 +88,37 @@ export function HeroSection() {
       </motion.div>
       
       <motion.div 
-        className="mt-8 flex gap-4"
+        className="mt-8 flex flex-col md:flex-row md:items-center gap-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        {socialLinks.map(({ name, href, Icon }) => (
-          <Link
-            key={name}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-2 text-sm text-gray-600 transition
-                      dark:text-gray-400 md:text-base hover:text-primary hover:dark:text-primary"
-          >
-            <Icon className="group-hover:scale-110 transition-transform" />
-            <span className="group-hover:text-black dark:group-hover:text-white">
-              {name}
-            </span>
-          </Link>
-        ))}
+        <div className="flex gap-4">
+          {socialLinks.map(({ name, href, Icon }) => (
+            <Link
+              key={name}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 text-sm text-gray-600 transition
+                        dark:text-gray-400 md:text-base hover:text-primary hover:dark:text-primary"
+            >
+              <Icon className="group-hover:scale-110 transition-transform" />
+              <span className="group-hover:text-black dark:group-hover:text-white">
+                {name}
+              </span>
+            </Link>
+          ))}
+        </div>
+        
+        <motion.div 
+          className="w-full max-w-md mt-4 md:mt-0"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <NowPlaying />
+        </motion.div>
       </motion.div>
     </section>
   );
