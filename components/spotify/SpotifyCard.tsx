@@ -57,26 +57,56 @@ export function SpotifyCard() {
   }, [session, trackInfo]);
 
   useEffect(() => {
-    if (!session?.accessToken) return;
+    if (!session?.accessToken) {
+      console.log('No access token in session');
+      return;
+    }
 
     const fetchCurrentlyPlaying = async () => {
+      console.log('Fetching currently playing track...');
       try {
         const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
           headers: {
-            'Authorization': `Bearer ${session.accessToken}`
-          }
+            'Authorization': `Bearer ${session.accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          cache: 'no-store',
+          credentials: 'same-origin'
         });
 
+        console.log('Spotify API response status:', response.status);
+        
         if (response.status === 204) {
+          console.log('No content - no track currently playing');
           setTrackInfo({ isPlaying: false });
           return;
         }
 
+        if (response.status === 401) {
+          console.error('Unauthorized - token might be expired or invalid');
+          setTrackInfo({
+            isPlaying: false,
+            error: 'Session expired. Please sign in again.'
+          });
+          signIn('spotify');
+          return;
+        }
+
         if (!response.ok) {
-          throw new Error('Failed to fetch currently playing track');
+          const errorData = await response.json().catch(() => ({}));
+          console.error('Spotify API error:', response.status, errorData);
+          throw new Error(`Failed to fetch currently playing track: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
+        console.log('Spotify API response data:', data);
+        
+        if (!data.item) {
+          console.log('No track item in response');
+          setTrackInfo({ isPlaying: false });
+          return;
+        }
+
         setTrackInfo({
           isPlaying: data.is_playing,
           item: {
@@ -88,16 +118,17 @@ export function SpotifyCard() {
             artists: data.item.artists,
             external_urls: data.item.external_urls,
             duration_ms: data.item.duration_ms,
-            progress_ms: data.progress_ms
+            progress_ms: data.progress_ms || 0
           }
         });
-        setProgress(data.progress_ms);
+        setProgress(data.progress_ms || 0);
       } catch (error) {
         console.error('Error fetching currently playing track:', error);
-        setTrackInfo({
+        setTrackInfo(prev => ({
+          ...prev,
           isPlaying: false,
-          error: 'Failed to load track information'
-        });
+          error: error instanceof Error ? error.message : 'Failed to load track information'
+        }));
       }
     };
 
