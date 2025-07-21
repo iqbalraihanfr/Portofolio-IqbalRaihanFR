@@ -1,229 +1,211 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SiSpotify } from 'react-icons/si';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import { signIn } from 'next-auth/react';
+import clsx from 'clsx';
 
 interface TrackInfo {
   isPlaying: boolean;
-  item?: {
-    name: string;
-    album: {
-      name: string;
-      images: { url: string }[];
-    };
-    artists: { name: string }[];
-    external_urls: {
-      spotify: string;
-    };
-    duration_ms: number;
-    progress_ms: number;
-  };
+  item: {
+    trackUrl: string;
+    trackName: string;
+    albumName: string;
+    artistName: string;
+    albumImageUrl: string;
+    durationMs: number;
+    progressMs: number;
+  } | null;
   error?: string;
 }
 
-function formatDuration(ms: number): string {
-  const minutes = Math.floor(ms / 60000);
-  const seconds = ((ms % 60000) / 1000).toFixed(0);
-  return `${minutes}:${parseInt(seconds) < 10 ? '0' : ''}${seconds}`;
+function formatMilisecondsToPlayback(ms: number): string {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
 export function SpotifyCard() {
-  const { data: session } = useSession();
-  const [trackInfo, setTrackInfo] = useState<TrackInfo>({ isPlaying: false });
-  const [progress, setProgress] = useState(0);
-  const [isClient, setIsClient] = useState(false);
+  const [trackInfo, setTrackInfo] = useState<TrackInfo>({ 
+    isPlaying: false, 
+    item: null 
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [progressPercentage, setProgressPercentage] = useState(0);
+  const [currentPlaybackTime, setCurrentPlaybackTime] = useState(0);
+  const [lastUpdated, setLastUpdated] = useState(0);
 
+  // Fetch currently playing track
+  const fetchCurrentlyPlaying = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/spotify/now-playing');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch currently playing track');
+      }
+      
+      const data = await response.json();
+      setTrackInfo(data);
+      
+      if (data.isPlaying && data.item) {
+        setCurrentPlaybackTime(data.item.progressMs);
+        setProgressPercentage((data.item.progressMs / data.item.durationMs) * 100);
+      }
+      
+      setLastUpdated(Date.now());
+    } catch (error) {
+      console.error('Error fetching currently playing track:', error);
+      setTrackInfo(prev => ({
+        ...prev,
+        error: 'Failed to load track information'
+      }));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Initial fetch
   useEffect(() => {
-    setIsClient(true);
+    fetchCurrentlyPlaying();
+    
+    // Set up polling every 5 seconds
+    const interval = setInterval(fetchCurrentlyPlaying, 5000);
+    
+    return () => clearInterval(interval);
   }, []);
 
+  // Update progress bar for currently playing track
   useEffect(() => {
-    if (!session?.accessToken || !trackInfo.item) return;
-
+    if (!trackInfo.isPlaying || !trackInfo.item) return;
+    
+    const duration = trackInfo.item.durationMs;
+    const progress = trackInfo.item.progressMs;
+    const elapsed = Date.now() - lastUpdated;
+    const newProgress = Math.min(progress + elapsed, duration);
+    
+    setCurrentPlaybackTime(newProgress);
+    setProgressPercentage((newProgress / duration) * 100);
+    
     const interval = setInterval(() => {
-      if (trackInfo.isPlaying && trackInfo.item) {
-        setProgress(prev => {
-          const newProgress = prev + 1000;
-          return newProgress > trackInfo.item!.duration_ms ? 0 : newProgress;
-        });
-      }
+      setCurrentPlaybackTime(prev => {
+        const newTime = prev + 1000;
+        if (newTime >= duration) {
+          clearInterval(interval);
+          return duration;
+        }
+        setProgressPercentage((newTime / duration) * 100);
+        return newTime;
+      });
     }, 1000);
-
+    
     return () => clearInterval(interval);
-  }, [session, trackInfo]);
+  }, [trackInfo, lastUpdated]);
 
-  useEffect(() => {
-    if (!session?.accessToken) {
-      console.log('No access token in session');
-      return;
-    }
-
-    const fetchCurrentlyPlaying = async () => {
-      console.log('Fetching currently playing track...');
-      try {
-        const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-          headers: {
-            'Authorization': `Bearer ${session.accessToken}`,
-            'Content-Type': 'application/json'
-          },
-          cache: 'no-store',
-          credentials: 'same-origin'
-        });
-
-        console.log('Spotify API response status:', response.status);
-        
-        if (response.status === 204) {
-          console.log('No content - no track currently playing');
-          setTrackInfo({ isPlaying: false });
-          return;
-        }
-
-        if (response.status === 401) {
-          console.error('Unauthorized - token might be expired or invalid');
-          setTrackInfo({
-            isPlaying: false,
-            error: 'Session expired. Please sign in again.'
-          });
-          signIn('spotify');
-          return;
-        }
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          console.error('Spotify API error:', response.status, errorData);
-          throw new Error(`Failed to fetch currently playing track: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log('Spotify API response data:', data);
-        
-        if (!data.item) {
-          console.log('No track item in response');
-          setTrackInfo({ isPlaying: false });
-          return;
-        }
-
-        setTrackInfo({
-          isPlaying: data.is_playing,
-          item: {
-            name: data.item.name,
-            album: {
-              name: data.item.album.name,
-              images: data.item.album.images
-            },
-            artists: data.item.artists,
-            external_urls: data.item.external_urls,
-            duration_ms: data.item.duration_ms,
-            progress_ms: data.progress_ms || 0
-          }
-        });
-        setProgress(data.progress_ms || 0);
-      } catch (error) {
-        console.error('Error fetching currently playing track:', error);
-        setTrackInfo(prev => ({
-          ...prev,
-          isPlaying: false,
-          error: error instanceof Error ? error.message : 'Failed to load track information'
-        }));
-      }
-    };
-
-    fetchCurrentlyPlaying();
-    const interval = setInterval(fetchCurrentlyPlaying, 30000); // Refresh every 30 seconds
-
-    return () => clearInterval(interval);
-  }, [session]);
-
-  if (!isClient) {
+  // Loading state
+  if (isLoading) {
     return (
-      <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow w-80">
-        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+      <div className="main-border clickable w-80 rounded-md p-4">
+        <div className="flex items-center justify-between">
+          <div className="h-5 w-40 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+          <SiSpotify className="shrink-0 text-lg text-[#1ed760]" />
+        </div>
       </div>
     );
   }
 
-  if (!session?.accessToken) {
+  const { isPlaying, item } = trackInfo;
+  const spotifyIcon = <SiSpotify className="shrink-0 text-lg text-[#1ed760]" />;
+
+  // No song playing state
+  if (!isPlaying || !item) {
     return (
-      <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow w-80 text-center">
-        <button
-          onClick={() => signIn('spotify')}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors mx-auto"
-        >
-          <SiSpotify className="text-xl" />
-          Connect with Spotify
-        </button>
+      <div className="main-border clickable w-80 rounded-md p-4">
+        <div className="flex items-center justify-between">
+          <p>No song is currently playing</p>
+          {spotifyIcon}
+        </div>
       </div>
     );
   }
 
-  const { item, isPlaying } = trackInfo;
-  const progressPercentage = item ? (progress / item.duration_ms) * 100 : 0;
-
-  if (!item) {
+  // Error state
+  if (trackInfo.error) {
     return (
-      <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow w-80 flex items-center justify-between">
-        <p className="text-gray-700 dark:text-gray-300">No song is currently playing</p>
-        <SiSpotify className="text-green-500 text-xl" />
+      <div className="main-border clickable w-80 rounded-md p-4">
+        <div className="flex items-center justify-between">
+          <p className="text-red-500">{trackInfo.error}</p>
+          {spotifyIcon}
+        </div>
       </div>
     );
   }
+
+  // Currently playing state
+  const { trackUrl, trackName, albumName, artistName, albumImageUrl, durationMs } = item;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow w-80 overflow-hidden transition-all duration-300">
-      <Link 
-        href={item.external_urls.spotify} 
-        target="_blank" 
+    <div className={clsx(
+      'max-h-20 transition-[max-height] duration-300',
+      isPlaying && 'max-h-40'
+    )}>
+      <Link
+        href={trackUrl}
+        target="_blank"
         rel="noopener noreferrer"
-        className="block hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        className="main-border clickable flex w-80 items-center gap-4 rounded-md p-4"
       >
-        <div className="p-4">
-          <div className="flex items-start gap-4">
-            <div className="relative flex-shrink-0">
-              {item.album.images[0]?.url && (
+        <div className="grid w-full gap-4">
+          <div className="flex gap-4">
+            {albumImageUrl && (
+              <div className="flex-shrink-0">
                 <Image
-                  src={item.album.images[0].url}
-                  alt={`${item.name} album cover`}
+                  className="main-border h-16 w-16 rounded-md"
+                  title={albumName}
+                  src={albumImageUrl}
+                  alt={albumName}
                   width={64}
                   height={64}
-                  className="rounded"
                 />
-              )}
-              {isPlaying && (
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+            )}
+            <div className="flex h-full min-w-0 flex-1 flex-col justify-between">
+              <div className="grid h-full [&>p>span]:text-gray-700 dark:[&>p>span]:text-gray-200">
+                <div className="flex justify-between gap-2 truncate">
+                  <p className="truncate text-sm font-medium" title={trackName}>
+                    {trackName}
+                  </p>
+                  {spotifyIcon}
                 </div>
-              )}
+                <p 
+                  className="truncate text-xs text-gray-600 dark:text-gray-300" 
+                  title={artistName}
+                >
+                  by <span>{artistName}</span>
+                </p>
+                <p 
+                  className="w-10/12 truncate text-xs text-gray-600 dark:text-gray-300" 
+                  title={albumName}
+                >
+                  on <span>{albumName}</span>
+                </p>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-medium text-gray-900 dark:text-white truncate">{item.name}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 truncate">
-                {item.artists.map(artist => artist.name).join(', ')}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                {item.album.name}
-              </p>
-            </div>
-            <SiSpotify className="text-green-500 text-xl flex-shrink-0 mt-1" />
           </div>
-          
-          {isPlaying && (
-            <div className="mt-3">
-              <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-green-500 transition-all duration-1000 ease-linear"
-                  style={{ width: `${progressPercentage}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                <span>{formatDuration(progress)}</span>
-                <span>{formatDuration(item.duration_ms)}</span>
-              </div>
+          <div className="grid gap-1">
+            <div className="relative h-1 rounded-full bg-gray-300 dark:bg-gray-600">
+              <div
+                className="gradient-background h-1 rounded-full transition-[width] duration-300"
+                style={{ width: `${progressPercentage}%` }}
+              />
             </div>
-          )}
+            <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400">
+              <span>{formatMilisecondsToPlayback(currentPlaybackTime)}</span>
+              <span>{formatMilisecondsToPlayback(durationMs)}</span>
+            </div>
+          </div>
         </div>
       </Link>
     </div>

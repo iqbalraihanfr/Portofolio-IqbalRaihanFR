@@ -8,6 +8,7 @@ import { SiGithub, SiLinkedin } from "react-icons/si";
 import { HiDocumentText } from "react-icons/hi2";
 import { colors } from "@/lib/colors";
 import dynamic from 'next/dynamic';
+import { SpotifyCard } from "./spotify/SpotifyCard";
 
 // Dynamically import the NowPlaying component with no SSR
 const NowPlaying = dynamic(
@@ -70,6 +71,7 @@ export function HeroSection() {
         building innovative web applications.
       </motion.p>
       <NowPlaying />
+      <SpotifyCard/>
       
       <motion.div 
         className="mt-8 flex gap-4 text-sm md:text-base"
