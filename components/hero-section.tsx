@@ -70,7 +70,7 @@ export function HeroSection() {
         digital solutions. Specializing in IT Project Management while
         building innovative web applications.
       </motion.p>
-      <NowPlaying />
+      {/* <NowPlaying /> */}
       <SpotifyCard/>
       
       <motion.div 

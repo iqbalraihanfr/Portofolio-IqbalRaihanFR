@@ -114,7 +114,7 @@ export function SpotifyCard() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="main-border clickable w-80 rounded-md p-4">
+      <div className="main-border clickable flex w-80 items-center justify-between rounded-md p-4">
         <div className="flex items-center justify-between">
           <div className="h-5 w-40 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
           <SiSpotify className="shrink-0 text-lg text-[#1ed760]" />
@@ -129,7 +129,7 @@ export function SpotifyCard() {
   // No song playing state
   if (!isPlaying || !item) {
     return (
-      <div className="main-border clickable w-80 rounded-md p-4">
+      <div className="main-border clickable flex w-80 items-center justify-between rounded-md p-4">
         <div className="flex items-center justify-between">
           <p>No song is currently playing</p>
           {spotifyIcon}
@@ -141,7 +141,7 @@ export function SpotifyCard() {
   // Error state
   if (trackInfo.error) {
     return (
-      <div className="main-border clickable w-80 rounded-md p-4">
+      <div className="main-border clickable flex w-80 items-center justify-between rounded-md p-4">
         <div className="flex items-center justify-between">
           <p className="text-red-500">{trackInfo.error}</p>
           {spotifyIcon}
@@ -171,7 +171,7 @@ export function SpotifyCard() {
         href={trackUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="main-border clickable flex w-80 items-center gap-4 rounded-md p-4"
+        className="main-border clickable peer flex w-80 items-center gap-4 rounded-md p-4"
       >
         <div className="grid w-full gap-4">
           <div className="flex gap-4">
@@ -213,7 +213,7 @@ export function SpotifyCard() {
           <div className="grid gap-1">
             <div className="relative h-1 rounded-full bg-gray-300 dark:bg-gray-600">
               <div
-                className="h-1 rounded-full bg-[#1ed760] transition-[width] duration-300"
+                className="h-1 rounded-full bg-gradient-to-r from-[#a855f7] via-[#f472b6] to-[#f4a4b6] transition-[width] duration-300"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
