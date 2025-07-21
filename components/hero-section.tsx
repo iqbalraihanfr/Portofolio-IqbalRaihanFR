@@ -35,7 +35,7 @@ const socialLinks = [
 
 export function HeroSection() {
   return (
-    <section className="-mt-20 min-h-screen grid content-center">
+    <section className="-mt-35 min-h-screen grid content-center">
       <motion.h2
         className="text-2xl font-bold transition-colors delay-100 md:text-4xl 2xl:text-5xl"
         initial={{ opacity: 0, y: 20 }}
@@ -69,6 +69,7 @@ export function HeroSection() {
         digital solutions. Specializing in IT Project Management while
         building innovative web applications.
       </motion.p>
+      <NowPlaying />
       
       <motion.div 
         className="mt-8 flex gap-4 text-sm md:text-base"
@@ -117,7 +118,7 @@ export function HeroSection() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <NowPlaying />
+          
         </motion.div>
       </motion.div>
     </section>
