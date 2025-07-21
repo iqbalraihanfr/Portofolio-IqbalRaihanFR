@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { SiSpotify } from 'react-icons/si';
-import Image from 'next/image';
-import Link from 'next/link';
-import clsx from 'clsx';
+import { useState, useEffect, useRef } from "react";
+import { SiSpotify } from "react-icons/si";
+import Image from "next/image";
+import Link from "next/link";
+import clsx from "clsx";
 
 interface TrackInfo {
   isPlaying: boolean;
@@ -24,15 +24,16 @@ function formatMilisecondsToPlayback(ms: number): string {
   const totalSeconds = Math.floor(ms / 1000);
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
 export function SpotifyCard() {
-  const [trackInfo, setTrackInfo] = useState<TrackInfo>({ 
-    isPlaying: false, 
-    item: null 
+  const [trackInfo, setTrackInfo] = useState<TrackInfo>({
+    isPlaying: false,
+    item: null,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const firstLoad = useRef(true);
   const [progressPercentage, setProgressPercentage] = useState(0);
   const [currentPlaybackTime, setCurrentPlaybackTime] = useState(0);
   const [lastUpdated, setLastUpdated] = useState(0);
@@ -40,29 +41,35 @@ export function SpotifyCard() {
   // Fetch currently playing track
   const fetchCurrentlyPlaying = async () => {
     try {
-      setIsLoading(true);
-      const response = await fetch('/api/spotify/now-playing');
-      
+      if (firstLoad.current) setIsLoading(true);
+      const response = await fetch("/api/spotify/now-playing");
+
       if (!response.ok) {
-        throw new Error('Failed to fetch currently playing track');
+        throw new Error("Failed to fetch currently playing track");
       }
-      
+
       const data = await response.json();
       setTrackInfo(data);
-      
+
       if (data.isPlaying && data.item) {
         setCurrentPlaybackTime(data.item.progressMs);
-        setProgressPercentage((data.item.progressMs / data.item.durationMs) * 100);
+        setProgressPercentage(
+          (data.item.progressMs / data.item.durationMs) * 100
+        );
       }
-      
+
       setLastUpdated(Date.now());
     } catch (error) {
-      console.error('Error fetching currently playing track:', error);
-      setTrackInfo(prev => ({
+      console.error("Error fetching currently playing track:", error);
+      setTrackInfo((prev) => ({
         ...prev,
-        error: 'Failed to load track information'
+        error: "Failed to load track information",
       }));
     } finally {
+      if (firstLoad.current) {
+        setIsLoading(false);
+        firstLoad.current = false;
+      }
       setIsLoading(false);
     }
   };
@@ -70,27 +77,27 @@ export function SpotifyCard() {
   // Initial fetch
   useEffect(() => {
     fetchCurrentlyPlaying();
-    
+
     // Set up polling every 5 seconds
-    const interval = setInterval(fetchCurrentlyPlaying, 5000);
-    
+    const interval = setInterval(fetchCurrentlyPlaying, 30000); // refresh every 30s
+
     return () => clearInterval(interval);
   }, []);
 
   // Update progress bar for currently playing track
   useEffect(() => {
     if (!trackInfo.isPlaying || !trackInfo.item) return;
-    
+
     const duration = trackInfo.item.durationMs;
     const progress = trackInfo.item.progressMs;
     const elapsed = Date.now() - lastUpdated;
     const newProgress = Math.min(progress + elapsed, duration);
-    
+
     setCurrentPlaybackTime(newProgress);
     setProgressPercentage((newProgress / duration) * 100);
-    
+
     const interval = setInterval(() => {
-      setCurrentPlaybackTime(prev => {
+      setCurrentPlaybackTime((prev) => {
         const newTime = prev + 1000;
         if (newTime >= duration) {
           clearInterval(interval);
@@ -100,9 +107,9 @@ export function SpotifyCard() {
         return newTime;
       });
     }, 1000);
-    
+
     return () => clearInterval(interval);
-  }, [trackInfo, lastUpdated]);
+  }, [trackInfo.isPlaying, trackInfo.item?.durationMs, trackInfo.item?.progressMs, lastUpdated]);
 
   // Loading state
   if (isLoading) {
@@ -144,13 +151,22 @@ export function SpotifyCard() {
   }
 
   // Currently playing state
-  const { trackUrl, trackName, albumName, artistName, albumImageUrl, durationMs } = item;
+  const {
+    trackUrl,
+    trackName,
+    albumName,
+    artistName,
+    albumImageUrl,
+    durationMs,
+  } = item;
 
   return (
-    <div className={clsx(
-      'max-h-20 transition-[max-height] duration-300',
-      isPlaying && 'max-h-40'
-    )}>
+    <div
+      className={clsx(
+        "max-h-20 transition-[max-height] duration-300",
+        isPlaying && "max-h-40"
+      )}
+    >
       <Link
         href={trackUrl}
         target="_blank"
@@ -164,7 +180,7 @@ export function SpotifyCard() {
                 <Image
                   className="main-border h-16 w-16 rounded-md"
                   title={albumName}
-                  src={albumImageUrl}
+                  src={`/api/spotify/image-proxy?url=${encodeURIComponent(albumImageUrl)}`}
                   alt={albumName}
                   width={64}
                   height={64}
@@ -179,14 +195,14 @@ export function SpotifyCard() {
                   </p>
                   {spotifyIcon}
                 </div>
-                <p 
-                  className="truncate text-xs text-gray-600 dark:text-gray-300" 
+                <p
+                  className="truncate text-xs text-gray-600 dark:text-gray-300"
                   title={artistName}
                 >
                   by <span>{artistName}</span>
                 </p>
-                <p 
-                  className="w-10/12 truncate text-xs text-gray-600 dark:text-gray-300" 
+                <p
+                  className="w-10/12 truncate text-xs text-gray-600 dark:text-gray-300"
                   title={albumName}
                 >
                   on <span>{albumName}</span>
@@ -197,7 +213,7 @@ export function SpotifyCard() {
           <div className="grid gap-1">
             <div className="relative h-1 rounded-full bg-gray-300 dark:bg-gray-600">
               <div
-                className="gradient-background h-1 rounded-full transition-[width] duration-300"
+                className="h-1 rounded-full bg-[#1ed760] transition-[width] duration-300"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
