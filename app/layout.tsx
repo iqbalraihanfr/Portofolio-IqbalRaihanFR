@@ -4,7 +4,6 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footr"
-import { ScrollIndicator } from "@/components/scroll-indicator"
 import { Toaster } from "@/components/ui/toaster"
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from "@vercel/analytics/react"
@@ -43,10 +42,9 @@ export default function RootLayout({
             storageKey="portfolio-theme"
           >
             {/* <ProgressProvider /> */}
-            <ScrollIndicator />
             <Navbar />
             <main className="dark:bg-black min-h-[calc(100vh-4rem)] pt-16">
-              <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-9 py-9">
                 {children}
               </div>
             </main>

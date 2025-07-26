@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,7 +30,7 @@ const projects = [
     category: "AI/ML",
     date: "May 2025 - Jun 2025",
     status: "Completed",
-    github: "#",
+    github: "https://github.com/fikrahdamar/hybrid-recommender-backend",
     demo: "#",
     features: [
       "Hybrid recommendation algorithm",
@@ -52,11 +46,12 @@ const projects = [
       "Community service project empowering local UMKM with web-based product catalog",
     longDescription:
       "A community service initiative aimed at empowering a local UMKM that produces handmade educational toys. Developed a responsive frontend using Next.js App Router and Tailwind CSS, optimized for mobile devices and SEO. Built a lightweight PHP + MySQL backend for the admin dashboard.",
-    image: "/aset.png",
+    image: "/asset2.jpg",
     tech: ["Next.js", "PHP", "MySQL", "Tailwind CSS", "SEO"],
     category: "Web Development",
     date: "Jun 2025 - Ongoing",
     status: "In Progress",
+    github: "https://github.com/FitriaNovarina/Web_UMKM_Legowo",
     demo: "#",
     features: [
       "Responsive product catalog",
@@ -77,7 +72,8 @@ const projects = [
     category: "Web Development",
     date: "2025",
     status: "Live",
-    demo: "#",
+    github: "https://github.com/iqbalraihanfr/website-ratih-2025",
+    demo: "https://ratih-house.netlify.app/",
     features: [
       "Modern company profile",
       "Portfolio showcase",
@@ -123,7 +119,7 @@ export function ProjectsSection() {
   };
 
   return (
-    <section className="py-20 bg-white dark:bg-neutral-950">
+    <section className="py-auto bg-white dark:bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -132,8 +128,8 @@ export function ProjectsSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
-            Featured Projects
+          <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-[#a855f7] via-[#f472b6] to-[#f4a4b6] text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+            Projects
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A showcase of my recent work in web development, AI/ML, and project
@@ -176,7 +172,7 @@ export function ProjectsSection() {
                 layout
                 className="group"
               >
-                <Card className="h-full card-hover border-0 shadow-lg bg-card/50 backdrop-blur-xs">
+                <SpotlightCard className="h-full">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <Image
                       src={project.image || "/asset.png"}
@@ -201,24 +197,24 @@ export function ProjectsSection() {
                     </div>
                   </div>
 
-                  <CardHeader>
+                  <div className="p-6">
                     <div className="flex items-start justify-between">
                       <div>
-                        <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-lg font-semibold group-hover:text-blue-600 transition-colors">
                           {project.title}
-                        </CardTitle>
-                        <CardDescription className="mt-2">
+                        </h3>
+                        <p className="mt-2 text-muted-foreground">
                           {project.description}
-                        </CardDescription>
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center text-sm text-muted-foreground mt-2">
                       <Calendar className="w-4 h-4 mr-1" />
                       {project.date}
                     </div>
-                  </CardHeader>
+                  </div>
 
-                  <CardContent>
+                  <div className="px-6 pb-6">
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.slice(0, 3).map((tech) => (
                         <Badge
@@ -247,7 +243,7 @@ export function ProjectsSection() {
                             View Details
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-2xl max-h-[80vh] text-black overflow-y-auto rounded-2xl border-0 shadow-lg bg-white/50 backdrop-blur-sm">
+                        <DialogContent className="max-w-2xl max-h-[80vh] rounded-2xl text-black overflow-y-auto border-0 shadow-lg bg-white backdrop-blur-sm">
                           <DialogHeader>
                             <DialogTitle className="text-2xl">
                               {project.title}
@@ -331,25 +327,25 @@ export function ProjectsSection() {
                         </Button>
                       )}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
 
         {/* Achievement Highlight */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
           className="mt-16 text-center"
         >
-          <Card
-            className={`max-w-2xl mx-auto ${colors.gradients.card} border-0`}
+          <SpotlightCard
+            className="max-w-2xl mx-auto"
           >
-            <CardContent className="p-8">
+            <div className="p-8">
               <div className="flex items-center justify-center mb-4">
                 <Award className="w-8 h-8 text-yellow-500 mr-2" />
                 <h3 className="text-xl font-bold">Recent Achievement</h3>
@@ -359,9 +355,9 @@ export function ProjectsSection() {
                 Project Olympiad (I2ASPO) 2024
               </p>
               <Badge variant="secondary">Scientific Research Team</Badge>
-            </CardContent>
-          </Card>
-        </motion.div>
+            </div>
+          </SpotlightCard>
+        </motion.div> */}
       </div>
     </section>
   );

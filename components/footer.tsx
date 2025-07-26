@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   const socialLinks = [
     {
       name: "GitHub",
@@ -30,7 +30,7 @@ export function Footer() {
           <div className="text-sm text-gray-600 dark:text-gray-400">
             © {currentYear} Iqbal Raihan. All rights reserved.
           </div>
-          
+
           <div className="flex items-center gap-4">
             {socialLinks.map((link) => (
               <a
@@ -45,9 +45,9 @@ export function Footer() {
               </a>
             ))}
           </div>
-          
+
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors flex items-center gap-1"
             aria-label="Back to top"
           >

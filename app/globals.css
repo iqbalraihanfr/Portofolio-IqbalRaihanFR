@@ -11,7 +11,6 @@
   --color-accent-start: theme(colors.purple.500);
   --color-accent-end: theme(colors.pink.400);
 
-
   --color-myblue: #1fabe1;
   --color-mydarkblue: #0e7da7;
   --color-border: hsl(var(--border));
@@ -117,10 +116,10 @@
   }
 
   #nprogress .peg {
-    box-shadow: 0 0 10px var(--color-accent-main), 0 0 5px var(--color-accent-main) !important;
+    box-shadow: 0 0 10px var(--color-accent-main),
+      0 0 5px var(--color-accent-main) !important;
   }
 }
-
 
 @utility glass-effect {
   @apply bg-white/20 dark:bg-gray-900/20 backdrop-blur-xl border border-white/20 dark:border-gray-700/20;
@@ -182,7 +181,6 @@
 @layer utilities {
   :root {
     --font-inter: "Inter", sans-serif;
-
   }
 }
 

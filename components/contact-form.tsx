@@ -6,13 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -133,7 +127,7 @@ export function ContactForm() {
   };
 
   return (
-    <section className="py-32 relative overflow-hidden bg-white dark:bg-neutral-950">
+    <section className="py-20 relative overflow-hidden bg-white dark:bg-neutral-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -142,14 +136,6 @@ export function ContactForm() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <div
-            className={`inline-flex items-center space-x-2 ${colors.background.muted} px-4 py-2 rounded-full mb-6`}
-          >
-            <MessageCircle className="w-4 h-4 text-purple-600" />
-            <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
-              Let's Connect
-            </span>
-          </div>
 
           <h2
             className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 ${colors.gradients.contact} bg-clip-text text-transparent`}
@@ -229,8 +215,8 @@ export function ContactForm() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Card className={`${colors.gradients.card}`}>
-                <CardContent className="p-8">
+              <SpotlightCard>
+                <div className="p-8">
                   <div className="flex items-center space-x-4 mb-4">
                     <div
                       className={`w-12 h-12 ${colors.gradients.primary} rounded-full flex items-center justify-center`}
@@ -243,8 +229,8 @@ export function ContactForm() {
                     I typically respond to messages within 24 hours. For urgent
                     matters, feel free to reach out via phone or LinkedIn.
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </SpotlightCard>
             </motion.div>
           </motion.div>
 
@@ -255,17 +241,17 @@ export function ContactForm() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <Card className="shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <SpotlightCard className="shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
+              <div className="text-center p-6">
+                <h2 className="text-2xl font-bold bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Send a Message
-                </CardTitle>
-                <CardDescription className="text-lg">
+                </h2>
+                <p className="text-lg text-muted-foreground mt-2">
                   Fill out the form below and I'll get back to you as soon as
                   possible.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
+                </p>
+              </div>
+              <div className="p-6">
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -399,8 +385,8 @@ export function ContactForm() {
                     </motion.div>
                   </form>
                 </Form>
-              </CardContent>
-            </Card>
+              </div>
+            </SpotlightCard>
           </motion.div>
         </div>
       </div>

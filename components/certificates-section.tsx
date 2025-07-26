@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -247,7 +241,7 @@ export function CertificatesSection({
                 layout
                 className="group"
               >
-                <Card className="h-full card-hover border-0 shadow-lg bg-card/50 backdrop-blur-xs overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group-hover:border group-hover:border-blue-200 dark:group-hover:border-blue-800">
+                <SpotlightCard className="h-full overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group-hover:border group-hover:border-blue-200 dark:group-hover:border-blue-800">
                   <div className="relative">
                     <div className="absolute top-4 right-4 z-10">
                       <div className="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
@@ -272,10 +266,10 @@ export function CertificatesSection({
                     </div>
                   </div>
 
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg group-hover:text-blue-600 group-hover:scale-105 transition-all duration-300 line-clamp-2">
+                  <div className="p-6 pb-2">
+                    <h3 className="text-lg font-semibold group-hover:text-blue-600 group-hover:scale-105 transition-all duration-300 line-clamp-2">
                       {certificate.title}
-                    </CardTitle>
+                    </h3>
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Building className="w-4 h-4 mr-1" />
                       {certificate.organization}
@@ -284,12 +278,12 @@ export function CertificatesSection({
                       <Calendar className="w-4 h-4 mr-1" />
                       {certificate.issueDate}
                     </div>
-                  </CardHeader>
+                  </div>
 
-                  <CardContent className="pt-0">
-                    <CardDescription className="mb-4 line-clamp-3">
+                  <div className="px-6 pb-6">
+                    <p className="mb-4 line-clamp-3 text-muted-foreground">
                       {certificate.description}
-                    </CardDescription>
+                    </p>
 
                     <div className="flex flex-wrap gap-1 mb-4">
                       {certificate.skills.slice(0, 3).map((skill) => (
@@ -483,8 +477,8 @@ export function CertificatesSection({
                         </Button>
                       )}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -499,8 +493,8 @@ export function CertificatesSection({
             transition={{ delay: 0.3 }}
             className="mt-16"
           >
-            <Card className="max-w-4xl mx-auto bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-0">
-              <CardContent className="p-8">
+            <SpotlightCard className="max-w-4xl mx-auto bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+              <div className="p-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                   <div>
                     <div className="text-3xl font-bold text-blue-600 mb-2">
@@ -533,8 +527,8 @@ export function CertificatesSection({
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </SpotlightCard>
           </motion.div>
         )}
       </div>

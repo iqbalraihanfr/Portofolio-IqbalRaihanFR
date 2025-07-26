@@ -13,7 +13,7 @@ type FooterLink = {
 const footerLinks: FooterLink[] = [
   {
     name: 'Source code',
-    href: 'https://github.com/iqbalraihan/portfolio',
+    href: 'https://github.com/iqbalraihanfr/Portofolio-IqbalRaihanFR',
     tip: 'This website is open source!'
   },
   {
@@ -41,13 +41,13 @@ export function Footer() {
   const socialLinks: SocialLink[] = [
     {
       name: "GitHub",
-      href: "https://github.com/iqbalraihan",
+      href: "https://github.com/iqbalraihanfr",
       icon: Github,
       tip: "View my GitHub profile"
     },
     {
       name: "LinkedIn",
-      href: "https://linkedin.com/in/iqbalraihanfaturrahmanr/",
+      href: "https://linkedin.com/in/iqbalraihanfr",
       icon: Linkedin,
       tip: "Connect on LinkedIn"
     },
@@ -60,10 +60,10 @@ export function Footer() {
   ];
 
   return (
-    <footer className="mt-20 border-t border-gray-200 dark:border-gray-800/50 bg-white/50 dark:bg-black/50 backdrop-blur-lg">
+    <footer className="mt-10 border-t border-gray-200 dark:border-gray-800/50 bg-white/50 dark:bg-black/50 backdrop-blur-lg">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Footer Links */}
-        <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-12">
+        <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-8">
           {footerLinks.map(({ name, href, tip }) => (
             <motion.div
               key={name}
@@ -113,11 +113,8 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+        <div className="-mb-10 text-center text-sm text-gray-500 dark:text-gray-400">
           <p>© {currentYear} Iqbal Raihan. All rights reserved.</p>
-          <p className="mt-2">
-            Built with Next.js, Tailwind CSS, and ❤️
-          </p>
         </div>
 
         {/* Back to top button */}

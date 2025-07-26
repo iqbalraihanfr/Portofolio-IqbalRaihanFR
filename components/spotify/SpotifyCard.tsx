@@ -114,22 +114,22 @@ export function SpotifyCard() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="main-border clickable flex w-80 items-center justify-between rounded-md p-4">
+      <div className="border rounded-xl clickable flex w-80 items-center justify-between rounded-md p-4">
         <div className="flex items-center justify-between">
           <div className="h-5 w-40 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-          <SiSpotify className="shrink-0 text-lg text-[#1ed760]" />
+          <SiSpotify className="shrink-0 text-xl text-[#1ed760]" />
         </div>
       </div>
     );
   }
 
   const { isPlaying, item } = trackInfo;
-  const spotifyIcon = <SiSpotify className="shrink-0 text-lg text-[#1ed760]" />;
+  const spotifyIcon = <SiSpotify className="shrink-0 text-xl text-[#1ed760]" />;
 
   // No song playing state
   if (!isPlaying || !item) {
     return (
-      <div className="main-border clickable flex w-80 items-center justify-between rounded-md p-4">
+      <div className="border rounded-xl clickable flex w-80 items-center justify-between rounded-md p-4">
         <div className="flex items-center justify-between">
           <p>No song is currently playing</p>
           {spotifyIcon}
@@ -141,7 +141,7 @@ export function SpotifyCard() {
   // Error state
   if (trackInfo.error) {
     return (
-      <div className="main-border clickable flex w-80 items-center justify-between rounded-md p-4">
+      <div className="border rounded-xl clickable flex w-80 items-center justify-between rounded-md p-4">
         <div className="flex items-center justify-between">
           <p className="text-red-500">{trackInfo.error}</p>
           {spotifyIcon}
@@ -171,14 +171,14 @@ export function SpotifyCard() {
         href={trackUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="main-border clickable peer flex w-80 items-center gap-4 rounded-md p-4"
+        className="rounded-xl border clickable peer flex w-80 items-center gap-4 p-2"
       >
-        <div className="grid w-full gap-4">
+        <div className="grid px-3 py-2 outline-none w-full gap-4">
           <div className="flex gap-4">
             {albumImageUrl && (
               <div className="flex-shrink-0">
                 <Image
-                  className="main-border h-16 w-16 rounded-md"
+                  className="border-transparent rounded-xl h-16 w-16"
                   title={albumName}
                   src={`/api/spotify/image-proxy?url=${encodeURIComponent(albumImageUrl)}`}
                   alt={albumName}

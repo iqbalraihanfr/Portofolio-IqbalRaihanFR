@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -375,12 +369,12 @@ export function AchievementsSection({
                 layout
                 className="group"
               >
-                <Card className="h-full card-hover border-0 shadow-lg bg-card/50 backdrop-blur-xs overflow-hidden">
+                <SpotlightCard className="h-full overflow-hidden">
                   <div
                     className={`h-2 bg-linear-to-r ${achievement.bgColor}`}
                   />
 
-                  <CardHeader className="pb-4">
+                  <div className="p-6 pb-4">
                     <div className="flex items-start justify-between mb-4">
                       <div
                         className={`w-12 h-12 rounded-lg bg-linear-to-br ${achievement.bgColor} flex items-center justify-center`}
@@ -403,15 +397,15 @@ export function AchievementsSection({
                       </div>
                     </div>
 
-                    <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-xl font-semibold group-hover:text-blue-600 transition-colors">
                       {achievement.title}
-                    </CardTitle>
-                    <CardDescription className="text-base">
+                    </h3>
+                    <p className="text-base text-muted-foreground">
                       {achievement.description}
-                    </CardDescription>
-                  </CardHeader>
+                    </p>
+                  </div>
 
-                  <CardContent className="pt-0">
+                  <div className="px-6 pb-6">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">
@@ -571,8 +565,8 @@ export function AchievementsSection({
                         </DialogContent>
                       </Dialog>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -587,8 +581,8 @@ export function AchievementsSection({
             transition={{ delay: 0.3 }}
             className="mt-16"
           >
-            <Card className="max-w-5xl mx-auto bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-0">
-              <CardContent className="p-8">
+            <SpotlightCard className="max-w-5xl mx-auto bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+              <div className="p-8">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold mb-2">
                     Achievement Summary
@@ -648,8 +642,8 @@ export function AchievementsSection({
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </SpotlightCard>
           </motion.div>
         )}
       </div>

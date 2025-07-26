@@ -9,7 +9,7 @@ import { HiDocumentText } from "react-icons/hi2";
 import { colors } from "@/lib/colors";
 import dynamic from 'next/dynamic';
 import { SpotifyCard } from "./spotify/SpotifyCard";
-
+import TextType from "./TextType/TextType";
 // Dynamically import the NowPlaying component with no SSR
 const NowPlaying = dynamic(
   () => import('@/components/spotify/NowPlaying'),
@@ -19,17 +19,17 @@ const NowPlaying = dynamic(
 const socialLinks = [
   {
     name: 'Resume',
-    href: 'https://docs.google.com/document/d/1emlC1CdiKDE0sVVqkpoZWj5FSLdXoFUe2kIXAFxF8Kg/edit?usp=sharing',
+    href: 'https://drive.google.com/file/d/1MFsgnB1qz6gSidvXc6eD4ejoggAtQiM4/view?usp=sharing',
     Icon: HiDocumentText
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/in/yourusername',
+    href: 'https://linkedin.com/in/iqbalraihanfr',
     Icon: SiLinkedin
   },
   {
     name: 'GitHub',
-    href: 'https://github.com/yourusername',
+    href: 'https://github.com/iqbalraihanfr',
     Icon: SiGithub
   }
 ];
@@ -37,6 +37,7 @@ const socialLinks = [
 export function HeroSection() {
   return (
     <section className="-mt-35 min-h-screen grid content-center">
+      
       <motion.h2
         className="text-2xl font-bold transition-colors delay-100 md:text-4xl 2xl:text-5xl"
         initial={{ opacity: 0, y: 20 }}
@@ -56,7 +57,25 @@ export function HeroSection() {
         <span className={`${colors.gradients.hero} bg-clip-text text-transparent`}>
           Raihan
         </span>
-        {' '}- Full Stack Developer
+        {' '}- 
+        <TextType
+          text={[
+            " Frontend Developer",
+            " Backend Developer",
+            " Full Stack Developer",
+          ]}
+          as="span"
+          typingSpeed={80}
+          deletingSpeed={50}
+          pauseDuration={4000}
+          initialDelay={750}
+          loop={true}
+          variableSpeed={{min: 50, max: 150}}
+          showCursor={true}
+          cursorCharacter="|"
+          cursorClassName="text-primary animate-pulse dark:text-white"
+          className="inline"
+        />
       </motion.h1>
       
       <motion.p
@@ -71,7 +90,12 @@ export function HeroSection() {
         building innovative web applications.
       </motion.p>
       {/* <NowPlaying /> */}
+      <motion.div
+      className="mt-4"
+      >
       <SpotifyCard/>
+      </motion.div>
+      
       
       <motion.div 
         className="mt-8 flex gap-4 text-sm md:text-base"
