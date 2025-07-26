@@ -29,7 +29,7 @@ const projects = [
     tech: ["Next.js", "Python", "FastAPI", "TensorFlow", "Pandas", "NumPy"],
     category: "AI/ML",
     date: "May 2025 - Jun 2025",
-    status: "Completed",
+    // status: "Completed",
     github: "https://github.com/fikrahdamar/hybrid-recommender-backend",
     demo: "#",
     features: [
@@ -46,11 +46,11 @@ const projects = [
       "Community service project empowering local UMKM with web-based product catalog",
     longDescription:
       "A community service initiative aimed at empowering a local UMKM that produces handmade educational toys. Developed a responsive frontend using Next.js App Router and Tailwind CSS, optimized for mobile devices and SEO. Built a lightweight PHP + MySQL backend for the admin dashboard.",
-    image: "/asset2.jpg",
+    image: "/images/LEGOWO.png",
     tech: ["Next.js", "PHP", "MySQL", "Tailwind CSS", "SEO"],
     category: "Web Development",
     date: "Jun 2025 - Ongoing",
-    status: "In Progress",
+    // status: "In Progress",
     github: "https://github.com/FitriaNovarina/Web_UMKM_Legowo",
     demo: "#",
     features: [
@@ -67,11 +67,11 @@ const projects = [
       "Company profile website for a local production house offering creative services",
     longDescription:
       "A static company profile website developed for RATIH Creative, a local production house offering photography, videography, and graphic design services since 2021. Acted as the sole fullstack developer, responsible for architecture planning, component structuring, UI development, deployment, and SEO optimization.",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "/images/ratih.png",
     tech: ["Next.js", "Tailwind CSS", "Netlify", "Headless CMS"],
     category: "Web Development",
     date: "2025",
-    status: "Live",
+    // status: "Live",
     github: "https://github.com/iqbalraihanfr/website-ratih-2025",
     demo: "https://ratih-house.netlify.app/",
     features: [

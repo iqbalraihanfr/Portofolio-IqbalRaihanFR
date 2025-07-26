@@ -3,11 +3,11 @@ export const colors = {
   // Background colors
   background: {
     primary: "bg-white dark:bg-black",
-    secondary: "bg-gray-50 dark:bg-neutral-950",
-    muted: "bg-gray-100 dark:bg-neutral-900",
-    card: "bg-white dark:bg-neutral-800",
-    cardTransparent: "bg-white/80 dark:bg-neutral-800/80",
-    section: "bg-white dark:bg-neutral-950",
+    secondary: "bg-gray-50 dark:bg-black",
+    muted: "bg-gray-100 dark:bg-black",
+    card: "bg-white dark:bg-black",
+    cardTransparent: "bg-white/80 dark:bg-black/80",
+    section: "bg-white dark:bg-black",
   },
 
   // Text colors

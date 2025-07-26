@@ -81,7 +81,7 @@ export function AboutSection() {
   };
 
   return (
-    <section className="-py-10 bg-white dark:bg-neutral-950">
+    <section className="-py-10 bg-white dark:bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -221,17 +221,14 @@ export function AboutSection() {
         </div>
 
         {/* Skills Section with Bento Grid */}
-        <SkillsBentoGrid />
-
-        {/* Team Collaboration Section */}
-        <TeamTooltipSection />
+        {/* <SkillsBentoGrid /> */}
 
         {/* Experience Timeline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16"
+          className="mt-5"
         >
           <Timeline 
             data={experiences.map((exp) => ({
@@ -239,7 +236,7 @@ export function AboutSection() {
               content: (
                 <div className="space-y-4 z-100">
                   <div className="flex items-center space-x-3">
-                    <exp.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    <exp.icon className="w-6 h-6 text-pink-400 dark:text-pink-300" />
                     <div>
                       <h4 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
                         {exp.title}
@@ -258,11 +255,15 @@ export function AboutSection() {
           />
         </motion.div>
 
+        {/* Team Collaboration Section */}
+        <TeamTooltipSection />
+
+
         {/* Testimonials Section */}
         {/* <TestimonialsSection /> */}
 
         {/* Certificates Section Preview */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -278,10 +279,10 @@ export function AboutSection() {
             </Button>
           </div>
           <CertificatesSection isPreview={true} />
-        </motion.div>
+        </motion.div> */}
 
         {/* Achievements Section Preview */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -297,7 +298,7 @@ export function AboutSection() {
             </Button>
           </div>
           <AchievementsSection isPreview={true} />
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

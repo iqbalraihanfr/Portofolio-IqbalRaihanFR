@@ -2,7 +2,7 @@ import { ContactForm } from "@/components/contact-form"
 
 export default function ContactPage() {
   return (
-    <div className="pt-16">
+    <div className="">
       <ContactForm />
     </div>
   )

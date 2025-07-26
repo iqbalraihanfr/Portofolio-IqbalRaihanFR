@@ -181,7 +181,7 @@ export function CertificatesSection({
   };
 
   return (
-    <section className="py-20 bg-white dark:bg-neutral-950">
+    <section className="py-20 bg-white dark:bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -200,7 +200,7 @@ export function CertificatesSection({
         </motion.div>
 
         {/* Category Filter */}
-        {!isPreview && (
+        {/* {!isPreview && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -308,7 +308,7 @@ export function CertificatesSection({
                           <Button
                             variant="outline"
                             size="sm"
-                            className="flex-1 bg-transparent"
+                            className="flex-1 bg-white"
                           >
                             View Details
                           </Button>
@@ -485,7 +485,7 @@ export function CertificatesSection({
         </motion.div>
 
         {/* Stats Summary */}
-        {!isPreview && (
+        {/* {!isPreview && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -530,7 +530,7 @@ export function CertificatesSection({
               </div>
             </SpotlightCard>
           </motion.div>
-        )}
+        )} */}
       </div>
     </section>
   );
