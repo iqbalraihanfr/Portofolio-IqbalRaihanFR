@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ExternalLink, Github, Calendar, Award } from "lucide-react";
+import { TechIcon } from "@/components/ui/tech-icons";
 import { colors } from "@/lib/colors";
 import Image from "next/image";
 
@@ -25,12 +26,12 @@ const projects = [
       "A hybrid recommendation system integrating content-based and collaborative filtering approaches",
     longDescription:
       "Developed a full-featured web application using Next.js, Tailwind CSS, and shadcn/ui to simulate profile selection and recommendations. Implemented data cleaning techniques and visualized key insights using Pandas, NumPy, and Matplotlib. Fine-tuned matrix factorization and LSTM models for collaborative filtering with optimized hyperparameters.",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "/images/movie-project.png",
     tech: ["Next.js", "Python", "FastAPI", "TensorFlow", "Pandas", "NumPy"],
     category: "AI/ML",
     date: "May 2025 - Jun 2025",
     // status: "Completed",
-    github: "https://github.com/fikrahdamar/hybrid-recommender-backend",
+    github: "https://github.com/iqbalraihanfr/hybrid-recommender-backend.git",
     demo: "#",
     features: [
       "Hybrid recommendation algorithm",
@@ -51,8 +52,8 @@ const projects = [
     category: "Web Development",
     date: "Jun 2025 - Ongoing",
     // status: "In Progress",
-    github: "https://github.com/FitriaNovarina/Web_UMKM_Legowo",
-    demo: "#",
+    github: "https://github.com/iqbalraihanfr/Web_UMKM_Legowo.git",
+    demo: "https://www.legowo.id",
     features: [
       "Responsive product catalog",
       "Admin dashboard",
@@ -162,7 +163,7 @@ export function ProjectsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
         >
           <AnimatePresence mode="sync">
             {filteredProjects.map((project) => (
@@ -179,22 +180,9 @@ export function ProjectsSection() {
                       alt={project.title}
                       width={500}
                       height={300}
-                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-48 object-contain transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute top-4 right-4">
-                      <Badge
-                        variant={
-                          project.status === "Completed"
-                            ? "default"
-                            : project.status === "Live"
-                            ? "secondary"
-                            : "outline"
-                        }
-                      >
-                        {project.status}
-                      </Badge>
-                    </div>
                   </div>
 
                   <div className="p-6">
@@ -215,20 +203,12 @@ export function ProjectsSection() {
                   </div>
 
                   <div className="px-6 pb-6">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.slice(0, 3).map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="secondary"
-                          className="text-xs"
-                        >
-                          {tech}
-                        </Badge>
+                    <div className="flex flex-wrap items-center gap-3 mt-4">
+                      {project.tech.slice(0, 5).map((tech) => (
+                        <TechIcon key={tech} tech={tech} />
                       ))}
-                      {project.tech.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{project.tech.length - 3} more
-                        </Badge>
+                      {project.tech.length > 5 && (
+                        <div className="text-xs text-muted-foreground">+ more</div>
                       )}
                     </div>
 
@@ -258,7 +238,7 @@ export function ProjectsSection() {
                               alt={project.title}
                               width={600}
                               height={300}
-                              className="w-full h-64 object-cover rounded-lg"
+                              className="w-full h-64 object-contain rounded-lg mb-6"
                             />
 
                             <div>
@@ -276,11 +256,9 @@ export function ProjectsSection() {
                               <h4 className="font-semibold mb-2">
                                 Technologies Used
                               </h4>
-                              <div className="flex flex-wrap gap-2">
+                              <div className="flex flex-wrap items-center gap-4">
                                 {project.tech.map((tech) => (
-                                  <Badge key={tech} variant="secondary">
-                                    {tech}
-                                  </Badge>
+                                  <TechIcon key={tech} tech={tech} />
                                 ))}
                               </div>
                             </div>
