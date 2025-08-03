@@ -88,6 +88,7 @@ const categories = ["All", "Web Development", "AI/ML", "Mobile"];
 
 export function ProjectsSection() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<
     (typeof projects)[0] | null
   >(null);
@@ -166,14 +167,20 @@ export function ProjectsSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
         >
           <AnimatePresence mode="sync">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
-                variants={itemVariants}
                 layout
-                className="group"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="relative rounded-3xl hover:shadow-lg"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <SpotlightCard className="h-full">
+                <SpotlightCard className="h-full flex flex-col">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <Image
                       src={project.image || "/asset.png"}
@@ -185,40 +192,39 @@ export function ProjectsSection() {
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
 
-                  <div className="p-6">
-                    <div className="flex items-start justify-between">
+                  <div className="p-6 flex flex-col flex-grow">
+                    <div className="flex-grow space-y-4">
                       <div>
-                        <h3 className="text-lg font-semibold group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-lg font-semibold hover:text-amber-600 transition-colors">
                           {project.title}
                         </h3>
-                        <p className="mt-2 text-muted-foreground">
+                        <p className="text-sm text-muted-foreground mt-2">
                           {project.description}
                         </p>
                       </div>
-                    </div>
-                    <div className="flex items-center text-sm text-muted-foreground mt-2">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {project.date}
-                    </div>
-                  </div>
 
-                  <div className="px-6 pb-6">
-                    <div className="flex flex-wrap items-center gap-3 mt-4">
-                      {project.tech.slice(0, 5).map((tech) => (
-                        <TechIcon key={tech} tech={tech} />
-                      ))}
-                      {project.tech.length > 5 && (
-                        <div className="text-xs text-muted-foreground">+ more</div>
-                      )}
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        <span>{project.date}</span>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-4">
+                        {project.tech.slice(0, 5).map((tech) => (
+                          <TechIcon key={tech} tech={tech} />
+                        ))}
+                        {project.tech.length > 5 && (
+                          <div className="text-xs text-muted-foreground">+ more</div>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="mt-6 flex items-center justify-between">
                       <Dialog>
                         <DialogTrigger asChild>
                           <Button
                             variant="outline"
                             size="sm"
-                            className="flex-1 bg-transparent"
+                            className="w-full bg-transparent"
                           >
                             View Details
                           </Button>
@@ -256,9 +262,13 @@ export function ProjectsSection() {
                               <h4 className="font-semibold mb-2">
                                 Technologies Used
                               </h4>
-                              <div className="flex flex-wrap items-center gap-4">
+                              <div className="flex flex-wrap items-center gap-8">
                                 {project.tech.map((tech) => (
-                                  <TechIcon key={tech} tech={tech} />
+                                  <TechIcon
+                                    key={tech}
+                                    tech={tech}
+                                    className="w-12 h-12"
+                                  />
                                 ))}
                               </div>
                             </div>
