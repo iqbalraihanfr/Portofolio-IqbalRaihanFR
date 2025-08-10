@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    NEXTAUTH_URL: process.env.NODE_ENV === 'production'
-      ? 'https://portofolio-iqbalrfr.vercel.app'
-      : 'http://127.0.0.1:3000',
-  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -12,7 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
     domains: ['i.scdn.co'], // Spotify album art
   },
   webpack: (config, { isServer }) => {

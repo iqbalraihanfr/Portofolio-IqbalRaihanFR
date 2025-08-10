@@ -152,19 +152,19 @@ export function AboutSection() {
                   <span className="text-sm text-muted-foreground">
                     Projects
                   </span>
-                  <Badge variant="secondary">10+</Badge>
+                  <Badge variant="secondary">4</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">
                     Certificates
                   </span>
-                  <Badge variant="secondary">5+</Badge>
+                  <Badge variant="secondary">5</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">
                     Leadership Roles
                   </span>
-                  <Badge variant="secondary">4+</Badge>
+                  <Badge variant="secondary">2</Badge>
                 </div>
               </div>
             </SpotlightCard>

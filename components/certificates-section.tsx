@@ -1,27 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, PanInfo } from "framer-motion";
+import { ChevronLeft, ChevronRight, Award, Calendar, Building, ExternalLink, Download, CheckCircle, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Award,
-  Calendar,
-  Building,
-  ExternalLink,
-  Download,
-  CheckCircle,
-  Star,
-} from "lucide-react";
+import "../styles/flip-card.css";
 
 const certificates = [
   {
@@ -29,129 +13,179 @@ const certificates = [
     title: "Samsung Innovation Campus Batch 5",
     organization: "Samsung",
     issueDate: "July 2024",
-    description:
-      "Comprehensive training program covering Cloud & Platform, Internet of Things, and Artificial Intelligence using Python. Gained essential skills for advancing career in technology field.",
+    description: "Comprehensive training program covering Cloud & Platform, Internet of Things, and Artificial Intelligence using Python.",
     category: "Technology",
-    skills: ["Python", "Cloud Computing", "IoT", "Artificial Intelligence"],
-    credentialId: "SIC-2024-B5-001",
-    image: "/placeholder.svg?height=300&width=400",
-    verificationUrl: "#",
+    image: "/placeholder.svg?height=400&width=600",
     type: "Scholarship Program",
-    duration: "6 months",
-    highlights: [
-      "Hands-on experience with AI/ML algorithms",
-      "Cloud platform deployment projects",
-      "IoT device programming and integration",
-      "Industry-standard Python development practices",
-    ],
+    achievementType: "Gold Medal – Technology Excellence"
   },
   {
     id: 2,
     title: "Learn Data Science",
     organization: "Dicoding",
     issueDate: "2024",
-    description:
-      "Comprehensive data science course covering data analysis, visualization, machine learning fundamentals, and practical implementation using Python libraries.",
+    description: "Comprehensive data science course covering data analysis, visualization, machine learning fundamentals.",
     category: "Data Science",
-    skills: ["Python", "Pandas", "NumPy", "Matplotlib", "Machine Learning"],
-    credentialId: "DCD-DS-2024-002",
-    image: "/placeholder.svg?height=300&width=400",
-    verificationUrl: "#",
+    image: "/placeholder.svg?height=400&width=600",
     type: "Professional Certificate",
-    duration: "3 months",
-    highlights: [
-      "Data cleaning and preprocessing techniques",
-      "Statistical analysis and visualization",
-      "Machine learning model development",
-      "Real-world data science projects",
-    ],
+    achievementType: "Certificate – Data Science Mastery"
   },
   {
     id: 3,
     title: "System Administration and IT Infrastructure Services",
     organization: "Dicoding",
     issueDate: "2024",
-    description:
-      "Advanced course in system administration covering server management, network configuration, security protocols, and IT infrastructure best practices.",
+    description: "Advanced course in system administration covering server management and network configuration.",
     category: "System Administration",
-    skills: [
-      "Linux",
-      "Network Administration",
-      "Security",
-      "Server Management",
-    ],
-    credentialId: "DCD-SA-2024-003",
-    image: "/placeholder.svg?height=300&width=400",
-    verificationUrl: "#",
+    image: "/placeholder.svg?height=400&width=600",
     type: "Professional Certificate",
-    duration: "2 months",
-    highlights: [
-      "Linux server administration",
-      "Network security implementation",
-      "Infrastructure monitoring and maintenance",
-      "Troubleshooting and optimization",
-    ],
+    achievementType: "Certificate – Infrastructure Expert"
   },
   {
     id: 4,
     title: "Pemilihan Umum Raya Fakultas Ilmu Komputer 2025",
     organization: "UPN Veteran Jawa Timur",
     issueDate: "January 2025",
-    description:
-      "Recognition for successfully organizing and leading the Faculty of Computer Science General Election as Committee Chairperson.",
+    description: "Recognition for successfully organizing and leading the Faculty of Computer Science General Election.",
     category: "Leadership",
-    skills: [
-      "Project Management",
-      "Leadership",
-      "Event Organization",
-      "Team Coordination",
-    ],
-    credentialId: "PEMIRA-2025-CHAIR",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "/placeholder.svg?height=400&width=600",
     type: "Leadership Certificate",
-    duration: "3 months",
-    highlights: [
-      "Led cross-functional teams",
-      "Managed electoral process integrity",
-      "Coordinated logistics and operations",
-      "Ensured transparent democratic process",
-    ],
+    achievementType: "Award – Leadership Excellence"
   },
 ];
 
-const categories = [
-  "All",
-  "Technology",
-  "Data Science",
-  "System Administration",
-  "Leadership",
-];
+interface FlipCardProps {
+  certificate: typeof certificates[0];
+  isActive: boolean;
+  direction: number;
+}
+
+function FlipCard({ certificate, isActive, direction }: FlipCardProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  return (
+    <motion.div
+      className="flip-card-container relative w-full max-w-md mx-auto"
+      initial={{ rotateY: direction > 0 ? 90 : -90, opacity: 0 }}
+      animate={{ rotateY: 0, opacity: 1 }}
+      exit={{ rotateY: direction > 0 ? -90 : 90, opacity: 0 }}
+      transition={{
+        duration: 0.6,
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      }}
+      whileHover={{ scale: 1.05 }}
+      onHoverStart={() => setIsFlipped(true)}
+      onHoverEnd={() => setIsFlipped(false)}
+      onTap={() => setIsFlipped(!isFlipped)}
+      style={{ perspective: "1000px" }}
+    >
+      <motion.div
+        className={`flip-card relative w-full h-96 cursor-pointer ${isFlipped ? 'flipped' : ''}`}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.6, type: "spring", stiffness: 100, damping: 15 }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {/* Front of card */}
+        <div className="flip-card-front absolute inset-0 w-full h-full rounded-2xl overflow-hidden flip-card-shadow hover:flip-card-shadow-hover transition-shadow duration-300">
+          <div className="relative w-full h-full gradient-bg-light dark:gradient-bg-dark">
+            <img
+              src={certificate.image}
+              alt={certificate.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <Badge className="mb-3 bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30 transition-colors duration-300">
+                {certificate.category}
+              </Badge>
+              <h3 className="text-xl font-bold mb-2 drop-shadow-lg">{certificate.title}</h3>
+              <p className="text-sm opacity-90 drop-shadow-md">{certificate.organization}</p>
+              <div className="mt-3 flex items-center gap-2 text-xs opacity-80">
+                <Calendar className="w-3 h-3" />
+                <span>{certificate.issueDate}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Back of card */}
+        <div className="flip-card-back absolute inset-0 w-full h-full rounded-2xl overflow-hidden flip-card-shadow">
+          <div className="w-full h-full gradient-bg-card-back-light dark:gradient-bg-card-back-dark p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Award className="w-5 h-5 text-blue-600 dark:text-blue-300" />
+                <span className="text-sm font-semibold text-blue-600 dark:text-blue-300">
+                  {certificate.achievementType}
+                </span>
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-gray-900 dark:text-white">
+                {certificate.title}
+              </h3>
+              <p className="text-sm text-gray-700 dark:text-gray-200 mb-4 leading-relaxed">
+                {certificate.description}
+              </p>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <Building className="w-4 h-4" />
+                <span>{certificate.organization}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <Calendar className="w-4 h-4" />
+                <span>{certificate.issueDate}</span>
+              </div>
+              <Button size="sm" className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 shadow-lg">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View Certificate
+              </Button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export function CertificatesSection({
   isPreview = false,
 }: {
   isPreview?: boolean;
 }) {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedCertificate, setSelectedCertificate] = useState<
-    (typeof certificates)[0] | null
-  >(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const dragX = useMotionValue(0);
+  const dragProgress = useTransform(dragX, [-200, 0, 200], [-1, 0, 1]);
 
-  const filteredCertificates = isPreview
-    ? certificates.slice(0, 3)
-    : selectedCategory === "All"
-    ? certificates
-    : certificates.filter((cert) => cert.category === selectedCategory);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+  const nextCard = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % certificates.length);
   };
+
+  const prevCard = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + certificates.length) % certificates.length);
+  };
+
+  const handleDragEnd = (event: any, info: PanInfo) => {
+    const threshold = 50;
+    if (info.offset.x > threshold) {
+      prevCard();
+    } else if (info.offset.x < -threshold) {
+      nextCard();
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") prevCard();
+      if (event.key === "ArrowRight") nextCard();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -181,356 +215,114 @@ export function CertificatesSection({
   };
 
   return (
-    <section className="py-20 bg-white dark:bg-black">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* Section Header */}
+      <div className="text-center mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
-            Certificates & Credentials
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Certificates & Achievements
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Professional certifications and credentials that validate my
-            expertise across various technology domains
-          </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6" />
         </motion.div>
-
-        {/* Category Filter */}
-        {/* {!isPreview && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-2 mb-12"
-          >
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={
-                  selectedCategory === category ? "default" : "outline-solid"
-                }
-                onClick={() => setSelectedCategory(category)}
-                className="transition-all duration-300"
-              >
-                {category !== "All" && (
-                  <span className="mr-2">{getCategoryIcon(category)}</span>
-                )}
-                {category}
-              </Button>
-            ))}
-          </motion.div>
-        )}
-
-        {/* Certificates Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-lg text-muted-foreground max-w-2xl mx-auto"
         >
-          <AnimatePresence mode="wait">
-            {filteredCertificates.map((certificate) => (
-              <motion.div
-                key={certificate.id}
-                variants={itemVariants}
-                layout
-                className="group"
-              >
-                <SpotlightCard className="h-full overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group-hover:border group-hover:border-blue-200 dark:group-hover:border-blue-800">
-                  <div className="relative">
-                    <div className="absolute top-4 right-4 z-10">
-                      <div className="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-                        <Award className="w-5 h-5 text-yellow-600" />
-                      </div>
-                    </div>
-                    <div className="absolute top-4 left-4 z-10">
-                      <Badge
-                        variant="secondary"
-                        className="bg-white/90 text-black"
-                      >
-                        <span className="mr-1">
-                          {getCategoryIcon(certificate.category)}
-                        </span>
-                        {certificate.category}
-                      </Badge>
-                    </div>
-                    <div className="h-32 bg-linear-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 flex items-center justify-center group-hover:from-blue-200 group-hover:via-purple-100 group-hover:to-pink-200 dark:group-hover:from-blue-800/30 dark:group-hover:via-purple-800/30 dark:group-hover:to-pink-800/30 transition-all duration-500">
-                      <div className="text-4xl opacity-20 group-hover:opacity-30 group-hover:scale-110 transition-all duration-300">
-                        {getCategoryIcon(certificate.category)}
-                      </div>
-                    </div>
-                  </div>
+          Professional certifications and achievements showcasing continuous learning and expertise
+        </motion.p>
+      </div>
 
-                  <div className="p-6 pb-2">
-                    <h3 className="text-lg font-semibold group-hover:text-blue-600 group-hover:scale-105 transition-all duration-300 line-clamp-2">
-                      {certificate.title}
-                    </h3>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Building className="w-4 h-4 mr-1" />
-                      {certificate.organization}
-                    </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {certificate.issueDate}
-                    </div>
-                  </div>
-
-                  <div className="px-6 pb-6">
-                    <p className="mb-4 line-clamp-3 text-muted-foreground">
-                      {certificate.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {certificate.skills.slice(0, 3).map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="outline"
-                          className="text-xs"
-                        >
-                          {skill}
-                        </Badge>
-                      ))}
-                      {certificate.skills.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{certificate.skills.length - 3}
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="flex-1 bg-white"
-                          >
-                            View Details
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-                          <DialogHeader>
-                            <div className="flex items-start justify-between">
-                              <div className="flex-1">
-                                <DialogTitle className="text-2xl mb-2">
-                                  {certificate.title}
-                                </DialogTitle>
-                                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                                  <div className="flex items-center">
-                                    <Building className="w-4 h-4 mr-1" />
-                                    {certificate.organization}
-                                  </div>
-                                  <div className="flex items-center">
-                                    <Calendar className="w-4 h-4 mr-1" />
-                                    {certificate.issueDate}
-                                  </div>
-                                  {certificate.duration && (
-                                    <Badge variant="secondary">
-                                      {certificate.duration}
-                                    </Badge>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Badge variant="default">
-                                  <span className="mr-1">
-                                    {getCategoryIcon(certificate.category)}
-                                  </span>
-                                  {certificate.category}
-                                </Badge>
-                              </div>
-                            </div>
-                            <DialogDescription className="text-base leading-relaxed">
-                              {certificate.description}
-                            </DialogDescription>
-                          </DialogHeader>
-
-                          <div className="space-y-6">
-                            {/* Certificate Image */}
-                            <div className="relative h-64 bg-linear-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg overflow-hidden">
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-center">
-                                  <div className="text-6xl mb-4 opacity-30">
-                                    {getCategoryIcon(certificate.category)}
-                                  </div>
-                                  <p className="text-muted-foreground">
-                                    Certificate Preview
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Key Highlights */}
-                            <div>
-                              <h4 className="font-semibold mb-3 flex items-center">
-                                <Star className="w-4 h-4 mr-2 text-yellow-500" />
-                                Key Highlights
-                              </h4>
-                              <ul className="space-y-2">
-                                {certificate.highlights.map(
-                                  (highlight, index) => (
-                                    <li
-                                      key={index}
-                                      className="flex items-start"
-                                    >
-                                      <CheckCircle className="w-4 h-4 mr-2 text-green-500 mt-0.5 shrink-0" />
-                                      <span className="text-sm text-muted-foreground">
-                                        {highlight}
-                                      </span>
-                                    </li>
-                                  )
-                                )}
-                              </ul>
-                            </div>
-
-                            {/* Skills Acquired */}
-                            <div>
-                              <h4 className="font-semibold mb-3">
-                                Skills Acquired
-                              </h4>
-                              <div className="flex flex-wrap gap-2">
-                                {certificate.skills.map((skill) => (
-                                  <Badge key={skill} variant="secondary">
-                                    {skill}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Certificate Details */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg">
-                              <div>
-                                <p className="text-sm font-medium">
-                                  Certificate Type
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                  {certificate.type}
-                                </p>
-                              </div>
-                              {certificate.credentialId && (
-                                <div>
-                                  <p className="text-sm font-medium">
-                                    Credential ID
-                                  </p>
-                                  <p className="text-sm text-muted-foreground font-mono">
-                                    {certificate.credentialId}
-                                  </p>
-                                </div>
-                              )}
-                              <div>
-                                <p className="text-sm font-medium">
-                                  Issue Date
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                  {certificate.issueDate}
-                                </p>
-                              </div>
-                              {certificate.duration && (
-                                <div>
-                                  <p className="text-sm font-medium">
-                                    Duration
-                                  </p>
-                                  <p className="text-sm text-muted-foreground">
-                                    {certificate.duration}
-                                  </p>
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Action Buttons */}
-                            <div className="flex gap-2">
-                              {certificate.verificationUrl && (
-                                <Button variant="outline" size="sm" asChild>
-                                  <a
-                                    href={certificate.verificationUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    <ExternalLink className="w-4 h-4 mr-2" />
-                                    Verify Certificate
-                                  </a>
-                                </Button>
-                              )}
-                              <Button size="sm" variant="ghost">
-                                <Download className="w-4 h-4 mr-2" />
-                                Download PDF
-                              </Button>
-                            </div>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-
-                      {certificate.verificationUrl && (
-                        <Button size="sm" variant="ghost" asChild>
-                          <a
-                            href={certificate.verificationUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </SpotlightCard>
-              </motion.div>
-            ))}
+      {/* 3D Flip Card Carousel */}
+      <div className="relative max-w-2xl mx-auto">
+        {/* Main Card Container */}
+        <motion.div
+          className="relative h-[500px] flex items-center justify-center"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={handleDragEnd}
+          style={{ x: dragX }}
+        >
+          <AnimatePresence mode="wait" custom={direction}>
+            <FlipCard
+              key={currentIndex}
+              certificate={certificates[currentIndex]}
+              isActive={true}
+              direction={direction}
+            />
           </AnimatePresence>
         </motion.div>
 
-        {/* Stats Summary */}
-        {/* {!isPreview && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="mt-16"
+        {/* Navigation Arrows */}
+        <div className="absolute top-1/2 -translate-y-1/2 left-4 right-4 flex justify-between pointer-events-none">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={prevCard}
+            className="pointer-events-auto bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-900 shadow-lg border-0 hover:scale-110 transition-all duration-300"
           >
-            <SpotlightCard className="max-w-4xl mx-auto bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
-              <div className="p-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                  <div>
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
-                      {certificates.length}
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Total Certificates
-                    </p>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-purple-600 mb-2">
-                      4
-                    </div>
-                    <p className="text-sm text-muted-foreground">Categories</p>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-green-600 mb-2">
-                      2024
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Most Recent Year
-                    </p>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-orange-600 mb-2">
-                      15+
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Skills Validated
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </SpotlightCard>
-          </motion.div>
-        )} */}
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={nextCard}
+            className="pointer-events-auto bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-900 shadow-lg border-0 hover:scale-110 transition-all duration-300"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+        </div>
+
+        {/* Dot Indicators */}
+        <div className="flex justify-center gap-2 mt-8">
+          {certificates.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setDirection(index > currentIndex ? 1 : -1);
+                setCurrentIndex(index);
+              }}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentIndex
+                  ? "bg-gradient-to-r from-blue-600 to-purple-600 scale-125"
+                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Caption */}
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="text-center mt-6"
+        >
+          <p className="text-lg font-semibold text-gray-900 dark:text-white">
+            {certificates[currentIndex].achievementType}
+          </p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {certificates[currentIndex].organization} • {certificates[currentIndex].issueDate}
+          </p>
+        </motion.div>
+
+        {/* Instructions */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-12 text-sm text-muted-foreground"
+        >
+          <p>Hover or tap cards to flip • Use arrow keys or drag to navigate</p>
+        </motion.div>
       </div>
     </section>
   );
