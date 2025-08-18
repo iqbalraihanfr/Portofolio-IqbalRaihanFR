@@ -1,9 +1,8 @@
-import CertificatesDemo from "@/components/certificates-section";
+import { certificates as data } from "@/features/certificates/lib/data";
+import CertificatesClient from "./client";
+
+export const metadata = { title: "Certificates" };
 
 export default function CertificatesPage() {
-  return (
-    <div className="">
-      <CertificatesDemo />
-    </div>
-  );
+  return <CertificatesClient data={data} />;
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { AnimatedTooltip } from "@/src/components/ui/animated-tooltip"
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip"
 
 const teamMembers = [
   {

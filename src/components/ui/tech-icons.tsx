@@ -25,9 +25,9 @@ import {
 } from "react-icons/si";
 import { TbSeo } from "react-icons/tb";
 import { FaDatabase } from "react-icons/fa";
-import { Tooltip } from "@/src/components/ui/tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
 import type { IconType } from "react-icons";
-import { cn } from "@/src/lib/utils/utils";
+import { cn } from "@/lib/utils/utils";
 import { Badge } from "./badge";
 
 type TechList = Record<string, { name: string; Icon: IconType }>;

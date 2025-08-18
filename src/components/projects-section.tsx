@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import SpotlightCard from "@/src/components/SpotlightCard/SpotlightCard";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,10 +12,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import { ExternalLink, Github, Calendar, Award } from "lucide-react";
-import { TechIcon } from "@/src/components/ui/tech-icons";
-import { colors } from "@/src/lib/utils/colors";
+import { TechIcon } from "@/components/ui/tech-icons";
+import { colors } from "@/lib/utils/colors";
 import Image from "next/image";
 
 const projects = [
