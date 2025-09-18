@@ -4,6 +4,9 @@ import {
   collection, addDoc, getDocs, orderBy, query, serverTimestamp, limit, startAfter, getDoc, doc
 } from 'firebase/firestore'
 import { GuestbookSchema } from '@/lib/validations/guestbook'
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]";
+import type { CustomSession } from '@/lib/types/api';
 
 const COL = 'guestbook'
 
@@ -38,19 +41,27 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  const session = await getServerSession(authOptions) as CustomSession;
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const json = await req.json().catch(() => null)
   const parsed = GuestbookSchema.safeParse(json)
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 })
   }
 
-  const { name, message } = parsed.data
+  const { message } = parsed.data
 
-  // DEV: no-auth, no-rate-limit (biar cepat ship). Nanti bisa ditambah.
   const docRef = await addDoc(collection(db, COL), {
-    name,
+    name: session.user.name,
     message,
     createdAt: serverTimestamp(),
+    createdBy: session.user.id,
+    image: session.user.image,
+    username: session.user.username,
   })
 
   return NextResponse.json({ ok: true, id: docRef.id })

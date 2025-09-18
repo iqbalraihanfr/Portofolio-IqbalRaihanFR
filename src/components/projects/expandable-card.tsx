@@ -2,7 +2,7 @@
 
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useOutsideClick } from "@/hooks/use-outside-click";
+import { useOutsideClick } from "@/lib/hooks/use-outside-click";
 
 export function ExpandableCardDemo() {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
@@ -29,7 +29,9 @@ export function ExpandableCardDemo() {
   }, [active]);
 
   // Fix type error by casting ref to expected type for useOutsideClick
-  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => setActive(null));
+  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () =>
+    setActive(null)
+  );
 
   return (
     <>

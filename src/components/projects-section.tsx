@@ -9,7 +9,7 @@ import { ExternalLink, Github, Calendar, Award, X } from "lucide-react";
 import { TechIcon } from "@/components/ui/tech-icons";
 import { colors } from "@/lib/utils/colors";
 import Image from "next/image";
-import { useOutsideClick } from "@/hooks/use-outside-click";
+import { useOutsideClick } from "@/lib/hooks/use-outside-click";
 
 const projects = [
   {

@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/lib/hooks/use-toast";
 import {
   Mail,
   Phone,
@@ -136,7 +136,6 @@ export function ContactForm() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-
           <h2
             className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 ${colors.gradients.contact} bg-clip-text text-transparent`}
           >

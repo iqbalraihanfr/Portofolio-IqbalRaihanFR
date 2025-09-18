@@ -36,7 +36,7 @@ const socialLinks = [
 
 export function HeroSection() {
   return (
-    <section className="-mt-35 min-h-screen grid content-center">
+    <section className="-mt-15 min-h-screen grid content-center">
       
       <motion.h2
         className="text-2xl font-bold transition-colors delay-100 md:text-4xl 2xl:text-5xl"
@@ -55,7 +55,7 @@ export function HeroSection() {
       >
         I'm{' '}
         <span className={`${colors.gradients.hero} bg-clip-text text-transparent`}>
-          Raihan
+          Iqbal Raihan
         </span>
         {' '}- 
         <TextType

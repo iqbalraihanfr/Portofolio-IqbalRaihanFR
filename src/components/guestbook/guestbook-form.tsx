@@ -1,73 +1,95 @@
-'use client'
+import { useState, type FormEvent } from 'react';
+import { signIn, signOut } from 'next-auth/react';
+import { clsx } from 'clsx';
+import { SiGithub } from 'react-icons/si';
+import { Button } from '@/components/ui/button';
+import type { CustomSession } from '@/lib/types/api';
 
-import { useState } from 'react'
+type GuestbookCardProps = {
+  session: CustomSession | null;
+  registerGuestbook: (message: string) => Promise<void>;
+};
 
-export default function GuestbookForm({ onPosted }: { onPosted: () => void }) {
-  const [name, setName] = useState('')
-  const [msg, setMsg] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+export function GuestbookForm({
+  session,
+  registerGuestbook
+}: GuestbookCardProps): React.JSX.Element {
+  const [loading, setLoading] = useState(false);
 
-  async function submit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
-    try {
-      const res = await fetch('/api/guestbook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, message: msg }),
-      })
-      if (!res.ok) {
-        const j = await res.json().catch(() => ({}))
-        throw new Error(j?.error ? 'Invalid input' : 'Failed to post')
-      }
-      setName(''); setMsg('')
-      onPosted()
-    } catch (err: any) {
-      setError(err.message ?? 'Failed')
-    } finally {
-      setLoading(false)
-    }
-  }
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const input = e.currentTarget[0] as HTMLInputElement;
+
+    input.blur();
+
+    const { value } = input;
+
+    await registerGuestbook(value);
+
+    input.value = '';
+
+    setLoading(false);
+  };
 
   return (
-    <div className="rounded-xl border bg-white/80 p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/60">
-      <h2 className="text-2xl font-extrabold">
-        <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">
-          Sign the Guestbook
-        </span>
-      </h2>
-      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
-        Share a message for a future visitor of my site.
-      </p>
-
-      <form onSubmit={submit} className="mt-4 space-y-3">
+    <>
+      <form
+        className='mt-4 flex items-center gap-2 text-sm transition md:text-base'
+        onSubmit={handleSubmit}
+      >
         <input
-          value={name} onChange={(e)=>setName(e.target.value)}
-          placeholder="Your name"
-          className="w-full rounded-lg border bg-white/70 px-4 py-3 outline-none ring-fuchsia-500/30 focus:ring dark:bg-neutral-900/60"
+          className={clsx(
+            'custom-input w-full disabled:cursor-not-allowed',
+            loading && 'brightness-75'
+          )}
+          type='text'
+          placeholder={
+            session ? 'Your message...' : 'Sign in to leave a message'
+          }
+          disabled={loading || !session}
+          required
         />
-        <input
-          value={msg} onChange={(e)=>setMsg(e.target.value)}
-          placeholder="Sign in to leave a message"
-          className="w-full rounded-lg border bg-white/70 px-4 py-3 outline-none ring-fuchsia-500/30 focus:ring dark:bg-neutral-900/60"
-        />
-
-        <div className="flex items-center gap-3">
-          <button
-            disabled={loading || !name || !msg}
-            className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-neutral-50 disabled:opacity-60 dark:hover:bg-neutral-800"
+        {session ? (
+          <Button
+            type='submit'
+            className='custom-button clickable font-bold text-gray-600 dark:text-gray-300'
+            disabled={loading} 
           >
-            {loading ? 'Sending…' : 'Sign'}
-          </button>
-          {error && <span className="text-sm text-red-600">{error}</span>}
-        </div>
-
-        <p className="text-xs text-neutral-500">
-          Your information is only used to display your name and message.
-        </p>
+            Sign
+          </Button>
+        ) : (
+          <Button
+            className='custom-button clickable flex items-center gap-2 whitespace-nowrap
+                       font-bold text-gray-600 dark:text-gray-300'
+            onClick={handleSignIn}
+          >
+            <SiGithub className='h-5 w-5' />
+            Sign in
+          </Button>
+        )}
       </form>
-    </div>
-  )
+      {session && (
+        <button
+          className='smooth-tab mt-2 border-none text-sm font-medium text-gray-700 transition
+                     hover:text-black disabled:cursor-not-allowed disabled:brightness-50 
+                     dark:text-gray-200 dark:hover:text-white md:text-base'
+          onClick={handleSignOut}
+          disabled={loading}
+        >
+          ← Sign out @{session.user.name}
+        </button>
+      )}
+    </>
+  );
+}
+
+function handleSignIn(): void {
+  void signIn('github');
+}
+
+function handleSignOut(): void {
+  void signOut();
 }

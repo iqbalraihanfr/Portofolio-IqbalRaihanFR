@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Accent } from "@/components/ui/accent";
 import {
   GraduationCap,
   Users,
