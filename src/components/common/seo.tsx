@@ -1,13 +1,15 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
-import { frontendEnv } from "@lib/env";
-import type { Content, ContentType } from "@lib/types/contents";
+import { frontendEnv } from "@/lib/env";
+import type { ContentType } from "@/lib/types/contents";
+import type { StaticImageData } from "next/image";
 
-export type Article = Pick<
-  Content,
-  "tags" | "banner" | "publishedAt" | "lastUpdatedAt"
-> & {
+export type Article = {
+  tags: string;
+  banner: StaticImageData;
+  publishedAt: string;
+  lastUpdatedAt?: string;
   type: ContentType;
 };
 

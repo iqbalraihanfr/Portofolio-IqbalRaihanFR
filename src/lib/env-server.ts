@@ -2,6 +2,9 @@ import { z } from 'zod';
 import { validStringSchema } from './env';
 
 const envSchema = z.object({
+  // Tambahkan variabel token di sini TANPA NEXT_PUBLIC_
+  OWNER_BEARER_TOKEN: validStringSchema,
+  
   // Email
   EMAIL_TARGET: validStringSchema,
   EMAIL_ADDRESS: validStringSchema,

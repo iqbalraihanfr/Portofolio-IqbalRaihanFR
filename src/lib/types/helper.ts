@@ -1,9 +1,8 @@
-import type { Content } from './contents';
 import type {
   HTMLAttributes,
   PropsWithChildren,
-  ComponentPropsWithoutRef
-} from 'react';
+  ComponentPropsWithoutRef,
+} from "react";
 
 export type ValidTag = keyof React.JSX.IntrinsicElements;
 
@@ -15,7 +14,6 @@ export type CustomTag<T extends ValidTag> = PropsWithChildren<
 
 export type APIResponse<T = unknown> = T | { message: string };
 
-export type PropsForViews<T = unknown> = T &
-  Pick<Content, 'slug'> & {
-    increment?: boolean;
-  };
+export type PropsForViews<T = unknown> = T & { slug: string } & {
+  increment?: boolean;
+};

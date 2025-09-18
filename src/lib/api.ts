@@ -1,4 +1,4 @@
-import { createTransport } from 'nodemailer';
+import { createTransport } from "nodemailer";
 import {
   doc,
   query,
@@ -6,26 +6,49 @@ import {
   getDoc,
   setDoc,
   getDocs,
-  orderBy
-} from 'firebase/firestore';
+  orderBy,
+} from "firebase/firestore";
 import {
   contentsCollection,
-  guestbookCollection
-} from './firebase/collections';
-import { backendEnv } from './env-server';
-import { getAllContents } from './mdx';
-import { getContentFiles } from './mdx-utils';
-import { VALID_CONTENT_TYPES } from './helper-server';
-import { removeContentExtension } from './helper';
-import type { Blog, ContentType } from './types/contents';
-import type { CustomSession } from './types/api';
-import type { ContentMeta } from './types/meta';
+  guestbookCollection,
+} from "./firebase/collections";
+import { backendEnv } from "./env-server";
+import { VALID_CONTENT_TYPES } from "./helper-server";
+import { removeContentExtension } from "./helper";
+
+import type { CustomSession } from "./types/api";
+import type { ContentMeta } from "./types/meta";
 import type {
   ContentData,
   ContentColumn,
-  ContentStatistics
-} from './types/statistics';
-import type { Guestbook } from './types/guestbook';
+  ContentStatistics,
+} from "./types/statistics";
+import type { Guestbook } from "./types/guestbook";
+
+// ---- MDX stubs (disabled for V1) ----
+type ContentType = "blog" | "projects";
+type Blog = any;
+type Project = any;
+
+async function getContentFiles(_type: ContentType): Promise<string[]> {
+  return []; // no mdx for now
+}
+
+async function getContentReadTime(_type: ContentType, _slug: string) {
+  return { text: "" }; // not used now
+}
+
+async function getContentByFiles(
+  _files: string[],
+  _type: ContentType
+): Promise<(Blog | Project)[]> {
+  return []; // no content
+}
+
+async function getAllContents(type: ContentType): Promise<(Blog | Project)[]> {
+  return []; // no content
+}
+// -------------------------------------
 
 /**
  * Initialize all blog and projects if not exists in firestore at build time.
@@ -50,11 +73,11 @@ export async function initializeContents(type: ContentType): Promise<void> {
 
     if (snapshot.exists()) return;
 
-    const newContent: Omit<ContentMeta, 'slug'> = {
+    const newContent: Omit<ContentMeta, "slug"> = {
       type,
       views: 0,
       likes: 0,
-      likesBy: {}
+      likesBy: {},
     };
 
     await setDoc(doc(contentsCollection, slug), newContent);
@@ -68,26 +91,26 @@ export async function initializeContents(type: ContentType): Promise<void> {
  */
 export async function getGuestbook(): Promise<Guestbook[]> {
   const guestbookSnapshot = await getDocs(
-    query(guestbookCollection, orderBy('createdAt', 'desc'))
+    query(guestbookCollection, orderBy("createdAt", "desc"))
   );
 
   const guestbook = guestbookSnapshot.docs.map((doc) => doc.data());
 
   const parsedGuestbook = guestbook.map(({ createdAt, ...data }) => ({
     ...data,
-    createdAt: createdAt.toJSON()
+    createdAt: createdAt.toJSON(),
   })) as Guestbook[];
 
   return parsedGuestbook;
 }
 
-export type BlogWithViews = Blog & Pick<ContentMeta, 'views'>;
+export type BlogWithViews = Blog & Pick<ContentMeta, "views">;
 
 /**
  * Returns all the blog posts with the views.
  */
 export async function getAllBlogWithViews(): Promise<BlogWithViews[]> {
-  const posts = await getAllContents('blog');
+  const posts = await getAllContents("blog");
 
   const postsPromises = posts.map(async (post) => {
     const snapshot = await getDoc(doc(contentsCollection, post.slug));
@@ -109,11 +132,11 @@ export async function sendEmail(
   session: CustomSession
 ): Promise<void> {
   const client = createTransport({
-    service: 'Gmail',
+    service: "Gmail",
     auth: {
       user: backendEnv.EMAIL_ADDRESS,
-      pass: backendEnv.EMAIL_PASSWORD
-    }
+      pass: backendEnv.EMAIL_PASSWORD,
+    },
   });
 
   const { name, email } = session.user;
@@ -124,7 +147,7 @@ export async function sendEmail(
     from: backendEnv.EMAIL_ADDRESS,
     to: backendEnv.EMAIL_TARGET,
     subject: emailHeader,
-    text: text
+    text: text,
   });
 }
 
@@ -135,7 +158,7 @@ export async function getContentStatistics(
   type: ContentType
 ): Promise<ContentStatistics> {
   const contentsSnapshot = await getDocs(
-    query(contentsCollection, where('type', '==', type))
+    query(contentsCollection, where("type", "==", type))
   );
 
   const contents = contentsSnapshot.docs.map((doc) => doc.data());
@@ -144,7 +167,7 @@ export async function getContentStatistics(
     ([accPosts, accViews, accLikes], { views, likes }) => [
       accPosts + 1,
       accViews + views,
-      accLikes + likes
+      accLikes + likes,
     ],
     [0, 0, 0]
   );
@@ -170,7 +193,7 @@ export async function getAllContentsStatistics(): Promise<ContentStatistics[]> {
  */
 export async function getContentData(type: ContentType): Promise<ContentData> {
   const contentsSnapshot = await getDocs(
-    query(contentsCollection, where('type', '==', type))
+    query(contentsCollection, where("type", "==", type))
   );
 
   const contents = contentsSnapshot.docs.map((doc) => doc.data());
@@ -179,13 +202,13 @@ export async function getContentData(type: ContentType): Promise<ContentData> {
     ({ slug, views, likes }) => ({
       slug,
       views,
-      likes
+      likes,
     })
   );
 
   const contentData: ContentData = {
     type,
-    data: filteredContents
+    data: filteredContents,
   };
 
   return contentData;
