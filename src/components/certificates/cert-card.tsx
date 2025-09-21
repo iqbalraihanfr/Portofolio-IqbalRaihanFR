@@ -14,7 +14,7 @@ export default function CertCard({ c }: { c: Certificate }) {
       href={`/certificates/${c.slug}`}
       className="group overflow-hidden rounded-xl border border-gray-200 bg-white/80 shadow-sm transition hover:shadow-md dark:border-gray-800 dark:bg-black/60"
     >
-      <div className="relative h-52 w-full bg-gray-50 dark:bg-gray-900">
+      <div className="relative h-52 w-full bg-gray-50 dark:bg-black">
         <Image
           src={c.cover}
           alt={c.title}

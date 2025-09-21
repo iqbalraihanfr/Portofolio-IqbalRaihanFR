@@ -1,4 +1,4 @@
-import type { Timestamp } from 'firebase/firestore';
+import type { Timestamp } from "firebase/firestore";
 
 const NUMBER_FORMATTER = new Intl.NumberFormat();
 
@@ -10,7 +10,7 @@ export function formatNumber(numberValue: number): string {
 }
 
 const DATE_FORMATTER = new Intl.DateTimeFormat(undefined, {
-  dateStyle: 'long'
+  dateStyle: "long",
 });
 
 /**
@@ -25,23 +25,23 @@ export function formatDate(dateString: string): string {
 }
 
 const SHORT_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat(undefined, {
-  timeStyle: 'short'
+  timeStyle: "short",
 });
 
 const LONG_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat(undefined, {
-  dateStyle: 'short'
+  dateStyle: "short",
 });
 
-type TimestampProps = Pick<Timestamp, 'seconds' | 'nanoseconds'>;
+type TimestampProps = Pick<Timestamp, "seconds" | "nanoseconds">;
 
 /**
- * Get a formatted date from a Firestore timestamp.
+ * Get a formatted date from a Firestore timestamp or number.
  *
- * @param timestampProps The timestamp to format.
+ * @param timestamp The timestamp to format (can be TimestampProps or number).
  * @returns A formatted date string.
  */
-export function formatTimestamp(timestamp: TimestampProps): string {
-  const date = getDateFromTimestamp(timestamp);
+export function formatTimestamp(timestamp: TimestampProps | number): string {
+  const date = getDateFromTimestampOrNumber(timestamp);
 
   if (dateIsToday(date))
     return `Today at ${SHORT_TIMESTAMP_FORMATTER.format(date)}`;
@@ -59,38 +59,55 @@ export function formatTimestamp(timestamp: TimestampProps): string {
  * @returns A formatted string representing the playback time.
  */
 export function formatMilisecondsToPlayback(ms: number): string {
-  if (!ms || ms < 0) return '0:00';
+  if (!ms || ms < 0) return "0:00";
 
   const totalSeconds = Math.floor(ms / 1000);
 
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
 
-  const paddedSeconds = seconds.toString().padStart(2, '0');
+  const paddedSeconds = seconds.toString().padStart(2, "0");
 
   return `${minutes}:${paddedSeconds}`;
 }
 
 const FULL_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat(undefined, {
-  weekday: 'short',
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric'
+  weekday: "short",
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
 });
 
 /**
- * Get a full formatted date from a Firestore timestamp.
+ * Get a full formatted date from a Firestore timestamp or number.
  *
- * @param timestamp The timestamp to format.
+ * @param timestamp The timestamp to format (can be TimestampProps or number).
  * @returns A formatted date string.
  */
-export function formatFullTimeStamp(timestamp: TimestampProps): string {
-  const date = getDateFromTimestamp(timestamp);
+export function formatFullTimeStamp(
+  timestamp: TimestampProps | number
+): string {
+  const date = getDateFromTimestampOrNumber(timestamp);
 
   return FULL_TIMESTAMP_FORMATTER.format(date);
+}
+
+/**
+ * Returns a converted date from a Firestore timestamp or number.
+ */
+function getDateFromTimestampOrNumber(
+  timestamp: TimestampProps | number
+): Date {
+  if (typeof timestamp === "number") {
+    return new Date(timestamp);
+  }
+
+  const { seconds, nanoseconds } = timestamp;
+  const miliseconds = seconds * 1000 + nanoseconds / 1_000_000;
+  return new Date(miliseconds);
 }
 
 /**

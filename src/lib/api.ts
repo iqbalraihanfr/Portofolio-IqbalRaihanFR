@@ -14,7 +14,6 @@ import {
 } from "./firebase/collections";
 import { backendEnv } from "./env-server";
 import { VALID_CONTENT_TYPES } from "./helper-server";
-import { removeContentExtension } from "./helper";
 
 import type { CustomSession } from "./types/api";
 import type { ContentMeta } from "./types/meta";
@@ -67,7 +66,7 @@ export async function initializeContents(type: ContentType): Promise<void> {
   const contents = await getContentFiles(type);
 
   const contentPromises = contents.map(async (slug) => {
-    slug = removeContentExtension(slug);
+    // MDX disabled: slugs are already normalized or list is empty
 
     const snapshot = await getDoc(doc(contentsCollection, slug));
 
@@ -96,12 +95,14 @@ export async function getGuestbook(): Promise<Guestbook[]> {
 
   const guestbook = guestbookSnapshot.docs.map((doc) => doc.data());
 
-  const parsedGuestbook = guestbook.map(({ createdAt, ...data }) => ({
-    ...data,
-    createdAt: createdAt.toJSON(),
-  })) as Guestbook[];
+  // FIX: Serialize the 'createdAt' field from a Firestore Timestamp to a number (milliseconds).
+  // This is necessary because non-plain objects cannot be passed from Server Components to Client Components in Next.js.
+  const parsedGuestbook = guestbook.map((entry) => ({
+    ...entry,
+    createdAt: entry.createdAt?.toMillis?.() ?? entry.createdAt,
+  }));
 
-  return parsedGuestbook;
+  return parsedGuestbook as Guestbook[];
 }
 
 export type BlogWithViews = Blog & Pick<ContentMeta, "views">;

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth/next";
 import { getGuestbook } from "@/lib/api";
-import { authOptions } from "@/app/api/auth/[...nextauth]";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import type { CustomSession } from "@/lib/types/api";
 import type { Metadata } from 'next';
 import GuestbookClient from "./client";

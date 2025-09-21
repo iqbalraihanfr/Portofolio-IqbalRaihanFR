@@ -8,7 +8,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: false,
-    domains: ['i.scdn.co'], // Spotify album art
+    domains: ["i.scdn.co", "avatars.githubusercontent.com"], // Spotify album art, GitHub avatars
   },
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `node:` protocol
@@ -27,15 +27,15 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         headers: [
           {
-            key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
+            key: "Cross-Origin-Embedder-Policy",
+            value: "require-corp",
           },
           {
-            key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
           },
         ],
       },

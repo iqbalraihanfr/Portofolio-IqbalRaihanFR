@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning className="motion-safe:scroll-smooth">
       <body
-        className={`${inter.variable} min-h-dvh flex flex-col font-sans antialiased bg-white text-gray-900 transition-colors duration-200 dark:bg-gray-950 dark:text-gray-100`}
+        className={`${inter.variable} min-h-dvh flex flex-col font-sans antialiased bg-white text-gray-900 transition-colors duration-200 dark:bg-black dark:text-gray-100`}
       >
         {/* A11y: skip link */}
         <a

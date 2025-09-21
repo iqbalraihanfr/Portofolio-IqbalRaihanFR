@@ -28,7 +28,12 @@ export function useGuestbook(fallbackData: Guestbook[]): UseGuestbook {
     const newGuestbook = await fetcher<Guestbook>('/api/guestbook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text })
+      // highlight-start
+      // UBAH baris ini:
+      // body: JSON.stringify({ text })
+      // MENJADI:
+      body: JSON.stringify({ message: text })
+      // highlight-end
     });
 
     await mutate([newGuestbook, ...(guestbook ?? [])]);
