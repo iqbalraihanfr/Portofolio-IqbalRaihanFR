@@ -1,12 +1,14 @@
+// src/lib/hooks/use-guestbook.ts
+
 import useSWR from 'swr';
 import { fetcher } from '@/lib/fetcher';
 import type { ValidApiEndpoints } from '@/lib/types/api';
-import type { Guestbook, Text } from '@/lib/types/guestbook';
+import type { Guestbook } from '@/lib/types/guestbook';
 
 type UseGuestbook = {
   guestbook?: Guestbook[];
   isLoading: boolean;
-  registerGuestbook: (text: Text) => Promise<void>;
+  registerGuestbook: (message: string) => Promise<void>;
   unRegisterGuestbook: (id: string) => Promise<void>;
 };
 
@@ -20,31 +22,30 @@ export function useGuestbook(fallbackData: Guestbook[]): UseGuestbook {
     mutate
   } = useSWR<Guestbook[], unknown, ValidApiEndpoints>(
     '/api/guestbook',
-    fetcher,
-    { fallbackData }
+    // FIX 1: Ubah fetcher untuk mengambil array 'items' dari respons API
+    (url: ValidApiEndpoints) => fetcher(url).then((data: any) => data.items),
+    { 
+      // FallbackData dari server component sudah berupa array, jadi ini akan cocok
+      fallbackData 
+    }
   );
 
-  const registerGuestbook = async (text: Text): Promise<void> => {
-    const newGuestbook = await fetcher<Guestbook>('/api/guestbook', {
+  // FIX 2: Sederhanakan fungsi registerGuestbook untuk memicu re-fetch
+  const registerGuestbook = async (message: string): Promise<void> => {
+    // Kirim pesan baru ke API
+    await fetcher('/api/guestbook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // highlight-start
-      // UBAH baris ini:
-      // body: JSON.stringify({ text })
-      // MENJADI:
-      body: JSON.stringify({ message: text })
-      // highlight-end
+      body: JSON.stringify({ message }) // Pastikan key adalah 'message'
     });
-
-    await mutate([newGuestbook, ...(guestbook ?? [])]);
+    // Panggil mutate() tanpa argumen untuk memberitahu SWR agar mengambil ulang data
+    await mutate();
   };
 
   const unRegisterGuestbook = async (id: string): Promise<void> => {
     await fetcher(`/api/guestbook/${id}`, { method: 'DELETE' });
-
-    const newGuestbook = guestbook?.filter((entry) => entry.id !== id);
-
-    await mutate(newGuestbook);
+    // Panggil mutate juga setelah menghapus
+    await mutate();
   };
 
   return { guestbook, isLoading, registerGuestbook, unRegisterGuestbook };

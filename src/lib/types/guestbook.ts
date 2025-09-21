@@ -2,7 +2,7 @@ import type { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
 
 export type Guestbook = {
   id: string;
-  text: string;
+  message: string;
   name: string;
   email: string;
   image: string;
@@ -11,7 +11,7 @@ export type Guestbook = {
   createdBy: string;
 };
 
-export type Text = Guestbook['text'];
+export type Message = Guestbook['message'];
 
 export const guestbookConverter: FirestoreDataConverter<Guestbook> = {
   toFirestore(guestbook) {

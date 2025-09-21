@@ -16,7 +16,7 @@ type GuestbookEntryProps = Guestbook & {
 
 export function GuestbookEntry({
   id,
-  text,
+  message,
   name,
   image,
   session,
@@ -69,7 +69,7 @@ export function GuestbookEntry({
             </button>
           </Tooltip>
         </div>
-        <p className='break-words'>{text}</p>
+        <p className='break-words'>{message}</p>
       </div>
       {isOwner && (
         <Button
