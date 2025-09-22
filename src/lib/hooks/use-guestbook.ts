@@ -22,10 +22,8 @@ export function useGuestbook(fallbackData: Guestbook[]): UseGuestbook {
     mutate
   } = useSWR<Guestbook[], unknown, ValidApiEndpoints>(
     '/api/guestbook',
-    // FIX 1: Ubah fetcher untuk mengambil array 'items' dari respons API
     (url: ValidApiEndpoints) => fetcher(url).then((data: any) => data.items),
     { 
-      // FallbackData dari server component sudah berupa array, jadi ini akan cocok
       fallbackData 
     }
   );

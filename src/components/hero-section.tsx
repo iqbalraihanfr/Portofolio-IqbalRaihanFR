@@ -7,37 +7,35 @@ import Link from "next/link";
 import { SiGithub, SiLinkedin } from "react-icons/si";
 import { HiDocumentText } from "react-icons/hi2";
 import { colors } from "@/lib/utils/colors";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import { SpotifyCard } from "./spotify/SpotifyCard";
 import TextType from "./TextType/TextType";
 // Dynamically import the NowPlaying component with no SSR
-const NowPlaying = dynamic(
-  () => import('@/components/spotify/NowPlaying'),
-  { ssr: false }
-);
+const NowPlaying = dynamic(() => import("@/components/spotify/NowPlaying"), {
+  ssr: false,
+});
 
 const socialLinks = [
   {
-    name: 'Resume',
-    href: 'https://drive.google.com/file/d/1MFsgnB1qz6gSidvXc6eD4ejoggAtQiM4/view?usp=sharing',
-    Icon: HiDocumentText
+    name: "Resume",
+    href: "https://drive.google.com/file/d/1MFsgnB1qz6gSidvXc6eD4ejoggAtQiM4/view?usp=sharing",
+    Icon: HiDocumentText,
   },
   {
-    name: 'LinkedIn',
-    href: 'https://linkedin.com/in/iqbalraihanfr',
-    Icon: SiLinkedin
+    name: "LinkedIn",
+    href: "https://linkedin.com/in/iqbalraihanfr",
+    Icon: SiLinkedin,
   },
   {
-    name: 'GitHub',
-    href: 'https://github.com/iqbalraihanfr',
-    Icon: SiGithub
-  }
+    name: "GitHub",
+    href: "https://github.com/iqbalraihanfr",
+    Icon: SiGithub,
+  },
 ];
 
 export function HeroSection() {
   return (
     <section className="-mt-15 min-h-screen grid content-center">
-      
       <motion.h2
         className="text-2xl font-bold transition-colors delay-100 md:text-4xl 2xl:text-5xl"
         initial={{ opacity: 0, y: 20 }}
@@ -46,18 +44,20 @@ export function HeroSection() {
       >
         Hi!
       </motion.h2>
-      
+
       <motion.h1
         className="mt-1 text-3xl font-bold transition-colors delay-200 md:text-5xl 2xl:text-6xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        I'm{' '}
-        <span className={`${colors.gradients.hero} bg-clip-text text-transparent`}>
+        I'm{" "}
+        <span
+          className={`${colors.gradients.hero} bg-clip-text text-transparent`}
+        >
           Iqbal Raihan
-        </span>
-        {' '}- 
+        </span>{" "}
+        -
         <TextType
           text={[
             " Frontend Developer",
@@ -70,14 +70,14 @@ export function HeroSection() {
           pauseDuration={4000}
           initialDelay={750}
           loop={true}
-          variableSpeed={{min: 50, max: 150}}
+          variableSpeed={{ min: 50, max: 150 }}
           showCursor={true}
           cursorCharacter="|"
           cursorClassName="text-primary animate-pulse dark:text-white"
           className="inline"
         />
       </motion.h1>
-      
+
       <motion.p
         className="mt-4 max-w-4xl leading-relaxed text-gray-700 transition-colors delay-[400ms] dark:text-gray-200 
                    md:mt-6 md:text-lg 2xl:text-xl"
@@ -86,18 +86,15 @@ export function HeroSection() {
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         Computer Science undergraduate with a passion for creating impactful
-        digital solutions. Specializing in IT Project Management while
-        building innovative web applications.
+        digital solutions. Specializing in IT Project Management while building
+        innovative web applications.
       </motion.p>
       {/* <NowPlaying /> */}
-      <motion.div
-      className="mt-4"
-      >
-      <SpotifyCard/>
+      <motion.div className="mt-4">
+        <SpotifyCard />
       </motion.div>
-      
-      
-      <motion.div 
+
+      <motion.div
         className="mt-8 flex gap-4 text-sm md:text-base"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -113,8 +110,8 @@ export function HeroSection() {
           </Link>
         </Button>
       </motion.div>
-      
-      <motion.div 
+
+      <motion.div
         className="mt-8 flex flex-col md:flex-row md:items-center gap-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -137,15 +134,13 @@ export function HeroSection() {
             </Link>
           ))}
         </div>
-        
-        <motion.div 
+
+        <motion.div
           className="w-full max-w-md mt-4 md:mt-0"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          
-        </motion.div>
+        ></motion.div>
       </motion.div>
     </section>
   );

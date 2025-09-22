@@ -1,11 +1,13 @@
+// src/components/guestbook/guestbook-entry.tsx
+
 import { useState } from 'react';
-import { motion, type MotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { HiTrash } from 'react-icons/hi2';
-import { formatFullTimeStamp, formatTimestamp } from 'lib/format';
+import { formatFullTimeStamp, formatTimestamp } from '@/lib/format';
 import { UnstyledLink } from '@/components/link/unstyled-link';
 import { Button } from '@/components/ui/button';
 import { Tooltip } from '@/components/ui/tooltip';
-import { LazyImage } from 'components/ui/lazy-image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'; // Menggunakan komponen Avatar Anda
 import type { CustomSession } from '@/lib/types/api';
 import type { Guestbook } from '@/lib/types/guestbook';
 
@@ -16,7 +18,7 @@ type GuestbookEntryProps = Guestbook & {
 
 export function GuestbookEntry({
   id,
-  message,
+  message, // Pastikan prop ini bernama 'message'
   name,
   image,
   session,
@@ -30,64 +32,66 @@ export function GuestbookEntry({
   const handleUnRegisterGuestbook = async (): Promise<void> => {
     setLoading(true);
     await unRegisterGuestbook(id);
+    // setLoading tidak perlu di-reset ke false karena komponen akan hilang
   };
 
   const isOwner = session?.user.id === createdBy || session?.user.admin;
-
   const githubProfileUrl = `https://github.com/${username}`;
 
   return (
     <motion.article
-      className='main-border relative grid grid-cols-[auto,1fr] gap-3 rounded-md p-4'
-      layout='position'
-      {...variants}
+      layout="position"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0, transition: { duration: 0.2 } }}
+      // Styling diadaptasi dari SCSS Risal ke Tailwind CSS
+      className="main-border relative grid grid-cols-[auto,1fr] gap-4 rounded-lg p-4"
     >
-      <UnstyledLink className='smooth-tab' href={githubProfileUrl}>
-        <LazyImage
-          className='main-border rounded-full transition hover:brightness-75'
-          src={image}
-          alt={name}
-          width={48}
-          height={48}
-        />
+      {/* Avatar Section */}
+      <UnstyledLink href={githubProfileUrl}>
+        <Avatar className="h-12 w-12 border-2 border-gray-200 dark:border-gray-700">
+          <AvatarImage src={image} alt={name} />
+          <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+        </Avatar>
       </UnstyledLink>
-      <div className='min-w-0'>
-        <div className='mr-10 flex items-end gap-2'>
+
+      {/* Content Section */}
+      <div className="min-w-0">
+        <div className="flex items-center gap-2">
           <UnstyledLink
-            className='custom-underline truncate font-bold'
-            title={name}
             href={githubProfileUrl}
+            className="truncate font-bold custom-underline"
           >
             {name}
           </UnstyledLink>
           <Tooltip
-            className='whitespace-nowrap'
+            className="whitespace-nowrap"
             tip={formatFullTimeStamp(createdAt)}
           >
-            <button className='custom-underline peer cursor-pointer text-sm text-gray-600 dark:text-gray-300'>
+            <time dateTime={new Date(createdAt).toISOString()} className="cursor-pointer text-sm text-gray-600 dark:text-gray-300 custom-underline">
               {formatTimestamp(createdAt)}
-            </button>
+            </time>
           </Tooltip>
         </div>
-        <p className='break-words'>{message}</p>
+        <p className="break-words pt-1 text-gray-800 dark:text-gray-200">{message}</p>
       </div>
+
+      {/* Delete Button */}
       {isOwner && (
-        <Button
-          className='custom-underline main-border clickable !absolute right-2 top-2 
-                     rounded-md p-1.5 text-red-400'
-          loading={loading}
-          type='button'
-          onClick={handleUnRegisterGuestbook}
-        >
-          <HiTrash className='h-5 w-5' />
-        </Button>
+        <Tooltip tip="Delete message">
+           <Button
+             variant="ghost"
+             size="icon"
+             className="absolute top-2 right-2 h-8 w-8 rounded-md text-red-500 hover:bg-red-100 hover:text-red-600
+                        dark:hover:bg-red-900/50"
+             disabled={loading}
+             onClick={handleUnRegisterGuestbook}
+             aria-label="Delete message"
+           >
+            <HiTrash className="h-5 w-5" />
+          </Button>
+        </Tooltip>
       )}
     </motion.article>
   );
 }
-
-const variants: MotionProps = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0.8 } },
-  exit: { opacity: 0, transition: { duration: 0.2 } }
-};

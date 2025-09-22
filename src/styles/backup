@@ -125,17 +125,6 @@
   @apply bg-white/20 dark:bg-gray-900/20 backdrop-blur-xl border border-white/20 dark:border-gray-700/20;
 }
 
-@utility custom-underline {
-  @apply underline decoration-transparent outline-none transition
-           [text-decoration-thickness:1px]
-           hover:decoration-inherit focus-visible:decoration-inherit;
-}
-
-
-@utility main-border {
-  @apply border-gray-300 dark:border-gray-600;
-}
-
 @utility gradient-border {
   @apply relative before:absolute before:inset-0 before:p-px before:bg-linear-to-r before:from-blue-500 before:to-purple-500 before:rounded-xl before:-z-10;
 }
@@ -301,24 +290,3 @@
   --color-foreground: #f1f5f9;
   --color-background: #000000;
 }
-
-@layer components {
-  .main-border {
-    @apply border border-gray-300 dark:border-gray-600;
-  }
-
-  .custom-underline {
-    @apply underline decoration-transparent outline-none transition
-           [text-decoration-thickness:1px]
-           hover:decoration-inherit focus-visible:decoration-inherit;
-  }
-  
-  .custom-input {
-    @apply main-border rounded-md bg-white px-3 py-2 outline-none transition focus:border-purple-500 dark:bg-black;
-  }
-
-  .clickable {
-     @apply transition hover:scale-[1.03] hover:shadow-md active:scale-[0.97];
-  }
-}
-

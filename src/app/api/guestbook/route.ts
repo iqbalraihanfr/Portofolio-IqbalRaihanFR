@@ -43,7 +43,7 @@ export async function GET(req: Request) {
     const v = d.data() as any;
     return {
       id: d.id,
-      text: v.message || v.text,
+      message: v.message || v.message,
       name: v.name,
       email: v.email || "",
       image: v.image || "",
