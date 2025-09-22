@@ -131,7 +131,6 @@
            hover:decoration-inherit focus-visible:decoration-inherit;
 }
 
-
 @utility main-border {
   @apply border-gray-300 dark:border-gray-600;
 }
@@ -312,13 +311,12 @@
            [text-decoration-thickness:1px]
            hover:decoration-inherit focus-visible:decoration-inherit;
   }
-  
+
   .custom-input {
     @apply main-border rounded-md bg-white px-3 py-2 outline-none transition focus:border-purple-500 dark:bg-black;
   }
 
   .clickable {
-     @apply transition hover:scale-[1.03] hover:shadow-md active:scale-[0.97];
+    @apply transition hover:scale-[1.03] hover:shadow-md active:scale-[0.97];
   }
 }
-
