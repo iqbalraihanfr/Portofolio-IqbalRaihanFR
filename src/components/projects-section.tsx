@@ -255,7 +255,7 @@ export function ProjectsSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-[#a855f7] via-[#f472b6] to-[#f4a4b6] text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-[#BD0000] via-[#FF7A00] to-[#FFC900] text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Projects
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

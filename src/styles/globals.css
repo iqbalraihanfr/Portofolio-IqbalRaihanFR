@@ -316,7 +316,7 @@
   }
 
   .custom-underline {
-    @apply underline decoration-transparent outline-none transition
+    @apply underline decoration-transparent outline-none transition 
            [text-decoration-thickness:1px]
            hover:decoration-inherit focus-visible:decoration-inherit;
   }

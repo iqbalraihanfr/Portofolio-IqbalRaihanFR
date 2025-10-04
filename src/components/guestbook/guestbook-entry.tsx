@@ -45,7 +45,7 @@ export function GuestbookEntry({
       animate={{ opacity: 1, transition: { duration: 0.5 } }}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
       // Styling diadaptasi dari SCSS Risal ke Tailwind CSS
-      className="main-border relative grid grid-cols-[auto,1fr] gap-4 rounded-lg p-4"
+      className="main-border relative flex items-start gap-4 rounded-lg p-4"
     >
       {/* Avatar Section */}
       <UnstyledLink href={githubProfileUrl}>
@@ -60,7 +60,7 @@ export function GuestbookEntry({
         <div className="flex items-center gap-2">
           <UnstyledLink
             href={githubProfileUrl}
-            className="truncate font-bold custom-underline"
+            className="truncate font-bold hover:underline transition-all duration-300"
           >
             {name}
           </UnstyledLink>

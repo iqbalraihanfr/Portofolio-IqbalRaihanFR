@@ -41,8 +41,16 @@ export function useGuestbook(fallbackData: Guestbook[]): UseGuestbook {
   };
 
   const unRegisterGuestbook = async (id: string): Promise<void> => {
+    // Best Practice: Optimistic UI, hapus dari tampilan sebelum request selesai
+    mutate(
+      guestbook?.filter((entry) => entry.id !== id),
+      false
+    );
+
+    // Kirim request DELETE ke API
     await fetcher(`/api/guestbook/${id}`, { method: 'DELETE' });
-    // Panggil mutate juga setelah menghapus
+
+    // Revalidasi data untuk memastikan sinkron dengan server
     await mutate();
   };
 
