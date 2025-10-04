@@ -236,7 +236,7 @@ export function AboutSection() {
               content: (
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
-                    <exp.icon className="w-6 h-6 text-pink-400 dark:text-pink-300" />
+                    <exp.icon className="w-6 h-6 text-orange-500 dark:text-orange-300" />
                     <div>
                       <h4 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
                         {exp.title}

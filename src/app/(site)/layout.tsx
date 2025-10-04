@@ -7,19 +7,34 @@ import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://contoh-domainmu.com"), // <- penting untuk OG absolute URL
   title: "Iqbal Raihan - Full Stack Developer & IT Project Manager",
   description:
     "Computer Science undergraduate specializing in IT Project Management. Passionate about creating impactful digital solutions.",
-  keywords: ["Full Stack Developer", "IT Project Manager", "Next.js", "React", "Python", "Web Development"],
+  keywords: [
+    "Full Stack Developer",
+    "IT Project Manager",
+    "Next.js",
+    "React",
+    "Python",
+    "Web Development",
+  ],
   authors: [{ name: "Iqbal Raihan Faturrahman Rahardjo" }],
   icons: {
     icon: [{ url: "/favicon.ico", sizes: "any" }],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
-    other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#a855f7" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#f4a4b6" },
+    ],
   },
   manifest: "/site.webmanifest",
   appleWebApp: {
@@ -29,14 +44,23 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Iqbal Raihan - Full Stack Developer & IT Project Manager",
-    description: "Computer Science undergraduate specializing in IT Project Management",
+    description:
+      "Computer Science undergraduate specializing in IT Project Management",
     type: "website",
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning className="motion-safe:scroll-smooth">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="motion-safe:scroll-smooth"
+    >
       <body
         className={`${inter.variable} min-h-dvh flex flex-col font-sans antialiased bg-white text-gray-900 transition-colors duration-200 dark:bg-black dark:text-gray-100`}
       >
@@ -55,14 +79,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
           storageKey="portfolio-theme"
         >
-          <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b dark:bg-gray-950/80">
+          <header className="sticky top-0 z-50 bg-transparent">
             <nav aria-label="Primary">
-              <Navbar />
+              <Navbar/>
             </nav>
           </header>
 
           <main id="content" className="flex-1">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-9 py-9">{children}</div>
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-9 py-9">
+              {children}
+            </div>
           </main>
 
           <footer>

@@ -40,7 +40,7 @@ export function Navbar() {
                 className={clsx(
                   "smooth-tab text-xs hover:text-[var(--color-accent-main)] hover:transition-colors md:text-base",
                   baseRoute === href &&
-                    "bg-clip-text text-transparent bg-gradient-to-r from-[#a855f7] via-[#f472b6] to-[#f4a4b6] font-semibold"
+                    "bg-clip-text text-transparent bg-gradient-to-r from-[#BD0000] via-[#FF7A00] to-[#FFC900] font-semibold"
                 )}
                 href={href}
                 key={name}

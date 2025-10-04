@@ -78,7 +78,7 @@ const achievements = [
     icon: Crown,
     color: "text-purple-500",
     bgColor:
-      "from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20",
+      "from-red-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20",
     type: "Leadership Role",
     teamSize: "15+ committee members",
     skills: [

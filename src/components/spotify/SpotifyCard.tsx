@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils/utils";
+import { colors } from "@/lib/utils/colors";
 import { SiSpotify } from "react-icons/si";
-import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -130,7 +131,7 @@ export function SpotifyCard() {
   if (!isPlaying || !item) {
     return (
       <div className="border rounded-xl clickable flex w-80 items-center justify-between rounded-md p-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-13 justify-between">
           <p>No song is currently playing</p>
           {spotifyIcon}
         </div>
@@ -213,13 +214,12 @@ export function SpotifyCard() {
           <div className="grid gap-1">
             <div className="relative h-1 rounded-full bg-gray-300 dark:bg-gray-600">
               <div
-                className="h-1 rounded-full bg-gradient-to-r from-[#a855f7] via-[#f472b6] to-[#f4a4b6] transition-[width] duration-300"
+                className={`h-1 rounded-full ${colors.gradients.primary.replace('bg-', '')} transition-[width] duration-300`}
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
             <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400">
               <span>{formatMilisecondsToPlayback(currentPlaybackTime)}</span>
-              <span>{formatMilisecondsToPlayback(durationMs)}</span>
             </div>
           </div>
         </div>

@@ -7,9 +7,9 @@
 @theme {
   --font-sans: var(--font-inter);
 
-  --color-accent-main: theme(colors.pink.400);
-  --color-accent-start: theme(colors.purple.500);
-  --color-accent-end: theme(colors.pink.400);
+  --color-accent-main: theme(colors.red.500);
+  --color-accent-start: theme(colors.yellow.500);
+  --color-accent-end: theme(colors.red.700);
 
   --color-myblue: #1fabe1;
   --color-mydarkblue: #0e7da7;

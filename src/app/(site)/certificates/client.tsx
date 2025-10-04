@@ -39,7 +39,7 @@ export default function CertificatesClient({ data }: Props) {
     <main className="min-h-screen">
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-9 py-9">
         <h1 className="text-5xl font-extrabold tracking-tight">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-700 via-orange-500 to-yellow-500">
             Blog
           </span>
         </h1>

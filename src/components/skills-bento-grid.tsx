@@ -29,8 +29,8 @@ const skillsData = [
   {
     title: "AI/ML & Data Science",
     description: "TensorFlow, Pandas, NumPy, Matplotlib",
-    header: <SkillHeader color="from-purple-500 to-pink-500" />,
-    icon: <Brain className="h-4 w-4 text-purple-500" />,
+    header: <SkillHeader color="from-red-700 to-yellow-500" />,
+    icon: <Brain className="h-4 w-4 text-red-500" />,
   },
   {
     title: "Mobile Development",

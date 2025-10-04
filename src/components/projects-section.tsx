@@ -198,16 +198,16 @@ export function ProjectsSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-2">Key Features</h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                    <h4 className="font-semibold mb-2 dark:text-neutral-200">Key Features</h4>
+                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground dark:text-neutral-200">
                       {activeProject.features.map((feature, index) => (
                         <li key={index}>{feature}</li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-2">Technologies Used</h4>
-                    <div className="flex flex-wrap items-center gap-8">
+                    <h4 className="font-semibold mb-2 dark:text-neutral-200">Technologies Used</h4>
+                    <div className="flex flex-wrap items-center gap-8 dark:text-neutral-200">
                       {activeProject.tech.map((tech) => (
                         <TechIcon
                           key={tech}
@@ -217,7 +217,7 @@ export function ProjectsSection() {
                       ))}
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 dark:text-neutral-200">
                     {activeProject.github && (
                       <Button variant="outline" size="sm" asChild>
                         <a
@@ -355,7 +355,7 @@ export function ProjectsSection() {
                       </div>
                     </div>
 
-                    <div className="mt-6 flex items-center justify-between">
+                    <div className="mt-6 gap-2 flex items-center justify-between">
                       <Button
                         variant="outline"
                         size="sm"

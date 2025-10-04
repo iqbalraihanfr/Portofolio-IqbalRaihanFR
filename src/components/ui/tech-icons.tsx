@@ -70,7 +70,7 @@ export function TechIcon({ tech, withLabel = false, className }: { tech: string;
 
   const { name, Icon } = techInfo;
 
-  const iconElement = <Icon className={cn("w-6 h-6 text-secondary group-hover:text-pink-400 transition-colors duration-300 ease-in-out transform ", className)} />;
+  const iconElement = <Icon className={cn("w-6 h-6 text-secondary group-hover:text-yellow-400 transition-colors duration-300 ease-in-out transform ", className)} />;
 
   if (withLabel) {
     return (

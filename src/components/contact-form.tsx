@@ -57,7 +57,7 @@ const contactInfo = [
     label: "Location",
     value: "Surabaya, Indonesia",
     href: "#",
-    color: "from-red-500 to-pink-500",
+    color: "from-red-500 to-yellow-500",
   },
   {
     icon: Linkedin,
@@ -242,7 +242,7 @@ export function ContactForm() {
           >
             <SpotlightCard className="shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
               <div className="text-center p-6">
-                <h2 className="text-2xl font-bold bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold bg-linear-to-r from-red-700 to-yellow-500 bg-clip-text text-transparent">
                   Send a Message
                 </h2>
                 <p className="text-lg text-muted-foreground mt-2">
