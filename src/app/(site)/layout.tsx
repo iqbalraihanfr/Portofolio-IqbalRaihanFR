@@ -62,7 +62,7 @@ export default function RootLayout({
       className="motion-safe:scroll-smooth"
     >
       <body
-        className={`${inter.variable} min-h-dvh flex flex-col font-sans antialiased bg-white text-gray-900 transition-colors duration-200 dark:bg-black dark:text-gray-100`}
+        className={`${inter.variable} min-h-dvh flex flex-col font-sans antialiased bg-white text-gray-900 dark:bg-black dark:text-gray-100`}
       >
         {/* A11y: skip link */}
         <a
@@ -76,7 +76,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          disableTransitionOnChange={false}
           storageKey="portfolio-theme"
         >
           <header className="sticky top-0 z-50 bg-transparent">

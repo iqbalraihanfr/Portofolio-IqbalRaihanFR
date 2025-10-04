@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: false,
+    unoptimized: true,
     domains: ["i.scdn.co", "avatars.githubusercontent.com"], // Spotify album art, GitHub avatars
   },
   webpack: (config, { isServer }) => {

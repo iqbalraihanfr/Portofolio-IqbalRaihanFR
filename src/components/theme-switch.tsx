@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, type MotionProps } from "framer-motion";
-import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi2";
+import { HiOutlineSun } from "react-icons/hi2";
+import { HiOutlineMoon } from "react-icons/hi2";
 import { useTheme } from "next-themes";
 import { useMounted } from "../lib/hooks/use-mounted";
 

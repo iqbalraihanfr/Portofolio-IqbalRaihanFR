@@ -107,7 +107,16 @@
   }
 
   body {
-    @apply bg-white dark:bg-black text-foreground;
+    @apply bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200;
+  }
+  
+  /* ATURAN KEDUA: Untuk transisi di SEMUA elemen */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill;
+    transition-duration: 25ms;
+    transition-timing-function: ease-in-out;
   }
 
   #nprogress .bar {

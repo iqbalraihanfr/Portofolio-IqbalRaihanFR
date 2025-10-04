@@ -6,6 +6,7 @@ import { colors } from "@/lib/utils/colors";
 import { SiSpotify } from "react-icons/si";
 import Link from "next/link";
 import clsx from "clsx";
+import Image from "next/image";
 
 interface TrackInfo {
   isPlaying: boolean;
@@ -110,7 +111,12 @@ export function SpotifyCard() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [trackInfo.isPlaying, trackInfo.item?.durationMs, trackInfo.item?.progressMs, lastUpdated]);
+  }, [
+    trackInfo.isPlaying,
+    trackInfo.item?.durationMs,
+    trackInfo.item?.progressMs,
+    lastUpdated,
+  ]);
 
   // Loading state
   if (isLoading) {
@@ -181,7 +187,9 @@ export function SpotifyCard() {
                 <Image
                   className="border-transparent rounded-xl h-16 w-16"
                   title={albumName}
-                  src={`/api/spotify/image-proxy?url=${encodeURIComponent(albumImageUrl)}`}
+                  src={`/api/spotify/image-proxy?url=${encodeURIComponent(
+                    albumImageUrl
+                  )}`}
                   alt={albumName}
                   width={64}
                   height={64}
@@ -214,7 +222,7 @@ export function SpotifyCard() {
           <div className="grid gap-1">
             <div className="relative h-1 rounded-full bg-gray-300 dark:bg-gray-600">
               <div
-                className={`h-1 rounded-full ${colors.gradients.primary.replace('bg-', '')} transition-[width] duration-300`}
+                className={`h-1 rounded-full bg-gradient-to-r from-[#BD0000] via-[#FF7A00] to-[#FFC900] transition-[width] duration-300`}
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
