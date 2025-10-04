@@ -5,7 +5,7 @@ export function GuestbookCard({
   children
 }: PropsWithChildren): React.JSX.Element {
   return (
-    <div className='main-border rounded-md p-4'>
+    <div className='main-border rounded-4xl p-4'>
       <h2 className='text-2xl font-bold md:text-4xl'>
         <Accent>Sign the Guestbook</Accent>
       </h2>

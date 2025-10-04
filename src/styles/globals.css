@@ -109,7 +109,7 @@
   body {
     @apply bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200;
   }
-  
+
   /* ATURAN KEDUA: Untuk transisi di SEMUA elemen */
   *,
   *::before,
@@ -316,9 +316,10 @@
   }
 
   .custom-underline {
-    @apply underline decoration-transparent outline-none transition 
-           [text-decoration-thickness:1px]
-           hover:decoration-inherit focus-visible:decoration-inherit;
+    @apply underline decoration-transparent outline-none transition-all duration-300 ease-in-out
+           [text-decoration-thickness:3px]
+           hover:decoration-inherit hover:[text-decoration-thickness:4px] 
+           focus-visible:decoration-inherit focus-visible:[text-decoration-thickness:4px];
   }
 
   .custom-input {

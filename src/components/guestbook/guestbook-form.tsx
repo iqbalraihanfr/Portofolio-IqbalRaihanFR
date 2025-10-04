@@ -42,7 +42,7 @@ export function GuestbookForm({
       >
         <input
           className={clsx(
-            'custom-input w-full disabled:cursor-not-allowed',
+            'custom-input w-full disabled:cursor-not-allowed main-border rounded-4xl p-4',
             loading && 'brightness-75'
           )}
           type='text'
@@ -71,6 +71,7 @@ export function GuestbookForm({
           </Button>
         )}
       </form>
+    
       {session && (
         <button
           className='smooth-tab mt-2 border-none text-sm font-medium text-gray-700 transition
