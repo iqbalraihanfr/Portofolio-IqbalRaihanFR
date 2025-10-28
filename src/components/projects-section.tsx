@@ -75,6 +75,26 @@ const projects = [
       "Performance optimized",
     ],
   },
+  {
+    id: 4,
+    title: "Zertov Digital Marketing Agency Website",
+    description:
+      "Conversion-focused web presence for a Surabaya-based creative tech and marketing team",
+    longDescription:
+      "Architected and developed zertov.com to position the agency as a full-service partner for product launches and marketing activations. Delivered a story-driven landing experience with reusable sections, interactive service showcases, and clear calls-to-action that feed WhatsApp and email inquiry channels.",
+    image: "/images/zertovweb.png",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
+    category: "Web Development",
+    date: "Jul 2025 - Present",
+    github: null,
+    demo: "https://zertov.com",
+    features: [
+      "Narrative-driven hero and services storytelling",
+      "Modular service pods for web, social, and branding offerings",
+      "Integrated WhatsApp and email lead capture",
+      "Smooth motion cues to guide stakeholder approvals",
+    ],
+  },
 ];
 
 const categories = ["All", "Web Development", "AI/ML", "Mobile"];

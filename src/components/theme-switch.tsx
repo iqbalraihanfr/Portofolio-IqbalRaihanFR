@@ -5,12 +5,13 @@ import { useTheme } from "next-themes";
 import { useMounted } from "../lib/hooks/use-mounted";
 
 export function ThemeSwitch(): React.JSX.Element | null {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const mounted = useMounted();
 
   if (!mounted) return null;
 
-  const isDarkMode = theme === "dark";
+  const activeTheme = resolvedTheme ?? theme ?? "light";
+  const isDarkMode = activeTheme === "dark";
 
   const flipTheme = (): void => setTheme(isDarkMode ? "light" : "dark");
 
