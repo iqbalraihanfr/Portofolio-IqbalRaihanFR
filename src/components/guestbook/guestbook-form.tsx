@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { SiGithub } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
 import type { CustomSession } from '@/lib/types/api';
+import { toast } from 'sonner';
 
 type GuestbookCardProps = {
   session: CustomSession | null;
@@ -18,20 +19,27 @@ export function GuestbookForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    
+    const input = e.currentTarget[0] as HTMLInputElement;
+    const { value } = input;
+    
+    if (!value.trim()) return;
 
+    // Optimistic UI: Clear immediately
+    input.value = '';
+    input.blur();
     setLoading(true);
 
-    const input = e.currentTarget[0] as HTMLInputElement;
-
-    input.blur();
-
-    const { value } = input;
-
-    await registerGuestbook(value);
-
-    input.value = '';
-
-    setLoading(false);
+    try {
+      await registerGuestbook(value);
+      toast.success('Message signed successfully!');
+    } catch (error) {
+      // Restore value on error if desired, or just show error
+      input.value = value; 
+      toast.error('Failed to sign guestbook. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,13 +66,14 @@ export function GuestbookForm({
             className='custom-button clickable font-bold text-gray-600 dark:text-gray-300'
             disabled={loading} 
           >
-            Sign
+            {loading ? 'Signing...' : 'Sign'}
           </Button>
         ) : (
           <Button
             className='custom-button clickable flex items-center gap-2 whitespace-nowrap
                        font-bold text-gray-600 dark:text-gray-300'
             onClick={handleSignIn}
+            type="button"
           >
             <SiGithub className='h-5 w-5' />
             Sign in
@@ -79,6 +88,7 @@ export function GuestbookForm({
                      dark:text-gray-200 dark:hover:text-white md:text-base'
           onClick={handleSignOut}
           disabled={loading}
+          type="button"
         >
           ← Sign out @{session.user.name}
         </button>

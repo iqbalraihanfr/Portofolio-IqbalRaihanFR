@@ -1,6 +1,6 @@
 import type { Timestamp } from "firebase/firestore";
 
-const NUMBER_FORMATTER = new Intl.NumberFormat();
+const NUMBER_FORMATTER = new Intl.NumberFormat("en-GB");
 
 /**
  * Returns a formatted number string with thousand separators.
@@ -9,7 +9,7 @@ export function formatNumber(numberValue: number): string {
   return NUMBER_FORMATTER.format(numberValue);
 }
 
-const DATE_FORMATTER = new Intl.DateTimeFormat(undefined, {
+const DATE_FORMATTER = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "long",
 });
 
@@ -24,11 +24,11 @@ export function formatDate(dateString: string): string {
   return DATE_FORMATTER.format(date);
 }
 
-const SHORT_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat(undefined, {
+const SHORT_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat("en-GB", {
   timeStyle: "short",
 });
 
-const LONG_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat(undefined, {
+const LONG_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "short",
 });
 
@@ -71,7 +71,7 @@ export function formatMilisecondsToPlayback(ms: number): string {
   return `${minutes}:${paddedSeconds}`;
 }
 
-const FULL_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat(undefined, {
+const FULL_TIMESTAMP_FORMATTER = new Intl.DateTimeFormat("en-GB", {
   weekday: "short",
   day: "numeric",
   month: "short",
@@ -98,7 +98,7 @@ export function formatFullTimeStamp(
 /**
  * Returns a converted date from a Firestore timestamp or number.
  */
-function getDateFromTimestampOrNumber(
+export function getDateFromTimestampOrNumber(
   timestamp: TimestampProps | number
 ): Date {
   if (typeof timestamp === "number") {

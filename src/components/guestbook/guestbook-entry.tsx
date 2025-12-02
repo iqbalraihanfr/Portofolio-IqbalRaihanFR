@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiTrash } from "react-icons/hi2";
-import { formatFullTimeStamp, formatTimestamp } from "@/lib/format";
+import { formatFullTimeStamp, formatTimestamp, getDateFromTimestampOrNumber } from "@/lib/format";
 import { UnstyledLink } from "@/components/link/unstyled-link";
 import { Button } from "@/components/ui/button";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -69,7 +69,7 @@ export function GuestbookEntry({
             tip={formatFullTimeStamp(createdAt)}
           >
             <time
-              dateTime={new Date(createdAt).toISOString()}
+              dateTime={getDateFromTimestampOrNumber(createdAt).toISOString()}
               className="cursor-pointer text-sm text-gray-600 dark:text-gray-300 "
             >
               {formatTimestamp(createdAt)}
@@ -83,11 +83,11 @@ export function GuestbookEntry({
 
       {/* Delete Button */}
       {isOwner && (
-        <Tooltip tip="Delete message">
+        <Tooltip tip="Delete message" className="absolute right-4 top-4">
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-4 top-4 rounded-md p-1 text-gray-500 transition-colors hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+            className="rounded-md p-1 text-gray-500 transition-colors hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
             disabled={loading}
             onClick={handleUnRegisterGuestbook}
             aria-label="Delete message"

@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 import useSWR from 'swr';
-import { fetcher } from '@lib/fetcher';
-import type { ValidApiEndpoints } from '@lib/types/api';
-import type { Views } from '@lib/types/meta';
+import { fetcher } from '@/lib/fetcher';
+import type { ValidApiEndpoints } from '@/lib/types/api';
+import type { Views } from '@/lib/types/meta';
 
 type UseContentViews = {
   views?: Views;

@@ -10,7 +10,8 @@ import { ThemeSwitch } from "@/components/theme-switch";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
-  { name: "Blog", href: "/certificates" },
+  // { name: "Certificates", href: "/certificates" },
+  { name: "Blog", href: "/blog" },
   { name: "Guestbook", href: "/guestbook" },
   { name: "About", href: "/about" },
   // { name: "Contact", href: "/contact" },

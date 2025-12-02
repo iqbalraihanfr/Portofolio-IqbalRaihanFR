@@ -9,6 +9,7 @@ import { GuestbookEntry } from "@/components/guestbook/guestbook-entry";
 import { setTransition } from "@/lib/transition";
 import type { CustomSession } from "@/lib/types/api";
 import type { Guestbook } from "@/lib/types/guestbook";
+import { Button } from "@/components/ui/button";
 
 type GuestbookClientProps = {
   session: CustomSession | null;
@@ -19,8 +20,14 @@ export default function GuestbookClient({
   session,
   fallbackData,
 }: GuestbookClientProps) {
-  const { guestbook, registerGuestbook, unRegisterGuestbook } =
-    useGuestbook(fallbackData);
+  const {
+    guestbook,
+    registerGuestbook,
+    unRegisterGuestbook,
+    loadMore,
+    isLoadingMore,
+    isReachingEnd,
+  } = useGuestbook(fallbackData);
 
   return (
     <main className="grid min-h-screen content-start gap-6">
@@ -43,7 +50,6 @@ export default function GuestbookClient({
         <GuestbookCard>
           <GuestbookForm
             session={session}
-            // @ts-ignore
             registerGuestbook={registerGuestbook}
           />
         </GuestbookCard>
@@ -52,7 +58,7 @@ export default function GuestbookClient({
         className="grid gap-4"
         {...setTransition({ delayIn: 0.3 })}
       >
-        <AnimatePresence>
+        <AnimatePresence mode='popLayout'>
           {guestbook?.length ? (
             guestbook.map((entry) => (
               <GuestbookEntry
@@ -71,6 +77,19 @@ export default function GuestbookClient({
             </motion.h2>
           )}
         </AnimatePresence>
+
+        {!isReachingEnd && (
+          <div className="mt-4 flex justify-center">
+            <Button
+              onClick={() => loadMore()}
+              disabled={isLoadingMore}
+              variant="outline"
+              className="w-full sm:w-auto"
+            >
+              {isLoadingMore ? "Loading..." : "Load more"}
+            </Button>
+          </div>
+        )}
       </motion.section>
     </main>
   );

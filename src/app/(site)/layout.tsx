@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer"; // <- perbaiki typo
@@ -7,11 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://contoh-domainmu.com"), // <- penting untuk OG absolute URL
@@ -50,58 +46,50 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className="motion-safe:scroll-smooth"
-    >
-      <body
-        className={`${inter.variable} min-h-dvh flex flex-col font-sans antialiased bg-white text-gray-900 dark:bg-black dark:text-gray-100`}
+    <>
+      {/* A11y: skip link */}
+      <a
+        href="#content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[1000] focus:px-3 focus:py-2 focus:rounded-md focus:bg-black focus:text-white"
       >
-        {/* A11y: skip link */}
-        <a
-          href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[1000] focus:px-3 focus:py-2 focus:rounded-md focus:bg-black focus:text-white"
-        >
-          Skip to content
-        </a>
+        Skip to content
+      </a>
 
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange={false}
-          storageKey="portfolio-theme"
-        >
-          <header className="sticky top-0 z-50 bg-transparent">
-            <nav aria-label="Primary">
-              <Navbar/>
-            </nav>
-          </header>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange={false}
+        storageKey="portfolio-theme"
+      >
+        <header className="sticky top-0 z-50 bg-transparent">
+          <nav aria-label="Primary">
+            <Navbar />
+          </nav>
+        </header>
 
-          <main id="content" className="flex-1">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-9 py-9">
-              {children}
-            </div>
-          </main>
+        <main id="content" className="flex-1">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-9 py-9">
+            {children}
+          </div>
+        </main>
 
-          <footer>
-            <Footer />
-          </footer>
+        <footer>
+          <Footer />
+        </footer>
 
-          <Toaster />
-        </ThemeProvider>
+        <Toaster />
+      </ThemeProvider>
 
-        {/* Boleh di luar ThemeProvider */}
-        <SpeedInsights />
-        <Analytics />
-      </body>
-    </html>
+      {/* Boleh di luar ThemeProvider */}
+      <SpeedInsights />
+      <Analytics />
+    </>
   );
 }
